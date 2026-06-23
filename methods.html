@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Methods — GSI Datasets</title>
+<meta name="description" content="Construction notes, sources, validation, and limitations for each of the three GSI datasets.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css?v=20260623k">
+<style>
+  .meth-section{padding:2.4rem 0;border-bottom:1px solid var(--line)}
+  .meth-section:last-of-type{border-bottom:none}
+  details.meth{border:1px solid var(--line);background:#fff;border-radius:10px;margin-top:1rem;border-left:4px solid var(--accent);overflow:hidden}
+  details.meth summary{cursor:pointer;padding:.9rem 1.2rem;font-family:Inter,sans-serif;font-weight:600;font-size:.95rem;list-style:none;display:flex;align-items:center;color:var(--slate)}
+  details.meth summary::-webkit-details-marker{display:none}
+  details.meth summary::after{content:'＋';margin-left:auto;color:#aaa;font-weight:400;font-size:1.1rem}
+  details.meth[open] summary::after{content:'−'}
+  details.meth summary:hover{background:#F8F4ED}
+  details.meth .body{padding:0 1.2rem 1.2rem;font-size:.92rem;color:#33414f;border-top:1px solid var(--line)}
+  details.meth .body h4{font-family:Inter,sans-serif;font-size:.82rem;text-transform:uppercase;letter-spacing:.08em;margin:1rem 0 .3rem;color:var(--accent)}
+  details.meth .body h4:first-child{margin-top:.8rem}
+  details.meth .body ul{padding-left:1.2rem;margin-bottom:.7rem}
+  details.meth .body li{margin-bottom:.3rem}
+  details.meth .body code{font-size:.84rem;background:#F4F0E7;padding:.05rem .3rem;border-radius:3px}
+</style>
+</head>
+<body data-section="combined">
+
+<div class="nav"><div class="container" id="nav-container"></div></div>
+
+<header class="hero"><div class="container">
+  <div class="kicker">Methods &amp; sources · 方法与来源</div>
+  <h1>How these datasets were built</h1>
+  <span class="zh-title">数据构建说明</span>
+  <p class="thesis">Each dataset's construction, source files, validation steps, and known limitations are documented below. Click any section to expand it.</p>
+</div></header>
+
+<!-- SIGNINGS -->
+<section id="signings" class="meth-section" style="--accent:var(--jade)"><div class="container">
+  <div class="kicker" style="color:var(--jade)">Signings · 国家签署</div>
+  <h2>Signings methodology<span class="zh">签署数据方法</span></h2>
+
+  <details class="meth" open>
+    <summary>1. What the dataset records, and how it was compiled</summary>
+    <div class="body">
+      <p>No countries have officially "joined" the Global Security Initiative, but many have publicly referenced the initiative in joint statements or at bilateral meetings. These statements and meetings range in the language used to discuss the initiative. Three researchers searched Chinese, English, French, Spanish, and German-language media for official mentions of the GSI by a country's leader or foreign minister. If a country's "support" was only mentioned by China's state media or a Chinese official but was not supported by an official readout of the statement, we did not include it.</p>
+    </div>
+  </details>
+
+  <details class="meth">
+    <summary>2. The 0–5 ranking scheme</summary>
+    <div class="body">
+      <p>The researchers ranked each country's bilateral level of support for the GSI from 0–5. The ranking was cross-checked by three researchers.</p>
+      <ul>
+        <li><b>0</b> — No mention. This may be because there has been no opportunity for the initiative to be brought up by China.</li>
+        <li><b>1</b> — Non-committal "acknowledgement".</li>
+        <li><b>2</b> — Positive language such as "welcome" or "appreciate" but no explicit support.</li>
+        <li><b>3</b> — Simple "support" for the initiative.</li>
+        <li><b>4</b> — High support for the initiative, such as "strongly" or "resolutely" support.</li>
+        <li><b>5</b> — Some kind of agreement to implement or pursue further cooperation under the initiative.</li>
+      </ul>
+      <p>In the paper for simplicity I combined 1 and 2 as <b>noncommittal</b>, and 3–5 as <b>support</b>, but also broke down whether this was initiated in a multilateral forum or a bilateral/unilateral statement.</p>
+    </div>
+  </details>
+
+  <details class="meth">
+    <summary>3. Validation via China's partnership hierarchy</summary>
+    <div class="body">
+      <p>To test the accuracy of this ranking, I examined how China's strategic partners respond to the initiative. According to Ketian Zhang (2025), countries have seven possible partnerships with China, in a hierarchy from a simple "comprehensive cooperative partnership" (with Liberia, for example) to the highest "comprehensive strategic co-ordinated partnership" (Russia only). We would expect countries at the top of the hierarchy to be more likely to explicitly join the initiative, while those with no partnership would be less likely to be invited to do so.</p>
+      <p>Coding these from 0 (no partnership) to 7 (Russia), suggests that the ranking is broadly accurate: a closer partnership with China means a country takes a stronger (bilateral) stance toward the GSI.</p>
+    </div>
+  </details>
+
+  <details class="meth">
+    <summary>4. Overlays (regime, ally definitions, etc.)</summary>
+    <div class="body">
+      <ul>
+        <li><b>V-Dem v15</b> regime classification (year-specific where available; 2022 fallback)</li>
+        <li><b>EIU Democracy Index</b> score (year-specific; 2022 fallback)</li>
+        <li><b>US ally (RAND 2017)</b> — RAND RRA1066-1 Appendix B</li>
+        <li><b>OECD / China's neighbour / BRICS</b> binary flags</li>
+        <li><b>US and China arms imports 2022</b> — SIPRI TIV</li>
+      </ul>
+    </div>
+  </details>
+
+  <details class="meth">
+    <summary>5. Limitations</summary>
+    <div class="body">
+      <p>"No support" is the absence of a positive signal, not a documented refusal. Several Sahel and Pacific countries have indicated multilateral support that has not yet appeared in retrievable public statements. Bilateral signings are credited only when the language explicitly references the GSI.</p>
+    </div>
+  </details>
+</div></section>
+
+<!-- MEDIA -->
+<section id="media" class="meth-section" style="--accent:var(--copper)"><div class="container">
+  <div class="kicker" style="color:var(--copper)">Media sentiment · 媒体话语</div>
+  <h2>Media-sentiment methodology<span class="zh">媒体数据方法</span></h2>
+
+  <details class="meth" open>
+    <summary>1. Corpus</summary>
+    <div class="body">
+      <p>All articles by China's Ministry of Foreign Affairs (press briefings, Q&amp;A transcripts) and Xinhua wire stories that mention the Global Security Initiative (全球安全倡议), 2022-04-21 through 2025-06-26. n = 1,530 articles; 7,734 sentences after filtering.</p>
+    </div>
+  </details>
+
+  <details class="meth">
+    <summary>2. Source-group tagging</summary>
+    <div class="body">
+      <p>Each sentence is tagged with one regional class based on the countries / organisations it references:</p>
+      <ul>
+        <li><b>USA/NATO</b> — references to the United States, NATO, or named NATO member states</li>
+        <li><b>UN</b> — references to UN bodies, the UNSC, or the Secretary-General</li>
+        <li><b>ASEAN</b> — references to ASEAN members or ASEAN-led mechanisms</li>
+        <li><b>BRICS</b>, <b>SCO</b>, <b>EU</b>, <b>AU</b> — analogous</li>
+      </ul>
+    </div>
+  </details>
+
+  <details class="meth">
+    <summary>3. Sentiment scoring</summary>
+    <div class="body">
+      <p>VADER-style compound score, calibrated for Chinese state-media English-language output. Sentence-level. Range roughly −1 to +1; 0 is neutral.</p>
+    </div>
+  </details>
+
+  <details class="meth">
+    <summary>4. Country-level map threshold</summary>
+    <div class="body">
+      <p>The "Mentions and sentiment by country" map only shades countries with ≥25 mentions across the corpus, to prevent noisy single-mention countries from dominating the colour scale.</p>
+    </div>
+  </details>
+
+  <details class="meth">
+    <summary>5. Limitations</summary>
+    <div class="body">
+      <p>English-language coverage only. Pure Chinese-language coverage in <em>People's Daily</em> and other domestic channels is not included here. Some sentences are double-tagged where they reference more than one source group; these appear as separate rows.</p>
+    </div>
+  </details>
+</div></section>
+
+<!-- EXPENDITURE -->
+<section id="expenditure" class="meth-section" style="--accent:var(--crimson)"><div class="container">
+  <div class="kicker" style="color:var(--crimson)">Expenditure · 安全开支</div>
+  <h2>Expenditure methodology<span class="zh">安全资金数据方法</span></h2>
+
+  <details class="meth" open>
+    <summary>1. Source data</summary>
+    <div class="body">
+      <p>All figures are drawn from AidData's CLG-Global Dataset v1.0 (Custer et al. 2025), which records 33,593 Chinese government-financed projects committed to recipient countries between 2000 and 2023. Amounts are expressed in constant 2023 U.S. dollars using AidData's <code>Adjusted_Amount_Constant_USD_2023</code> field. Pledges that never became formal commitments and projects marked Cancelled or Suspended are excluded.</p>
+    </div>
+  </details>
+
+  <details class="meth">
+    <summary>2. Security assistance dataset (604 deals; USD 1.85B)</summary>
+    <div class="body">
+      <p>The security dataset was constructed in three stages.</p>
+      <p><b>First</b>, we hand-coded all CLG records for which at least one of the following applied:</p>
+      <ul>
+        <li>the recipient agency was a military, police, gendarmerie, customs, border, or interior-ministry entity;</li>
+        <li>the funding agency was a Chinese defence state-owned enterprise (NORINCO, AVIC, Poly Technologies, CETC) or the People's Liberation Army;</li>
+        <li>the project narrative explicitly referenced military equipment, police equipment, demining, peacekeeping deployment, or counter-narcotics / counter-terrorism support.</li>
+      </ul>
+      <p><b>Second</b>, we used Claude Opus to cross-check the Security flag.</p>
+      <p><b>Third</b>, we removed false positives through manual review.</p>
+      <p>Excluded categories include: oil/gas pipelines and refineries, crude-oil donations, power-generation infrastructure, mining and metallurgical projects, civilian transport infrastructure, civilian telecommunications, civic buildings, agricultural commodity transfers, debt rescheduling, and surveillance technology (held separately).</p>
+      <p>The final dataset covers 170 recipient countries. Note that many of the included cases had no actual monetary value (as they referenced training or equipment donations). They are included in the database but not in the figures in the paper.</p>
+    </div>
+  </details>
+
+  <details class="meth">
+    <summary>3. Surveillance financing dataset (107 deals; USD 5.78B, 2003–2021)</summary>
+    <div class="body">
+      <p>The surveillance financing dataset was assembled separately.</p>
+      <p><b>First</b>, we hand-coded deals whose title or narrative explicitly described:</p>
+      <ul>
+        <li>Safe-City or Smart-City systems</li>
+        <li>video-surveillance platforms, CCTV networks</li>
+        <li>facial-recognition systems, biometric-identification systems</li>
+        <li>electronic border (e-border) installations</li>
+        <li>national-security-communication networks, dedicated security information systems</li>
+        <li>maritime surveillance or intelligence-interception equipment</li>
+      </ul>
+      <p>Equipment supplied by named surveillance vendors (Hikvision, Dahua Technology, Megvii, SenseTime, CloudWalk, Yitu) was included.</p>
+      <p><b>Second</b>, we used Claude Opus to cross-check the Surveillance flag.</p>
+      <p><b>Third</b>, we removed false positives through manual review.</p>
+      <p>Excluded categories include: air-traffic surveillance, public-health (disease) surveillance, water-utility plant monitoring, and mining-site monitoring. Huawei and ZTE telecommunications-backbone projects (national broadband, 4G/LTE rollouts, fibre-optic backbones, data centres) are treated as commercial telecom infrastructure and kept as a separate dual-use series rather than counted as surveillance.</p>
+    </div>
+  </details>
+
+  <details class="meth">
+    <summary>4. Limitations</summary>
+    <div class="body">
+      <p>This is committed finance, not delivered. Some deals are still in implementation. Arms transfers (SIPRI TIV) are tracked separately from this dataset.</p>
+    </div>
+  </details>
+</div></section>
+
+<footer><div class="container">
+  <div>Compiled by <a href="https://www.jamiegj.com">Jamie Gruffydd-Jones</a> · <a href="index.html">Overview</a></div>
+  <div class="credit">Data sourced and coded by Jamie Gruffydd-Jones, Thom Vigor, Edinson Tolentino Raymondi, and Zhao Weize. Expenditure data from <a href="https://www.aiddata.org/" target="_blank" rel="noopener">https://www.aiddata.org/</a>.</div>
+  <div class="build">Methods v1.1 · 2026-06-23</div>
+</div></footer>
+
+<script src="js/shared.js?v=20260623k"></script>
+<script>
+document.getElementById('nav-container').innerHTML = GSI.navHTML('methods.html');
+document.dispatchEvent(new Event('DOMContentLoaded'));
+</script>
+</body>
+</html>

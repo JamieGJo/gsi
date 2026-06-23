@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GSI Expenditure — Chinese security &amp; surveillance funding, 2000–2023</title>
+<meta name="description" content="Where Chinese security and surveillance commitments have gone, 2000–2023. Audited from AidData CLG. Per-country, per-deal, per-year.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<link rel="stylesheet" href="css/styles.css?v=20260623k">
+</head>
+<body data-section="expenditure">
+
+<div class="nav"><div class="container" id="nav-container"></div></div>
+
+<header class="hero"><div class="container">
+  <div class="kicker">Expenditure · 安全开支 · 2000 – 2023</div>
+  <h1>Where the money has gone</h1>
+  <span class="zh-title">中国安全与监控融资分布</span>
+  <p class="thesis">Chinese security and surveillance commitments to recipient countries, 2000–2023. Audited from the AidData CLG-Global 1.0 dataset (Custer et al. 2025) across multiple rounds. The security subset has 604 deals (USD 1.85B); the surveillance subset has 107 deals (USD 5.78B, 2003–2021).</p>
+  <div class="stats">
+    <div class="stat"><div class="num" id="s-total">—</div><div class="lbl">total committed (security + surveillance)</div></div>
+    <div class="stat"><div class="num" id="s-deals">—</div><div class="lbl">deals after multi-round audit</div></div>
+    <div class="stat"><div class="num" id="s-recipients">—</div><div class="lbl">recipient countries</div></div>
+    <div class="stat"><div class="num" id="s-top">—</div><div class="lbl">largest single recipient</div></div>
+  </div>
+</div></header>
+
+<!-- HEADLINE CHOROPLETH -->
+<section id="map"><div class="container">
+  <div class="kicker">Headline · 全球分布</div>
+  <h2>Cumulative commitments by recipient<span class="zh">累计资金分布</span></h2>
+  <p class="lead">Drag the year handles to set the time window. Choose which categories to colour by, and use chips to filter to a subset of countries. Underlying data: AidData CLG-Global 1.0 (Custer et al. 2025), <a href="https://www.aiddata.org/" target="_blank" rel="noopener">www.aiddata.org</a>.</p>
+
+  <div class="card chart-card" style="margin-top:1.1rem">
+    <div class="ctrl-row" style="align-items:flex-start">
+      <div style="min-width:260px">
+        <div class="ctrl-label">Year range</div>
+        <div style="display:flex;gap:.5rem;align-items:center">
+          <input type="range" id="year-from" min="2000" max="2023" value="2000" style="width:120px;accent-color:#8B1A1A">
+          <span id="year-from-d" style="font-family:Inter,monospace;font-size:.84rem;font-weight:700;color:var(--crimson);min-width:48px">2000</span>
+          <span style="color:#aaa">–</span>
+          <input type="range" id="year-to" min="2000" max="2023" value="2023" style="width:120px;accent-color:#8B1A1A">
+          <span id="year-to-d" style="font-family:Inter,monospace;font-size:.84rem;font-weight:700;color:var(--crimson);min-width:48px">2023</span>
+        </div>
+      </div>
+      <div>
+        <div class="ctrl-label">Subset</div>
+        <div class="toggle" id="map-subset">
+          <button data-sub="both" class="on">Both</button>
+          <button data-sub="Security">Security</button>
+          <button data-sub="Surveillance">Surveillance</button>
+        </div>
+      </div>
+      <div>
+        <div class="ctrl-label">Colour by</div>
+        <select class="ctrl" id="map-colorby">
+          <option value="amount">Total committed (USD)</option>
+          <option value="deals">Number of deals</option>
+          <option value="share">Share of all Chinese CLG funding (%)</option>
+        </select>
+      </div>
+    </div>
+    <div class="ctrl-row" style="margin-top:.6rem">
+      <div style="flex:1">
+        <div class="ctrl-label">Filter to subset</div>
+        <div id="map-filter-chips" class="ctx-tabs" style="margin-bottom:0"></div>
+      </div>
+    </div>
+    <div class="map-wrap" id="map-canvas"></div>
+    <div class="legend-bar" id="map-legend"></div>
+    <p class="chart-note">Click a country to open its full profile. Quintile breaks recompute when the year window changes.</p>
+  </div>
+</div></section>
+
+<!-- TOP RECIPIENTS -->
+<section id="table"><div class="container">
+  <div class="kicker">Top recipients · 主要受援国</div>
+  <h2>Largest recipients<span class="zh">主要受援国</span></h2>
+  <div class="card chart-card" style="margin-top:1.1rem">
+    <div class="ctrl-row">
+      <input class="ctrl" id="rec-search" type="search" placeholder="Search country…" style="flex:1;min-width:200px">
+      <span style="font-family:Inter,sans-serif;font-size:.82rem;color:var(--muted);margin-left:auto" id="rec-count"></span>
+    </div>
+    <div class="table-wrap">
+      <table class="data" id="rec-table">
+        <thead>
+          <tr>
+            <th class="sortable" data-col="country">Country</th>
+            <th class="sortable sort-desc" data-col="total">Total committed</th>
+            <th class="sortable" data-col="deals">Deals</th>
+            <th class="sortable" data-col="firstYear">First year</th>
+            <th class="sortable" data-col="lastYear">Last year</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div style="text-align:center;margin-top:1rem">
+      <button id="rec-more" style="padding:.5rem 1rem;background:var(--accent);color:#fff;border:none;border-radius:6px;cursor:pointer;font-family:Inter,sans-serif;font-size:.86rem">Show 20 more</button>
+    </div>
+  </div>
+</div></section>
+
+<!-- SEARCHABLE PROJECTS -->
+<section id="projects"><div class="container">
+  <div class="kicker">Projects · 项目检索</div>
+  <h2>Search the projects dataset<span class="zh">项目检索</span></h2>
+  <p class="lead">Search and filter all 711 audited Security and Surveillance deals. Title, sector, recipient and funder are searchable. Click any row to expand the full description.</p>
+
+  <div class="card chart-card" style="margin-top:1.1rem">
+    <div class="ctrl-row">
+      <input class="ctrl" id="proj-search" type="search" placeholder="Search title, sector, country, funder…" style="flex:1;min-width:220px">
+      <div>
+        <div class="ctrl-label">Subset</div>
+        <select class="ctrl" id="proj-sub">
+          <option value="all">All</option>
+          <option value="Security">Security only</option>
+          <option value="Surveillance">Surveillance only</option>
+        </select>
+      </div>
+      <div>
+        <div class="ctrl-label">Sort by</div>
+        <select class="ctrl" id="proj-sort">
+          <option value="amount">Largest USD first</option>
+          <option value="year">Most recent first</option>
+          <option value="country">Country A→Z</option>
+        </select>
+      </div>
+      <span style="font-family:Inter,sans-serif;font-size:.82rem;color:var(--muted);margin-left:auto" id="proj-count"></span>
+    </div>
+    <div id="projects-list" style="margin-top:.6rem"></div>
+    <div style="text-align:center;margin-top:1rem">
+      <button id="proj-more" style="padding:.5rem 1rem;background:var(--accent);color:#fff;border:none;border-radius:6px;cursor:pointer;font-family:Inter,sans-serif;font-size:.86rem">Show 25 more</button>
+    </div>
+  </div>
+</div></section>
+
+<!-- BUILDER -->
+<section id="builder"><div class="container">
+  <div class="kicker">Build your own · 自定义图表</div>
+  <h2>Build your own chart<span class="zh">自定义视图</span></h2>
+  <p class="lead">Pick a preset or build your own view of the deals.</p>
+  <div id="exp-builder" class="builder"></div>
+</div></section>
+
+<footer><div class="container">
+  <div>Compiled by <a href="https://www.jamiegj.com">Jamie Gruffydd-Jones</a> · <a href="methods.html">Methods</a> · <a href="index.html">Overview</a></div>
+  <div class="credit">Data sourced and coded by Jamie Gruffydd-Jones, Thom Vigor, Edinson Tolentino Raymondi, and Zhao Weize. Expenditure data from <a href="https://www.aiddata.org/" target="_blank" rel="noopener">https://www.aiddata.org/</a>.</div>
+  <div class="build">Expenditure v1.1 · 2026-06-23</div>
+</div></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+<script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+<script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+<script src="js/shared.js?v=20260623k"></script>
+<script src="js/chart-builder.js?v=20260623k"></script>
+<script src="js/expenditure.js?v=20260623k"></script>
+<script>
+document.getElementById('nav-container').innerHTML = GSI.navHTML('expenditure.html');
+document.dispatchEvent(new Event('DOMContentLoaded'));
+
+GSI.initMethodsDrawer(`
+  <h4>Source</h4>
+  <p>AidData CLG-Global 1.0 dataset (Custer et al. 2025) — 33,593 Chinese government-financed projects committed 2000–2023. Released by AidData at <a href="https://www.aiddata.org/" target="_blank" rel="noopener">www.aiddata.org</a>. Amounts in constant 2023 USD via the <code>Adjusted_Amount_Constant_USD_2023</code> field. Pledges and cancellations excluded.</p>
+
+  <h4>Security dataset (604 deals, USD 1.85B)</h4>
+  <p>Three-stage construction: (i) hand-coded all CLG records where the recipient was a military / police / gendarmerie / customs / border / interior-ministry entity, OR the funder was a Chinese defence SOE (NORINCO, AVIC, Poly, CETC) / PLA, OR the narrative referenced military equipment, peacekeeping, demining, counter-narcotics or counter-terrorism. (ii) Claude Opus cross-checked the Security flag. (iii) Manual removal of false positives. Many included cases have no monetary value (training / equipment donations) — they're in the dataset but contribute 0 to the figures.</p>
+
+  <h4>Surveillance dataset (107 deals, USD 5.78B, 2003-2021)</h4>
+  <p>Assembled separately: hand-coded deals whose narrative explicitly described Safe-City / Smart-City, video surveillance, CCTV, facial recognition, biometric ID, e-border, national-security-comms, or maritime / intelligence interception. Named surveillance vendors (Hikvision, Dahua, Megvii, SenseTime, CloudWalk, Yitu) included. Huawei / ZTE telecom backbone projects treated separately as dual-use, not counted here.</p>
+
+  <h4>Limitations</h4>
+  <p>This is committed finance, not delivered. Some deals are still in implementation. Arms transfers (SIPRI TIV) are tracked separately.</p>
+`, 'methods.html#expenditure');
+</script>
+</body>
+</html>

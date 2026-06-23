@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GSI Signings — who supports the Global Security Initiative?</title>
+<meta name="description" content="Which countries have publicly supported China's Global Security Initiative? Bilateral signings, multilateral joint statements, by V-Dem regime and US-ally status.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<link rel="stylesheet" href="css/styles.css?v=20260623k">
+</head>
+<body data-section="signings">
+
+<div class="nav"><div class="container" id="nav-container"></div></div>
+
+<header class="hero"><div class="container">
+  <div class="kicker">Signings · 国家签署 · 2022 – 2025</div>
+  <h1>Who supports the GSI</h1>
+  <span class="zh-title">全球安全倡议 · 国家立场</span>
+  <p class="thesis">No country has formally "joined" the Global Security Initiative, but many have publicly referenced it. This dataset codes each country's level of public support and the forum, language and partnership context in which it appeared.</p>
+  <div class="stats">
+    <div class="stat"><div class="num" id="s-bilat">—</div><div class="lbl">countries with bilateral support</div></div>
+    <div class="stat"><div class="num" id="s-multi">—</div><div class="lbl">multilateral support only</div></div>
+    <div class="stat"><div class="num" id="s-implement">—</div><div class="lbl">have agreed to implement</div></div>
+    <div class="stat"><div class="num" id="s-share-auto">—</div><div class="lbl">share of bilateral supporters that are autocracies</div></div>
+  </div>
+</div></header>
+
+<!-- HEADLINE MAP -->
+<section id="map"><div class="container">
+  <div class="kicker">Headline · 全球分布</div>
+  <h2>Signature status by country<span class="zh">各国签署情况</span></h2>
+  <p class="lead">Choose how the map is coloured. The chips below let you keep only countries that match a subset; non-matching countries are dimmed.</p>
+
+  <div class="card chart-card" style="margin-top:1.1rem">
+    <div class="ctrl-row">
+      <div style="min-width:260px">
+        <div class="ctrl-label">Colour countries by</div>
+        <select class="ctrl" id="map-colorby">
+          <option value="support">Type of stated support</option>
+          <option value="ranking">Ranking (0–4)</option>
+          <option value="implement">Implementing the GSI?</option>
+        </select>
+      </div>
+      <div style="flex:1">
+        <div class="ctrl-label">Filter to countries that are…</div>
+        <div id="map-filter-chips" class="ctx-tabs" style="margin-bottom:0"></div>
+      </div>
+    </div>
+    <div class="map-wrap" id="map-canvas"></div>
+    <div class="legend-bar" id="map-legend"></div>
+    <p class="chart-note">Click any country to open its full country profile (signings + media + expenditure).</p>
+  </div>
+</div></section>
+
+<!-- TABLE -->
+<section id="table"><div class="container">
+  <div class="kicker">Country list · 签署国列表</div>
+  <h2>All countries, ranked<span class="zh">完整国家清单</span></h2>
+  <p class="lead">The complete signing dataset. Click any column header to sort; use the search box to filter.</p>
+
+  <div class="card chart-card" style="margin-top:1.1rem">
+    <div class="ctrl-row">
+      <input class="ctrl" id="signings-search" type="search" placeholder="Search country, forum, partnership…" style="flex:1;min-width:220px">
+      <div>
+        <div class="ctrl-label">Show</div>
+        <select class="ctrl" id="signings-filter">
+          <option value="all">All countries</option>
+          <option value="Bilateral support">Bilateral supporters</option>
+          <option value="Multilateral support">Multilateral only</option>
+          <option value="Noncommittal">Noncommittal</option>
+          <option value="implement">Have agreed to implement</option>
+          <option value="none">No public support</option>
+        </select>
+      </div>
+      <span style="font-family:Inter,sans-serif;font-size:.82rem;color:var(--muted);margin-left:auto" id="signings-count"></span>
+    </div>
+    <div class="table-wrap">
+      <table class="data" id="signings-table">
+        <thead>
+          <tr>
+            <th class="sortable" data-col="country">Country</th>
+            <th class="sortable" data-col="year">Year</th>
+            <th class="sortable" data-col="LevelOfSupport">Level of support</th>
+            <th class="sortable" data-col="Ranking">Rank</th>
+            <th class="sortable" data-col="Implement">Implement</th>
+            <th class="sortable" data-col="Forum">Forum</th>
+            <th class="sortable" data-col="vdem_regime_label">V-Dem regime</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div style="text-align:center;margin-top:1rem">
+      <button id="signings-more" style="padding:.5rem 1rem;background:var(--accent);color:#fff;border:none;border-radius:6px;cursor:pointer;font-family:Inter,sans-serif;font-size:.86rem">Show 20 more</button>
+    </div>
+    <p class="chart-note">"Rank" follows the 0–4 coding scheme defined in the methods drawer (top-right of this page). "Implement" = the country agreed to actively implement the GSI or pursue further cooperation under it.</p>
+  </div>
+</div></section>
+
+<!-- BUILDER -->
+<section id="builder"><div class="container">
+  <div class="kicker">Build your own · 自定义图表</div>
+  <h2>Build your own chart<span class="zh">自定义视图</span></h2>
+  <p class="lead">Pick a preset starting point or build your own. Each view gets a stable URL you can paste into a paper.</p>
+  <div id="signings-builder" class="builder"></div>
+</div></section>
+
+<footer><div class="container">
+  <div>Compiled by <a href="https://www.jamiegj.com">Jamie Gruffydd-Jones</a> · <a href="methods.html">Methods</a> · <a href="index.html">Overview</a></div>
+  <div class="credit">Data sourced and coded by Jamie Gruffydd-Jones, Thom Vigor, Edinson Tolentino Raymondi, and Zhao Weize. Expenditure data from <a href="https://www.aiddata.org/" target="_blank" rel="noopener">https://www.aiddata.org/</a>.</div>
+  <div class="build">Signings v1.2 · 2026-06-23</div>
+</div></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+<script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+<script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+<script src="js/shared.js?v=20260623k"></script>
+<script src="js/chart-builder.js?v=20260623k"></script>
+<script src="js/signings.js?v=20260623k"></script>
+<script>
+document.getElementById('nav-container').innerHTML = GSI.navHTML('signings.html');
+document.dispatchEvent(new Event('DOMContentLoaded'));
+
+GSI.initMethodsDrawer(`
+  <h4>What the dataset records</h4>
+  <p>No country has formally "joined" the GSI. Many have publicly referenced it in joint statements or bilateral meetings. Three researchers searched Chinese, English, French, Spanish, and German-language media for official mentions of the GSI by a country's leader or foreign minister. "Support" claimed only by China's state media without an official readout is excluded.</p>
+  <h4>The Rank 0–5 scale</h4>
+  <ul>
+    <li><b>0</b> — No mention</li>
+    <li><b>1</b> — Non-committal acknowledgement</li>
+    <li><b>2</b> — Positive language ("welcome", "appreciate") but no explicit support</li>
+    <li><b>3</b> — Simple "support" for the initiative</li>
+    <li><b>4</b> — High support ("strongly", "resolutely")</li>
+    <li><b>5</b> — Agreement to implement or pursue further cooperation</li>
+  </ul>
+  <p style="font-size:.84rem;color:var(--muted)">(Rank 5 not yet observed in this corpus; the highest rank coded so far is 4.)</p>
+  <h4>Suggested citation</h4>
+  <p style="font-family:Inter,sans-serif;font-size:.85rem;background:#F4F0E7;padding:.5rem .7rem;border-radius:6px">Gruffydd-Jones, J. (2026). <em>GSI Datasets — Signings</em>.</p>
+`, 'methods.html#signings');
+</script>
+</body>
+</html>

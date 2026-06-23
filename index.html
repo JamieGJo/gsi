@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GSI Datasets — China's Global Security Initiative, in numbers</title>
+<meta name="description" content="A research-grade reference dataset on China's Global Security Initiative (GSI): country signings, MFA + Xinhua media sentiment, and Chinese security/surveillance expenditure. Built to be cited.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<link rel="stylesheet" href="css/styles.css?v=20260623k">
+</head>
+<body data-section="combined">
+
+<!-- NAV -->
+<div class="nav"><div class="container" id="nav-container"></div></div>
+
+<!-- HERO -->
+<header class="hero"><div class="container">
+  <div class="kicker">A reference dataset · 参考数据集 · 2022 – 2025</div>
+  <h1>China's Global Security Initiative,<br>in numbers</h1>
+  <span class="zh-title">全球安全倡议 · 数据透视</span>
+  <p class="thesis">Who has publicly supported the GSI, how Chinese state media frames it, and where Chinese security and surveillance funding has gone.</p>
+  <div class="stats">
+    <div class="stat"><div class="num">47</div><div class="lbl">countries publicly supporting GSI bilaterally (and 30 multilaterally only)</div></div>
+    <div class="stat"><div class="num">1,530</div><div class="lbl">MFA + Xinhua articles on the GSI, sentence-level sentiment by source group, 2022–2025</div></div>
+    <div class="stat"><div class="num">~$3B</div><div class="lbl">Chinese security and surveillance commitments, 2000–2023, audited from AidData CLG</div></div>
+    <div class="stat"><div class="num">194</div><div class="lbl">country profiles combining all three datasets</div></div>
+  </div>
+  <p class="meta">Compiled by Jamie Gruffydd-Jones · data updated <span id="last-updated">2026-06-23</span></p>
+</div></header>
+
+<!-- THREE DATASET CARDS -->
+<section id="datasets"><div class="container">
+  <div class="kicker">The three datasets</div>
+  <h2>Pick a section, or look up a country<span class="zh">选择一个数据集，或查询国家</span></h2>
+
+  <div class="row two" style="margin-top:1.5rem">
+    <a href="signings.html" class="card chart-card" style="text-decoration:none;color:inherit;display:block;border-left-color:var(--jade);transition:transform .15s">
+      <div class="kicker" style="color:var(--jade)">Signings · 国家签署</div>
+      <h3 style="font-size:1.25rem;margin-bottom:.4rem">Who supports the GSI</h3>
+      <p style="font-family:Inter,sans-serif;font-size:.82rem;color:var(--jade);font-weight:600;margin-top:.7rem">Open the Signings page →</p>
+    </a>
+
+    <a href="media.html" class="card chart-card" style="text-decoration:none;color:inherit;display:block;border-left-color:var(--copper);transition:transform .15s">
+      <div class="kicker" style="color:var(--copper)">Media sentiment · 媒体话语</div>
+      <h3 style="font-size:1.25rem;margin-bottom:.4rem">How the MFA and Xinhua frame it</h3>
+      <p style="font-family:Inter,sans-serif;font-size:.82rem;color:var(--copper);font-weight:600;margin-top:.7rem">Open the Media page →</p>
+    </a>
+  </div>
+
+  <div class="row" style="margin-top:1.4rem">
+    <a href="expenditure.html" class="card chart-card" style="text-decoration:none;color:inherit;display:block;border-left-color:var(--crimson);transition:transform .15s">
+      <div class="kicker" style="color:var(--crimson)">Expenditure · 安全开支</div>
+      <h3 style="font-size:1.25rem;margin-bottom:.4rem">Where the money has gone</h3>
+      <p style="font-family:Inter,sans-serif;font-size:.82rem;color:var(--crimson);font-weight:600;margin-top:.7rem">Open the Expenditure page →</p>
+    </a>
+  </div>
+</div></section>
+
+<!-- COUNTRY PROFILE -->
+<section id="country-profile"><div class="container">
+  <div class="kicker">Combined view · 单国概览</div>
+  <h2>Country profile<span class="zh">国别情况</span></h2>
+  <p class="lead">Pick a country to see how it interacts with the GSI across all three datasets.</p>
+
+  <div style="margin-top:1.2rem;max-width:420px">
+    <select id="country-picker-inline" class="ctrl" style="width:100%;font-size:1rem;padding:.6rem .8rem">
+      <option value="">— Select a country —</option>
+    </select>
+  </div>
+
+  <div id="country-profile-mount" style="margin-top:1.5rem"></div>
+</div></section>
+
+<!-- FOOTER -->
+<footer><div class="container">
+  <div>
+    Compiled by <a href="https://www.jamiegj.com">Jamie Gruffydd-Jones</a> · code &amp; data on <a href="#">GitHub</a> · <a href="methods.html">Methods</a>
+  </div>
+  <div class="credit">Data sourced and coded by Jamie Gruffydd-Jones, Thom Vigor, Edinson Tolentino Raymondi, and Zhao Weize. Expenditure data from <a href="https://www.aiddata.org/" target="_blank" rel="noopener">https://www.aiddata.org/</a>.</div>
+  <div class="build" id="build-info">v1 · build 2026-06-23</div>
+</div></footer>
+
+<script src="js/shared.js?v=20260623k"></script>
+<script src="js/country-profile.js?v=20260623k"></script>
+<script>
+// Mount the shared nav
+document.getElementById('nav-container').innerHTML = GSI.navHTML('index.html');
+document.dispatchEvent(new Event('DOMContentLoaded'));
+
+// Methods drawer — generic overview content for the landing page
+GSI.initMethodsDrawer(`
+  <h4>About this site</h4>
+  <p>A research-grade reference for the three datasets used in an upcoming policy paper on China's Global Security Initiative.</p>
+
+  <h4>What you'll find</h4>
+  <ul>
+    <li><b>Signings</b> (jade): 195 countries × signing year, signing forum, support type (bilateral / multilateral / none), with regime and ally classifications.</li>
+    <li><b>Media sentiment</b> (copper): MFA + Xinhua articles on the GSI 2022–2025, sentence-level sentiment by source group.</li>
+    <li><b>Expenditure</b> (crimson): Audited Chinese security &amp; surveillance commitments 2000–2023.</li>
+  </ul>
+
+  <h4>How to cite</h4>
+  <p>Each section has its own suggested citation at the bottom. The site lives at a stable URL, and each chart view is bookmarkable.</p>
+
+  <h4>Open data</h4>
+  <p>All three datasets are released as CSV under each section's <i>Download</i> block, with a citation header line embedded.</p>
+`, 'methods.html');
+</script>
+</body>
+</html>
