@@ -15,8 +15,13 @@ GSI.initChartBuilder = function(opts) {
   const maxColorCard = opts.maxColorCardinality || 20;
   const distinctCount = (f) => new Set(data.map(r => r[f])).size;
   const colorDims = catDims.filter(d => distinctCount(d) <= maxColorCard);
-  // X axis offers every dimension; dedupe in case a field is both cat & quant.
-  const xDims = [...new Set([...catDims, ...quantDims])];
+  // X axis offers the grouping dimensions. By default that's categoricals plus
+  // quantitatives, but a section can pass xCategoricalOnly to drop the measures
+  // (amount / count) from X — they belong on Y as an aggregate, and listing them
+  // on X lets you pick the same field for both axes, which is meaningless.
+  const xDims = opts.xCategoricalOnly
+    ? [...new Set(catDims)]
+    : [...new Set([...catDims, ...quantDims])];
 
   const root = document.getElementById(mount);
   if (!root) { console.warn('[builder] mount missing:', mount); return; }

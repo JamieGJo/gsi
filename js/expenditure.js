@@ -20,7 +20,7 @@ const VDEM_COLOR = {
   initMap(world, deals, cm, clgByIso3);
   initRecipientsTable(deals, cm);
   initProjectsSearch(deals, cm);
-  initBuilder(deals);
+  initBuilder(deals, cm);
 })();
 
 // ---- STATS ----
@@ -421,35 +421,60 @@ function initProjectsSearch(deals, cm) {
 }
 
 // ---- BUILDER ----
-function initBuilder(deals) {
-  const data = deals.map(d => ({
-    iso3: d.iso3,
-    recipient: d.recipient,
-    year: d.year,
-    sector: d.sector || 'Unknown',
-    funder: (d.funder || 'Unknown').slice(0, 60),
-    dataset: d.dataset,
-    amt_2023: d.amt_2023 || 0
-  }));
+function initBuilder(deals, cm) {
+  // Join country-level attributes from the country master by iso3 so the X axis
+  // can group commitments by the kinds of country that received them.
+  const cmByIso3 = Object.fromEntries((cm || []).map(c => [c.iso3, c]));
+  const yn = v => (v === 'Yes' || v === 1 || v === '1') ? 'Yes' : 'No';
+  const data = deals.map(d => {
+    const c = cmByIso3[d.iso3] || {};
+    return {
+      iso3: d.iso3,
+      recipient: d.recipient,
+      year: d.year,
+      sector: d.sector || 'Unknown',
+      dataset: d.dataset,
+      amt_2023: d.amt_2023 || 0,
+      // country-level variables
+      regime:          c.vdem_regime_label || 'Unknown',
+      region:          c.media_region || 'Other',
+      us_ally:         (+c.rand_ally === 1) ? 'US ally' : 'Non-ally',
+      china_partner:   (+c.China_ally === 1) ? 'China partner' : 'No partnership',
+      china_level:     (c.China_level != null && c.China_level !== '') ? 'Tier ' + c.China_level : 'Unknown',
+      oecd:            yn(c.OECD),
+      brics:           yn(c.BRICS_member),
+      china_neighbour: yn(c.China_neighbor)
+    };
+  });
   GSI.initChartBuilder({
     mount: 'exp-builder',
     data,
     section: 'Expenditure',
+    xCategoricalOnly: true,   // amount lives only on Y, never X
     dimensions: {
-      // Only low-cardinality dims in the free X/Colour dropdowns. recipient (121
-      // values) and funder (73) are unreadable as axes/legends in the generic
-      // builder, so they're omitted here — the "Top recipients" preset still
-      // uses recipient via its own spec.
-      categorical: ['year', 'sector', 'dataset'],
+      // X / Colour groupings. Country-level variables first, then project-level
+      // and time. The amount lives only on Y (as a sum or mean). funder (73) is
+      // omitted as unreadable; recipient (121) is kept but auto-dropped from the
+      // Colour dropdown by the cardinality guard.
+      categorical: ['recipient', 'regime', 'region', 'us_ally', 'china_partner',
+                    'china_level', 'oecd', 'brics', 'china_neighbour',
+                    'year', 'sector', 'dataset'],
       quantitative: ['amt_2023'],
       additive: ['amt_2023']   // only money sums meaningfully
     },
     labels: {
-      year: 'Commitment year',
       recipient: 'Recipient country',
+      regime: 'V-Dem regime',
+      region: 'Region / bloc',
+      us_ally: 'US ally (RAND 2017)',
+      china_partner: 'China partnership',
+      china_level: 'China partnership tier',
+      oecd: 'OECD member',
+      brics: 'BRICS member',
+      china_neighbour: "China's neighbour",
+      year: 'Commitment year',
       sector: 'Sector',
       dataset: 'Subset (Security / Surveillance)',
-      funder: 'Funder',
       amt_2023: 'Amount, constant 2023 USD'
     },
     presets: [
