@@ -348,27 +348,31 @@ function initBySourceChart(bySource, quarterly) {
     });
   });
 
+  // share-negative field differs by source (bySource: share_negative; quarterly: share_neg)
+  const negOf = r => (r.share_negative != null ? r.share_negative : r.share_neg) || 0;
+
   function draw() {
     const rows = bsMode === 'regime' ? regimeRows : bySource;
     const agg = {};
     rows.forEach(r => {
-      if (!agg[r.source]) agg[r.source] = { mfa_n: 0, xin_n: 0, mfa_m: 0, xin_m: 0 };
+      if (!agg[r.source]) agg[r.source] = { mfa_n: 0, xin_n: 0, mfa_s: 0, xin_s: 0 };
       const k = r.publication === 'MFA' ? 'mfa' : 'xin';
-      agg[r.source][`${k}_n`] += r.n_sentences;
-      agg[r.source][`${k}_m`] += r.mean_sent * r.n_sentences;
+      const n = r.n_sentences || 0;
+      agg[r.source][`${k}_n`] += n;
+      agg[r.source][`${k}_s`] += negOf(r) * n;   // weighted negative-sentence count
     });
     const cats = bsMode === 'regime'
       ? REGIME_SERIES.filter(c => agg[c])
       : Object.keys(agg).sort((a, b) => (agg[b].mfa_n + agg[b].xin_n) - (agg[a].mfa_n + agg[a].xin_n));
-    const mfaVol  = cats.map(s => agg[s].mfa_n);
-    const xinVol  = cats.map(s => agg[s].xin_n);
-    const mfaSent = cats.map(s => agg[s].mfa_n ? agg[s].mfa_m / agg[s].mfa_n : null);
-    const xinSent = cats.map(s => agg[s].xin_n ? agg[s].xin_m / agg[s].xin_n : null);
+    const mfaVol = cats.map(s => agg[s].mfa_n);
+    const xinVol = cats.map(s => agg[s].xin_n);
+    const mfaNeg = cats.map(s => agg[s].mfa_n ? agg[s].mfa_s / agg[s].mfa_n : null);
+    const xinNeg = cats.map(s => agg[s].xin_n ? agg[s].xin_s / agg[s].xin_n : null);
 
     const noteEl = document.getElementById('bysource-note');
     if (noteEl) noteEl.textContent = bsMode === 'regime'
-      ? 'Sentence volume (bars) and mean sentiment (dots) toward authoritarian / democratic regimes and US allies / non-allies — by the countries each sentence references, per publication.'
-      : 'Sentence volume (bars) and mean sentiment (dots) per source group, by publication.';
+      ? 'Sentence volume (bars) and share of sentences that are negative (dots) toward authoritarian / democratic regimes and US allies / non-allies — by the countries each sentence references, per publication.'
+      : 'Sentence volume (bars) and share of sentences that are negative (dots) per source group, by publication.';
 
     if (bsChart) bsChart.destroy();
     bsChart = new Chart(document.getElementById('bysource-chart'), {
@@ -377,8 +381,8 @@ function initBySourceChart(bySource, quarterly) {
         datasets: [
           { type: 'bar', label: 'MFA volume', data: mfaVol, backgroundColor: '#1B2733', yAxisID: 'y' },
           { type: 'bar', label: 'Xinhua volume', data: xinVol, backgroundColor: '#B8651D', yAxisID: 'y' },
-          { type: 'line', label: 'MFA mean sentiment', data: mfaSent, yAxisID: 'y1', borderColor: '#5C6470', backgroundColor: '#5C6470', pointRadius: 5, pointStyle: 'circle', showLine: false },
-          { type: 'line', label: 'Xinhua mean sentiment', data: xinSent, yAxisID: 'y1', borderColor: '#B8651D', backgroundColor: '#B8651D', pointRadius: 5, pointStyle: 'triangle', showLine: false }
+          { type: 'line', label: 'MFA % negative', data: mfaNeg, yAxisID: 'y1', borderColor: '#5C6470', backgroundColor: '#5C6470', pointRadius: 5, pointStyle: 'circle', showLine: false },
+          { type: 'line', label: 'Xinhua % negative', data: xinNeg, yAxisID: 'y1', borderColor: '#B8651D', backgroundColor: '#B8651D', pointRadius: 5, pointStyle: 'triangle', showLine: false }
         ]
       },
       options: {
@@ -386,17 +390,21 @@ function initBySourceChart(bySource, quarterly) {
         scales: {
           y: { position: 'left', title: { display: true, text: 'Sentence volume' }, grid: { drawOnChartArea: false } },
           y1: {
-            position: 'right', title: { display: true, text: 'Mean sentiment' },
-            suggestedMin: -0.04, suggestedMax: 0.12,
-            // draw only the sentiment = 0 reference line
-            grid: {
-              drawOnChartArea: true,
-              color: ctx => ctx.tick.value === 0 ? 'rgba(27,39,51,0.45)' : 'transparent',
-              lineWidth: ctx => ctx.tick.value === 0 ? 1.5 : 0
-            }
+            position: 'right', title: { display: true, text: 'Share negative' },
+            beginAtZero: true, suggestedMax: 0.5, grid: { drawOnChartArea: false },
+            ticks: { callback: v => (v * 100).toFixed(0) + '%' }
           }
         },
-        plugins: { legend: { position: 'bottom', labels: { font: { family: 'Inter' } } } }
+        plugins: {
+          legend: { position: 'bottom', labels: { font: { family: 'Inter' } } },
+          tooltip: {
+            callbacks: {
+              label: c => c.dataset.yAxisID === 'y1'
+                ? `${c.dataset.label}: ${(c.parsed.y * 100).toFixed(0)}%`
+                : `${c.dataset.label}: ${(c.parsed.y || 0).toLocaleString()}`
+            }
+          }
+        }
       }
     });
   }
