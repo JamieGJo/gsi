@@ -129,6 +129,7 @@
     <div class="body">
       <p>Sentence-level lexicon score: <code>(positive − negative opinion words) ÷ number of content words</code>, using the Bing/Liu opinion lexicon. Range roughly −1 to +1; 0 is neutral.</p>
       <p>The <strong>whole corpus (2022–2026) is scored with this one method</strong>, so the extension is directly comparable to the historical series. (The original 2022–2025 release used a different, undocumented lexicon; re-scoring everything uniformly preserves the by-source ordering — USA/NATO most negative, ASEAN most positive — while compressing magnitudes slightly toward zero.)</p>
+      <p><strong>% negative vs mean.</strong> Dividing by sentence length, plus the uniformly positive tone of Chinese state media, makes the <em>mean</em> small and tightly clustered (most country means fall between +0.03 and +0.07). The <strong>share of negative sentences</strong> (% scoring below 0) is much more variable and interpretable — USA/NATO ≈ 40% negative vs ≈ 6% for Global South groups; conflict states (Iraq, Syria, Afghanistan, Ukraine) highest — so it is the default metric on the map and time series, with the mean offered alongside.</p>
     </div>
   </details>
 

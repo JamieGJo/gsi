@@ -79,7 +79,7 @@ function initStats(quarterly, bySource, articles) {
 }
 
 // ---- QUARTERLY ----
-let qChart = null, qPub = 'MFA', qMetric = 'sentiment';
+let qChart = null, qPub = 'MFA', qMetric = 'shareneg';
 // the chart starts on its "cover" — only the first row (actors) is shown;
 // readers click chips in the other rows to ADD those series.
 let qVisible = new Set(ACTOR_SERIES);
@@ -125,13 +125,14 @@ function initQuarterlyChart(quarterly) {
   }
 
   function draw() {
-    const isSent = qMetric === 'sentiment';
+    const M = qMetric;   // 'shareneg' | 'sentiment' | 'articles'
+    const field = M === 'shareneg' ? 'share_neg' : M === 'sentiment' ? 'mean_sent' : 'n_articles';
     const quarters = [...new Set(quarterly.map(r => r.quarter))].sort();
     const order = [...ACTOR_SERIES, ...REGIME_SERIES, ...PHRASE_SOURCES].filter(l => qVisible.has(l));
     const datasets = order.map(label => {
       const vals = quarters.map(q => {
         const r = quarterly.find(x => x.source === label && x.quarter === q && x.publication === qPub);
-        return r ? (isSent ? r.mean_sent : r.n_articles) : null;
+        return r ? r[field] : null;
       });
       const st = seriesStyle(label);
       return {
@@ -143,11 +144,17 @@ function initQuarterlyChart(quarterly) {
       };
     });
 
-    const yLabel = isSent ? 'Mean sentence sentiment' : 'Number of articles';
+    const yLabel = M === 'shareneg' ? 'Share of sentences negative'
+                 : M === 'sentiment' ? 'Mean sentence sentiment' : 'Number of articles';
     const noteEl = document.getElementById('quarterly-note');
-    if (noteEl) noteEl.textContent = isSent
-      ? 'Sentiment = (positive − negative opinion-lexicon words) ÷ sentence length (Bing/Liu lexicon). Range roughly −1 to +1; 0 is neutral.'
+    if (noteEl) noteEl.textContent =
+      M === 'shareneg' ? 'Share of sentences with negative sentiment (Bing score < 0). Higher = more critical coverage. This is the clearest signal: USA/NATO coverage is ~40% negative vs ~6% for Global South groups, and conflict states (Iraq, Syria, Ukraine) are highest.'
+      : M === 'sentiment' ? 'Mean sentiment = (positive − negative opinion-lexicon words) ÷ sentence length (Bing/Liu lexicon). Values are small and mostly positive — most sentences are near-neutral and Chinese state media is uniformly positive in tone — so differences between groups are real but compressed.'
       : 'Number of distinct articles per quarter in each series. An article can appear in more than one series.';
+
+    const fmtY = M === 'shareneg' ? v => (v * 100).toFixed(0) + '%' : v => v;
+    const yScale = M === 'sentiment' ? { grace: '12%' }
+                 : { beginAtZero: true, grace: '8%', ticks: { callback: fmtY } };
 
     if (qChart) qChart.destroy();
     qChart = new Chart(document.getElementById('quarterly-chart'), {
@@ -155,19 +162,14 @@ function initQuarterlyChart(quarterly) {
       options: {
         responsive: true, maintainAspectRatio: false,
         interaction: { mode: 'index', intersect: false },
-        scales: {
-          y: {
-            title: { display: true, text: yLabel },
-            // auto-fit to the visible series (Bing-ratio sentiment lives in a
-            // narrow band ~−0.05..+0.10); a fixed wide range would look flat
-            ...(isSent ? { grace: '12%' } : { beginAtZero: true })
-          }
-        },
+        scales: { y: { title: { display: true, text: yLabel }, ...yScale } },
         plugins: {
           legend: { display: false },   // the chip rows are the legend
           tooltip: {
             callbacks: {
-              label: c => `${c.dataset.label}: ${c.parsed.y == null ? '—' : isSent ? c.parsed.y.toFixed(3) : c.parsed.y}`
+              label: c => `${c.dataset.label}: ${c.parsed.y == null ? '—'
+                : M === 'shareneg' ? (c.parsed.y * 100).toFixed(0) + '%'
+                : M === 'sentiment' ? c.parsed.y.toFixed(3) : c.parsed.y}`
             }
           }
         }
@@ -177,23 +179,20 @@ function initQuarterlyChart(quarterly) {
 }
 
 // ---- COUNTRY MAP ----
-let cmapState = { layer: null, mode: 'mentions', byIso3: {}, maxMentions: 1, sentMid: 0.05, sentHalf: 0.025 };
+let cmapState = { layer: null, mode: 'mentions', byIso3: {}, maxMentions: 1, shareNegMax: 0.5 };
 
 function isoOf(feature) {
   const p = feature.properties;
   return p['ISO3166-1-Alpha-3'] || p.iso_a3 || p.ISO_A3 || p.adm0_a3;
 }
 
-// Sentiment shading is RELATIVE to the corpus median (all groups are net-positive
-// on the Bing lexicon ratio, so a zero-centred scale would render everything the
-// same pale green). Amber = cooler than China's typical tone, teal = warmer.
-const SENT_WARM = [[244, 236, 222], [233, 201, 140], [201, 152, 66], [150, 103, 33]];
-const SENT_COOL = [[244, 236, 222], [126, 178, 162], [47, 96, 99], [16, 51, 53]];
-function sentColor(v) {
+// Share-negative shading: pale cream -> deep crimson. Higher = more critical
+// coverage. Far more variable than the (length-normalised) mean: USA/NATO ~43%
+// negative vs Global South ~6%, conflict states (Iraq, Syria) highest.
+const SHARENEG_STOPS = [[244, 236, 222], [226, 170, 120], [201, 90, 60], [150, 35, 30], [90, 12, 12]];
+function shareNegColor(v, max) {
   if (v == null) return '#F4ECDE';
-  const mid = cmapState.sentMid, half = cmapState.sentHalf || 0.02;
-  if (v < mid) return interp(SENT_WARM, Math.min(1, (mid - v) / half));
-  return interp(SENT_COOL, Math.min(1, (v - mid) / half));
+  return interp(SHARENEG_STOPS, Math.min(1, v / (max || 0.5)));
 }
 function mentionColor(v, max) {
   if (!v) return '#F4ECDE';
@@ -217,13 +216,10 @@ function initCountryMap(world, byCountry) {
   const m = {}; byCountry.forEach(r => { m[r.iso3] = r; });
   cmapState.byIso3 = m;
   cmapState.maxMentions = Math.max(...byCountry.map(r => r.mentions || 0), 1);
-  // data-driven sentiment domain: centre on the median, half-window = p10..p90
-  const sv = byCountry.map(r => r.mean_sentiment).filter(v => v != null).sort((a, b) => a - b);
-  if (sv.length) {
-    const q = p => sv[Math.min(sv.length - 1, Math.max(0, Math.round(p * (sv.length - 1))))];
-    cmapState.sentMid = q(0.5);
-    cmapState.sentHalf = Math.max(q(0.9) - cmapState.sentMid, cmapState.sentMid - q(0.1), 0.012);
-  }
+  // share-negative domain: 0 .. p90 (cap conflict-state outliers like Iraq 0.73)
+  const snv = byCountry.map(r => r.share_negative).filter(v => v != null).sort((a, b) => a - b);
+  cmapState.shareNegMax = snv.length
+    ? Math.max(snv[Math.round(0.9 * (snv.length - 1))], 0.2) : 0.5;
 
   const map = L.map('cmap-canvas', { scrollWheelZoom: false }).setView([20, 0], 2);
   L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
@@ -238,7 +234,7 @@ function initCountryMap(world, byCountry) {
     if (r) {
       fill = cmapState.mode === 'mentions'
         ? mentionColor(r.mentions, cmapState.maxMentions)
-        : sentColor(r.mean_sentiment);
+        : shareNegColor(r.share_negative, cmapState.shareNegMax);
     }
     return { fillColor: fill, weight: 0.4, opacity: 1, color: '#fff', fillOpacity: 0.92 };
   }
@@ -256,7 +252,7 @@ function initCountryMap(world, byCountry) {
         <div style="font-family:Inter,sans-serif;font-size:.84rem">
           <b style="font-size:1rem">${name}</b><br>
           Mentions: <b>${(r.mentions || 0).toLocaleString()}</b><br>
-          Mean sentiment: <b>${r.mean_sentiment == null ? '—' : r.mean_sentiment.toFixed(3)}</b>
+          Negative: <b>${r.share_negative == null ? '—' : (r.share_negative * 100).toFixed(0) + '%'}</b> of sentences
         </div>`, { sticky: true });
     } else {
       layer.bindTooltip(`<b>${name}</b><br><span style="color:#5C6470">&lt;25 mentions</span>`, { sticky: true });
@@ -282,11 +278,11 @@ function initCountryMap(world, byCountry) {
         `<span class="swatch"><i style="background:${mentionColor(v, m)}"></i> ${v === 0 ? '<25' : Math.round(v).toLocaleString()}</span>`
       ).join('') + '<span style="color:#5C6470">· log scale, mentions in GSI corpus</span>';
     } else {
-      const mid = cmapState.sentMid, half = cmapState.sentHalf;
-      const stops = [mid - half, mid - half / 2, mid, mid + half / 2, mid + half];
+      const mx = cmapState.shareNegMax;
+      const stops = [0, mx * 0.25, mx * 0.5, mx * 0.75, mx];
       lg.innerHTML = stops.map(v =>
-        `<span class="swatch"><i style="background:${sentColor(v)}"></i> ${v.toFixed(3)}</span>`
-      ).join('') + `<span style="color:#5C6470">· mean sentiment, shaded vs corpus median ${mid.toFixed(2)} (all groups net-positive)</span>`;
+        `<span class="swatch"><i style="background:${shareNegColor(v, mx)}"></i> ${(v * 100).toFixed(0)}%</span>`
+      ).join('') + '<span style="color:#5C6470">· share of sentences that are negative (Bing score &lt; 0)</span>';
     }
   }
 }

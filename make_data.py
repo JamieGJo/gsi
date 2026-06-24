@@ -216,11 +216,13 @@ def _agg_quarter(sub, source_label):
         g = (frame.groupby("quarter")
              .agg(n_sentences=("sent_score", "size"),
                   mean_sent=("sent_score", "mean"),
+                  share_neg=("sent_score", lambda x: (x < 0).mean()),
                   n_articles=("Article_ID", "nunique"))
              .reset_index())
         g["source"] = source_label
         g["publication"] = pub_label
         g["mean_sent"] = g["mean_sent"].round(4)
+        g["share_neg"] = g["share_neg"].round(4)
         g["n_sentences"] = g["n_sentences"].astype(int)
         g["n_articles"] = g["n_articles"].astype(int)
         out.append(g)
@@ -301,7 +303,8 @@ def build_media_quarterly(cm):
         if len(sub):
             parts.append(_agg_quarter(sub, label))
     out = pd.concat(parts, ignore_index=True)
-    out = out[["source", "publication", "quarter", "n_sentences", "mean_sent", "n_articles"]]
+    out = out[["source", "publication", "quarter", "n_sentences",
+               "mean_sent", "share_neg", "n_articles"]]
     return json.loads(out.where(pd.notnull(out), None).to_json(orient="records"))
 
 
@@ -329,13 +332,18 @@ def build_media_by_country(name_map):
     df = df.dropna(subset=["iso3"])
     df["Total"] = pd.to_numeric(df["Total"], errors="coerce").fillna(0)
     df["Sentiment"] = pd.to_numeric(df["Sentiment"], errors="coerce")
-    df = df[["COUNTRY", "iso3", "Total", "Sentiment", "Support GSI", "US ally1", "China_ally"]]
+    if "ShareNeg" not in df.columns:
+        df["ShareNeg"] = None
+    df["ShareNeg"] = pd.to_numeric(df["ShareNeg"], errors="coerce")
+    df = df[["COUNTRY", "iso3", "Total", "Sentiment", "ShareNeg", "Support GSI", "US ally1", "China_ally"]]
     df = df.rename(columns={"COUNTRY": "country", "Total": "mentions",
                             "Sentiment": "mean_sentiment",
+                            "ShareNeg": "share_negative",
                             "Support GSI": "support_gsi",
                             "US ally1": "US_ally",
                             "China_ally": "China_ally"})
     df["mean_sentiment"] = df["mean_sentiment"].round(4)
+    df["share_negative"] = df["share_negative"].round(4)
     df = df.where(pd.notnull(df), None)
     return json.loads(df.to_json(orient="records"))
 

@@ -13,7 +13,7 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-<link rel="stylesheet" href="css/styles.css?v=20260624f">
+<link rel="stylesheet" href="css/styles.css?v=20260624g">
 </head>
 <body data-section="media">
 
@@ -35,8 +35,8 @@
 <!-- COUNTRY MAP (now first) -->
 <section id="ctymap"><div class="container">
   <div class="kicker">Country focus · 国别提及</div>
-  <h2>Mentions and sentiment by country<span class="zh">各国提及次数与情感</span></h2>
-  <p class="lead">For each country that gets at least 25 mentions in the GSI corpus, the map shows either the volume of mentions or the mean sentiment. Hover for both; click to open the country profile.</p>
+  <h2>Mentions and negativity by country<span class="zh">各国提及次数与负面比例</span></h2>
+  <p class="lead">For each country mentioned at least 25 times in the GSI corpus, the map shows either the volume of mentions or the <strong>share of sentences that are negative</strong> — a clearer signal than the mean, which is compressed because Chinese state media is uniformly positive in tone. Negativity tracks conflict and rivalry: Iraq, Syria, Afghanistan and Ukraine are highest. Hover for both; click to open the country profile.</p>
 
   <div class="card chart-card" style="margin-top:1.1rem">
     <div class="ctrl-row">
@@ -44,7 +44,7 @@
         <div class="ctrl-label">Colour by</div>
         <div class="toggle" id="cmap-mode">
           <button data-mode="mentions" class="on">Mentions (volume)</button>
-          <button data-mode="sentiment">Mean sentiment</button>
+          <button data-mode="shareneg">% negative</button>
         </div>
       </div>
       <span style="font-family:Inter,sans-serif;font-size:.78rem;color:var(--muted);margin-left:auto">Only countries with ≥25 mentions are shaded.</span>
@@ -58,13 +58,14 @@
 <section id="quarterly"><div class="container">
   <div class="kicker">Time series · 时间序列</div>
   <h2>The GSI in state propaganda over time<span class="zh">按对象的季度情感</span></h2>
-  <p class="lead">Quarterly coverage of the GSI. Toggle between sentiment (mean sentence-level score) and article count. The chart opens on the <strong>actor</strong> lines; click any chip below to add a series — including sentiment and volume toward <strong>authoritarian vs democratic</strong> regimes and <strong>US allies vs non-allies</strong> (by the countries each sentence references), or the two GSI doctrine phrases (<em>indivisible security</em>, <em>legitimate security concerns</em>). Click an active chip again to remove it.</p>
+  <p class="lead">Quarterly coverage of the GSI. The <strong>Metric</strong> toggle switches between <strong>% negative</strong> (the share of sentences that are negative — the clearest, most variable signal), <strong>mean sentiment</strong> (the raw Bing score, compressed and mostly positive), and <strong>article count</strong>. The chart opens on the <strong>actor</strong> lines; click any chip below to add a series — including coverage toward <strong>authoritarian vs democratic</strong> regimes and <strong>US allies vs non-allies</strong> (by the countries each sentence references), or the two GSI doctrine phrases (<em>indivisible security</em>, <em>legitimate security concerns</em>). Click an active chip again to remove it.</p>
   <div class="card chart-card" style="margin-top:1.1rem">
     <div class="ctrl-row" style="flex-wrap:wrap;gap:.75rem">
       <div>
         <div class="ctrl-label">Metric</div>
         <div class="toggle" id="metric-toggle">
-          <button data-metric="sentiment" class="on">Sentiment</button>
+          <button data-metric="shareneg" class="on">% negative</button>
+          <button data-metric="sentiment">Mean sentiment</button>
           <button data-metric="articles">Article count</button>
         </div>
       </div>
@@ -80,7 +81,7 @@
     <div class="ctrl-label" style="margin-top:.5rem">Series — click to show / hide</div>
     <div id="series-chips" class="series-chips"></div>
     <div class="chart-wrap tall"><canvas id="quarterly-chart"></canvas></div>
-    <p class="chart-note" id="quarterly-note">Sentiment = (positive − negative opinion-lexicon words) ÷ sentence length (Bing/Liu lexicon). Range roughly −1 to +1; 0 is neutral.</p>
+    <p class="chart-note" id="quarterly-note">Share of sentences with negative sentiment (Bing score &lt; 0). Higher = more critical coverage.</p>
   </div>
 </div></section>
 
@@ -146,9 +147,9 @@
 <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
 <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
 <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
-<script src="js/shared.js?v=20260624f"></script>
-<script src="js/chart-builder.js?v=20260624f"></script>
-<script src="js/media.js?v=20260624f"></script>
+<script src="js/shared.js?v=20260624g"></script>
+<script src="js/chart-builder.js?v=20260624g"></script>
+<script src="js/media.js?v=20260624g"></script>
 <script>
 document.getElementById('nav-container').innerHTML = GSI.navHTML('media.html');
 document.dispatchEvent(new Event('DOMContentLoaded'));
@@ -170,6 +171,7 @@ GSI.initMethodsDrawer(`
 
   <h4>Sentiment scoring</h4>
   <p>Sentence-level lexicon score: (positive − negative opinion words) ÷ number of content words, using the Bing/Liu opinion lexicon. The whole corpus (2022–2026) is scored with this one method for consistency. Range roughly −1 to +1; 0 is neutral.</p>
+  <p><strong>Two views.</strong> Because the score divides by sentence length and Chinese state media is uniformly positive in tone, the <em>mean</em> score is small and clusters near zero (most country means sit between +0.03 and +0.07). The <strong>share of negative sentences</strong> (the % of sentences scoring below 0) is far more variable and interpretable, so it is the default for both the map and the time series — USA/NATO ≈ 40% negative vs ≈ 6% for Global South groups; the mean is offered alongside for reference.</p>
 
   <h4>Country-level map</h4>
   <p>The "Mentions and sentiment by country" map only shades countries with ≥25 mentions across the corpus, to keep noisy single-mention countries from dominating the colour scale.</p>
