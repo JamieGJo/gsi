@@ -13,7 +13,7 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-<link rel="stylesheet" href="css/styles.css?v=20260624a">
+<link rel="stylesheet" href="css/styles.css?v=20260624b">
 </head>
 <body data-section="media">
 
@@ -58,7 +58,7 @@
 <section id="quarterly"><div class="container">
   <div class="kicker">Time series · 时间序列</div>
   <h2>The GSI in state propaganda over time<span class="zh">按对象的季度情感</span></h2>
-  <p class="lead">Quarterly coverage of the GSI by source group. Toggle between sentiment (mean sentence-level score) and article count. Click a series in the legend to hide it.</p>
+  <p class="lead">Quarterly coverage of the GSI by source group. Toggle between sentiment (mean sentence-level score) and article count. Click a series in the legend to hide it. The two dashed lines track China's signature GSI doctrine phrases — <em>indivisible security</em> and <em>legitimate security concerns</em> — wherever they appear in the corpus.</p>
   <div class="card chart-card" style="margin-top:1.1rem">
     <div class="ctrl-row" style="flex-wrap:wrap;gap:.75rem">
       <div>
@@ -143,9 +143,9 @@
 <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
 <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
 <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
-<script src="js/shared.js?v=20260624a"></script>
-<script src="js/chart-builder.js?v=20260624a"></script>
-<script src="js/media.js?v=20260624a"></script>
+<script src="js/shared.js?v=20260624b"></script>
+<script src="js/chart-builder.js?v=20260624b"></script>
+<script src="js/media.js?v=20260624b"></script>
 <script>
 document.getElementById('nav-container').innerHTML = GSI.navHTML('media.html');
 document.dispatchEvent(new Event('DOMContentLoaded'));
@@ -156,6 +156,9 @@ GSI.initMethodsDrawer(`
 
   <h4>Source-group tagging</h4>
   <p>Each sentence is tagged with one regional class based on which countries / organisations it references: USA/NATO, UN, ASEAN, BRICS, SCO, EU, AU.</p>
+
+  <h4>Doctrinal-phrase lines</h4>
+  <p>The two dashed lines on the time series count sentences containing China's signature GSI formulations: <em>indivisible security</em> (security as indivisible) and <em>legitimate security concerns</em> (the corpus never uses "interests"). These are matched directly in the sentence text and are independent of the regional tagging — a sentence may belong to a region <em>and</em> a phrase. Both are heavily front-loaded to the GSI's 2022 launch.</p>
 
   <h4>Sentiment scoring</h4>
   <p>VADER-style compound score, calibrated for Chinese state-media English-language output. Sentence-level. Range roughly −1 to +1; 0 is neutral.</p>

@@ -22,6 +22,18 @@ SIGNING_XLSX = PROJ_WEB / "Website (filled).xlsx"
 MEDIA_XLSX = PROJ_WEB / "GSI_media website.xlsx"
 EXP_XLSX = PROJ_WEB / "China_Security_and_Surveillance_Dataset website.xlsx"
 
+# Sentence-level media corpus (source of truth for the quarterly time series)
+MEDIA_SENT_DIR = Path("/Users/jamiegruffydd-jones/Documents/Documents - Jamie MacBook Air/Projects/GSI/data/Media/GSI/extracted")
+
+# GSI doctrinal phrases tracked as their own lines on the quarterly chart.
+# (regex, display label) — matched case-insensitively on the raw Sentence text.
+# NB: the corpus says "legitimate security concerns" (43 sentences), never
+# "legitimate security interests" (0). "concerns" is the canonical GSI phrasing.
+MEDIA_PHRASES = [
+    (r"indivisible",          "Indivisible security"),
+    (r"legitimate security",  "Legitimate security concerns"),
+]
+
 CLG = Path("/Users/jamiegruffydd-jones/Documents/Documents - Jamie MacBook Air/Projects/GSI/data/Security/security/data/AidData_CLG_security_coded.xlsx")
 WORLD_SRC = Path("/Users/jamiegruffydd-jones/Documents/Documents - Jamie MacBook Air/Projects/International order/websites/chinamfa/data/world.geojson")
 
@@ -181,9 +193,55 @@ def build_signings(name_map):
 
 
 # ---- Media (from GSI_media website.xlsx) ------------------------------
+def _load_media_sentences():
+    """Combined MFA + Xinhua sentence-level corpus with a quarter column.
+    Source of truth for the quarterly time series; reproduces the
+    'sent by source x quarter' sheet exactly and lets us add article
+    counts and doctrinal-phrase lines."""
+    mfa = pd.read_csv(MEDIA_SENT_DIR / "MFAsentence.csv"); mfa["publication"] = "MFA"
+    xin = pd.read_csv(MEDIA_SENT_DIR / "Xinhuasentence.csv"); xin["publication"] = "Xinhua"
+    df = pd.concat([mfa, xin], ignore_index=True)
+    df["quarter"] = pd.to_datetime(df["Date"], errors="coerce").dt.to_period("Q").astype(str)
+    return df
+
+
+def _agg_quarter(sub, source_label):
+    """Aggregate a sentence subset to source × quarter × publication rows,
+    plus a publication='both' combined row. n_articles = distinct Article_ID."""
+    out = []
+    for pub_label, frame in [("MFA", sub[sub.publication == "MFA"]),
+                             ("Xinhua", sub[sub.publication == "Xinhua"]),
+                             ("both", sub)]:
+        g = (frame.groupby("quarter")
+             .agg(n_sentences=("sent_score", "size"),
+                  mean_sent=("sent_score", "mean"),
+                  n_articles=("Article_ID", "nunique"))
+             .reset_index())
+        g["source"] = source_label
+        g["publication"] = pub_label
+        g["mean_sent"] = g["mean_sent"].round(4)
+        g["n_sentences"] = g["n_sentences"].astype(int)
+        g["n_articles"] = g["n_articles"].astype(int)
+        out.append(g)
+    return pd.concat(out, ignore_index=True) if out else pd.DataFrame()
+
+
 def build_media_quarterly():
-    sxq = pd.read_excel(MEDIA_XLSX, sheet_name="sent by source x quarter")
-    return json.loads(sxq.where(pd.notnull(sxq), None).to_json(orient="records"))
+    df = _load_media_sentences()
+    parts = []
+    # Regional source-group lines (one tagged source per sentence)
+    for src in sorted(df["source"].dropna().unique()):
+        parts.append(_agg_quarter(df[df["source"] == src], src))
+    # Corpus-wide 'All articles' line
+    parts.append(_agg_quarter(df, "All articles"))
+    # GSI doctrinal-phrase lines (a sentence may match more than one)
+    for pat, label in MEDIA_PHRASES:
+        sub = df[df["Sentence"].str.contains(pat, case=False, na=False, regex=True)]
+        if len(sub):
+            parts.append(_agg_quarter(sub, label))
+    out = pd.concat(parts, ignore_index=True)
+    out = out[["source", "publication", "quarter", "n_sentences", "mean_sent", "n_articles"]]
+    return json.loads(out.where(pd.notnull(out), None).to_json(orient="records"))
 
 
 def build_media_by_source():

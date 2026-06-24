@@ -8,8 +8,16 @@ const SOURCE_COLORS = {
   'BRICS':    '#B8651D',   // copper
   'SCO':      '#7D3C98',   // purple
   'EU':       '#16A085',   // teal
-  'AU':       '#D4AC0D'    // gold
+  'AU':       '#D4AC0D',   // gold
+  // GSI doctrinal phrases (drawn dashed, set apart from the audience groups)
+  'Indivisible security':         '#E91E63',  // magenta
+  'Legitimate security concerns': '#455A64'   // slate
 };
+
+// Audience source groups (the atomic, mutually-exclusive tagging units).
+const REGIONAL_SOURCES = ['USA/NATO', 'UN', 'ASEAN', 'BRICS', 'SCO', 'EU', 'AU'];
+// Doctrinal-phrase lines — tracked as their own series, styled differently.
+const PHRASE_SOURCES = ['Indivisible security', 'Legitimate security concerns'];
 
 (async function init() {
   const [quarterly, bySource, byCountry, articles, world] = await Promise.all([
@@ -30,7 +38,11 @@ const SOURCE_COLORS = {
 
 function initStats(quarterly, bySource, articles) {
   document.getElementById('s-articles').textContent = articles.length.toLocaleString();
-  const totalSent = quarterly.reduce((a, r) => a + (r.n_sentences || 0), 0);
+  // Sum only the atomic rows (regional groups × MFA/Xinhua); the 'both',
+  // 'All articles' and phrase rows are derived overlaps and would inflate it.
+  const totalSent = quarterly
+    .filter(r => REGIONAL_SOURCES.includes(r.source) && r.publication !== 'both')
+    .reduce((a, r) => a + (r.n_sentences || 0), 0);
   document.getElementById('s-sentences').textContent = totalSent.toLocaleString();
   const byGroup = {};
   bySource.forEach(r => {
@@ -63,20 +75,27 @@ function initQuarterlyChart(quarterly) {
   function draw() {
     const isSent = qMetric === 'sentiment';
     const quarters = [...new Set(quarterly.map(r => r.quarter))].sort();
-    // sources: exclude the 'All articles' sentinel rows (those are drawn separately)
-    const sources = [...new Set(quarterly.filter(r => r.source !== 'All articles').map(r => r.source))];
+    // sources: audience groups first, then doctrinal-phrase lines; the
+    // 'All articles' sentinel is drawn separately below.
+    const present = new Set(quarterly.map(r => r.source));
+    const sources = [...REGIONAL_SOURCES, ...PHRASE_SOURCES].filter(s => present.has(s));
 
     const datasets = sources.map(src => {
       const vals = quarters.map(q => {
         const r = quarterly.find(x => x.source === src && x.quarter === q && x.publication === qPub);
         return r ? (isSent ? r.mean_sent : r.n_articles) : null;
       });
+      const isPhrase = PHRASE_SOURCES.includes(src);
       return {
         label: src,
         data: vals,
         borderColor: SOURCE_COLORS[src] || '#888',
         backgroundColor: SOURCE_COLORS[src] || '#888',
-        tension: 0.2, spanGaps: true, pointRadius: 3, fill: false, borderWidth: 2.2
+        tension: 0.2, spanGaps: true, fill: false,
+        pointRadius: isPhrase ? 4 : 3,
+        pointStyle: isPhrase ? 'triangle' : 'circle',
+        borderDash: isPhrase ? [5, 3] : [],
+        borderWidth: isPhrase ? 2.6 : 2.2
       };
     });
 
@@ -356,14 +375,18 @@ function initArticlesSearch(articles) {
 
 // ---- BUILDER ----
 function initBuilder(quarterly) {
-  // Cast quarter to string so Vega treats it ordinally
-  const data = quarterly.map(r => ({
-    source: r.source,
-    publication: r.publication,
-    quarter: '' + r.quarter,
-    n_sentences: r.n_sentences || 0,
-    mean_sent: r.mean_sent
-  }));
+  // Only the atomic rows: regional source groups × MFA/Xinhua. Exclude the
+  // derived overlapping rows (publication 'both', 'All articles' totals, and
+  // the doctrinal-phrase lines) so aggregations don't double-count.
+  const data = quarterly
+    .filter(r => REGIONAL_SOURCES.includes(r.source) && r.publication !== 'both')
+    .map(r => ({
+      source: r.source,
+      publication: r.publication,
+      quarter: '' + r.quarter,
+      n_sentences: r.n_sentences || 0,
+      mean_sent: r.mean_sent
+    }));
   GSI.initChartBuilder({
     mount: 'media-builder',
     data,
