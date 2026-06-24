@@ -158,7 +158,9 @@ function initQuarterlyChart(quarterly) {
         scales: {
           y: {
             title: { display: true, text: yLabel },
-            ...(isSent ? { suggestedMin: -0.3, suggestedMax: 0.3 } : { beginAtZero: true })
+            // auto-fit to the visible series (Bing-ratio sentiment lives in a
+            // narrow band ~−0.05..+0.10); a fixed wide range would look flat
+            ...(isSent ? { grace: '12%' } : { beginAtZero: true })
           }
         },
         plugins: {
@@ -175,24 +177,23 @@ function initQuarterlyChart(quarterly) {
 }
 
 // ---- COUNTRY MAP ----
-let cmapState = { layer: null, mode: 'mentions', byIso3: {}, maxMentions: 1, sentMin: -0.3, sentMax: 0.5 };
+let cmapState = { layer: null, mode: 'mentions', byIso3: {}, maxMentions: 1, sentMid: 0.05, sentHalf: 0.025 };
 
 function isoOf(feature) {
   const p = feature.properties;
   return p['ISO3166-1-Alpha-3'] || p.iso_a3 || p.ISO_A3 || p.adm0_a3;
 }
 
+// Sentiment shading is RELATIVE to the corpus median (all groups are net-positive
+// on the Bing lexicon ratio, so a zero-centred scale would render everything the
+// same pale green). Amber = cooler than China's typical tone, teal = warmer.
+const SENT_WARM = [[244, 236, 222], [233, 201, 140], [201, 152, 66], [150, 103, 33]];
+const SENT_COOL = [[244, 236, 222], [126, 178, 162], [47, 96, 99], [16, 51, 53]];
 function sentColor(v) {
   if (v == null) return '#F4ECDE';
-  // higher-contrast diverging palette
-  if (v < 0) {
-    const t = Math.min(1, Math.abs(v) / 0.25);
-    const stops = [[244, 236, 222], [222, 145, 116], [184, 53, 30], [110, 18, 10]];
-    return interp(stops, t);
-  }
-  const t = Math.min(1, v / 0.45);
-  const stops = [[244, 236, 222], [126, 178, 162], [47, 96, 99], [16, 51, 53]];
-  return interp(stops, t);
+  const mid = cmapState.sentMid, half = cmapState.sentHalf || 0.02;
+  if (v < mid) return interp(SENT_WARM, Math.min(1, (mid - v) / half));
+  return interp(SENT_COOL, Math.min(1, (v - mid) / half));
 }
 function mentionColor(v, max) {
   if (!v) return '#F4ECDE';
@@ -216,6 +217,13 @@ function initCountryMap(world, byCountry) {
   const m = {}; byCountry.forEach(r => { m[r.iso3] = r; });
   cmapState.byIso3 = m;
   cmapState.maxMentions = Math.max(...byCountry.map(r => r.mentions || 0), 1);
+  // data-driven sentiment domain: centre on the median, half-window = p10..p90
+  const sv = byCountry.map(r => r.mean_sentiment).filter(v => v != null).sort((a, b) => a - b);
+  if (sv.length) {
+    const q = p => sv[Math.min(sv.length - 1, Math.max(0, Math.round(p * (sv.length - 1))))];
+    cmapState.sentMid = q(0.5);
+    cmapState.sentHalf = Math.max(q(0.9) - cmapState.sentMid, cmapState.sentMid - q(0.1), 0.012);
+  }
 
   const map = L.map('cmap-canvas', { scrollWheelZoom: false }).setView([20, 0], 2);
   L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
@@ -274,10 +282,11 @@ function initCountryMap(world, byCountry) {
         `<span class="swatch"><i style="background:${mentionColor(v, m)}"></i> ${v === 0 ? '<25' : Math.round(v).toLocaleString()}</span>`
       ).join('') + '<span style="color:#5C6470">· log scale, mentions in GSI corpus</span>';
     } else {
-      const stops = [-0.25, -0.1, 0, 0.15, 0.45];
+      const mid = cmapState.sentMid, half = cmapState.sentHalf;
+      const stops = [mid - half, mid - half / 2, mid, mid + half / 2, mid + half];
       lg.innerHTML = stops.map(v =>
-        `<span class="swatch"><i style="background:${sentColor(v)}"></i> ${v.toFixed(2)}</span>`
-      ).join('') + '<span style="color:#5C6470">· mean sentence sentiment, −0.25…+0.45</span>';
+        `<span class="swatch"><i style="background:${sentColor(v)}"></i> ${v.toFixed(3)}</span>`
+      ).join('') + `<span style="color:#5C6470">· mean sentiment, shaded vs corpus median ${mid.toFixed(2)} (all groups net-positive)</span>`;
     }
   }
 }
@@ -313,7 +322,7 @@ function initBySourceChart(bySource) {
       responsive: true, maintainAspectRatio: false,
       scales: {
         y: { position: 'left', title: { display: true, text: 'Sentence volume' } },
-        y1: { position: 'right', title: { display: true, text: 'Mean sentiment' }, grid: { drawOnChartArea: false }, suggestedMin: -0.1, suggestedMax: 0.25 }
+        y1: { position: 'right', title: { display: true, text: 'Mean sentiment' }, grid: { drawOnChartArea: false }, suggestedMin: -0.04, suggestedMax: 0.12 }
       },
       plugins: { legend: { position: 'bottom', labels: { font: { family: 'Inter' } } } }
     }
