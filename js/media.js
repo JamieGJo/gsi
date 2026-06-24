@@ -1,7 +1,8 @@
 // media.js — Media sentiment page
 
-// Brighter, more distinct palette for the quarterly source-group lines
+// Brighter, more distinct palette for the quarterly series
 const SOURCE_COLORS = {
+  'All articles': '#1B2733',  // near-black corpus line
   'USA/NATO': '#C0392B',   // strong red
   'UN':       '#2E5984',   // navy
   'ASEAN':    '#2F6063',   // jade
@@ -9,15 +10,37 @@ const SOURCE_COLORS = {
   'SCO':      '#7D3C98',   // purple
   'EU':       '#16A085',   // teal
   'AU':       '#D4AC0D',   // gold
-  // GSI doctrinal phrases (drawn dashed, set apart from the audience groups)
-  'Indivisible security':         '#E91E63',  // magenta
-  'Legitimate security concerns': '#455A64'   // slate
+  // regime / alliance lines (country-tagged; drawn dotted)
+  'Authoritarian': '#922B21', 'Democratic': '#1A5276',
+  'US ally':       '#0E6655', 'Non-ally':   '#7E5109',
+  // GSI doctrinal phrases (drawn dashed)
+  'Indivisible security':         '#E91E63',
+  'Legitimate security concerns': '#455A64'
 };
 
-// Audience source groups (the atomic, mutually-exclusive tagging units).
+// Audience source groups (the atomic tagging units).
 const REGIONAL_SOURCES = ['USA/NATO', 'UN', 'ASEAN', 'BRICS', 'SCO', 'EU', 'AU'];
-// Doctrinal-phrase lines — tracked as their own series, styled differently.
+// Regime / alliance categories (country-tagged, V-Dem + RAND).
+const REGIME_SERIES = ['Authoritarian', 'Democratic', 'US ally', 'Non-ally'];
+// Doctrinal-phrase lines.
 const PHRASE_SOURCES = ['Indivisible security', 'Legitimate security concerns'];
+
+// The three selectable rows of series. Row 1 (actors) is the default cover.
+const ACTOR_SERIES = ['All articles', ...REGIONAL_SOURCES];
+const SERIES_ROWS = [
+  { label: 'Actors', items: ACTOR_SERIES },
+  { label: 'Regime &amp; alliance', items: REGIME_SERIES },
+  { label: 'GSI doctrine', items: PHRASE_SOURCES }
+];
+const CHIP_LABEL = { 'All articles': 'All' };   // short chip text
+
+function seriesStyle(label) {
+  const color = SOURCE_COLORS[label] || '#888';
+  if (label === 'All articles')        return { color, dash: [6, 4], width: 2.6, point: 'rectRot', r: 4, order: 0 };
+  if (REGIME_SERIES.includes(label))   return { color, dash: [2, 2], width: 2.4, point: 'rect',    r: 3, order: 1 };
+  if (PHRASE_SOURCES.includes(label))  return { color, dash: [5, 3], width: 2.6, point: 'triangle', r: 4, order: 1 };
+  return { color, dash: [], width: 2.2, point: 'circle', r: 3, order: 2 };   // regional actors
+}
 
 (async function init() {
   const [quarterly, bySource, byCountry, articles, world] = await Promise.all([
@@ -57,7 +80,12 @@ function initStats(quarterly, bySource, articles) {
 
 // ---- QUARTERLY ----
 let qChart = null, qPub = 'MFA', qMetric = 'sentiment';
+// the chart starts on its "cover" — only the first row (actors) is shown;
+// readers click chips in the other rows to ADD those series.
+let qVisible = new Set(ACTOR_SERIES);
+
 function initQuarterlyChart(quarterly) {
+  buildChips(quarterly);
   draw();
   document.querySelectorAll('#pub-toggle button').forEach(b => {
     b.addEventListener('click', () => {
@@ -72,51 +100,54 @@ function initQuarterlyChart(quarterly) {
     });
   });
 
+  // Build the three rows of selectable series chips.
+  function buildChips(quarterly) {
+    const present = new Set(quarterly.map(r => r.source));
+    const mount = document.getElementById('series-chips');
+    if (!mount) return;
+    mount.innerHTML = SERIES_ROWS.map(row => {
+      const chips = row.items.filter(it => present.has(it)).map(it => {
+        const st = seriesStyle(it);
+        const on = qVisible.has(it) ? ' on' : '';
+        return `<button class="series-chip${on}" data-series="${it}" style="--c:${st.color}">${CHIP_LABEL[it] || it}</button>`;
+      }).join('');
+      return `<div class="series-row"><span class="series-row-label">${row.label}</span>` +
+             `<div class="series-row-chips">${chips}</div></div>`;
+    }).join('');
+    mount.querySelectorAll('.series-chip').forEach(b => {
+      b.addEventListener('click', () => {
+        const s = b.dataset.series;
+        if (qVisible.has(s)) qVisible.delete(s); else qVisible.add(s);
+        b.classList.toggle('on');
+        draw();
+      });
+    });
+  }
+
   function draw() {
     const isSent = qMetric === 'sentiment';
     const quarters = [...new Set(quarterly.map(r => r.quarter))].sort();
-    // sources: audience groups first, then doctrinal-phrase lines; the
-    // 'All articles' sentinel is drawn separately below.
-    const present = new Set(quarterly.map(r => r.source));
-    const sources = [...REGIONAL_SOURCES, ...PHRASE_SOURCES].filter(s => present.has(s));
-
-    const datasets = sources.map(src => {
+    const order = [...ACTOR_SERIES, ...REGIME_SERIES, ...PHRASE_SOURCES].filter(l => qVisible.has(l));
+    const datasets = order.map(label => {
       const vals = quarters.map(q => {
-        const r = quarterly.find(x => x.source === src && x.quarter === q && x.publication === qPub);
+        const r = quarterly.find(x => x.source === label && x.quarter === q && x.publication === qPub);
         return r ? (isSent ? r.mean_sent : r.n_articles) : null;
       });
-      const isPhrase = PHRASE_SOURCES.includes(src);
+      const st = seriesStyle(label);
       return {
-        label: src,
-        data: vals,
-        borderColor: SOURCE_COLORS[src] || '#888',
-        backgroundColor: SOURCE_COLORS[src] || '#888',
-        tension: 0.2, spanGaps: true, fill: false,
-        pointRadius: isPhrase ? 4 : 3,
-        pointStyle: isPhrase ? 'triangle' : 'circle',
-        borderDash: isPhrase ? [5, 3] : [],
-        borderWidth: isPhrase ? 2.6 : 2.2
+        label, data: vals,
+        borderColor: st.color, backgroundColor: st.color,
+        borderDash: st.dash, borderWidth: st.width,
+        pointStyle: st.point, pointRadius: st.r, order: st.order,
+        tension: 0.2, spanGaps: true, fill: false
       };
-    });
-
-    // "All articles" total line
-    const allVals = quarters.map(q => {
-      const r = quarterly.find(x => x.source === 'All articles' && x.quarter === q && x.publication === qPub);
-      return r ? (isSent ? r.mean_sent : r.n_articles) : null;
-    });
-    datasets.push({
-      label: 'All articles',
-      data: allVals,
-      borderColor: '#000', backgroundColor: '#000',
-      borderWidth: 2.5, borderDash: [6, 4], tension: 0.2, spanGaps: true,
-      pointRadius: 4, pointStyle: 'rectRot', fill: false, order: 0
     });
 
     const yLabel = isSent ? 'Mean sentence sentiment' : 'Number of articles';
     const noteEl = document.getElementById('quarterly-note');
     if (noteEl) noteEl.textContent = isSent
       ? 'Sentiment = (positive − negative opinion-lexicon words) ÷ sentence length (Bing/Liu lexicon). Range roughly −1 to +1; 0 is neutral.'
-      : 'Number of distinct articles per quarter containing sentences tagged to each source group. An article may appear in multiple groups.';
+      : 'Number of distinct articles per quarter in each series. An article can appear in more than one series.';
 
     if (qChart) qChart.destroy();
     qChart = new Chart(document.getElementById('quarterly-chart'), {
@@ -131,7 +162,7 @@ function initQuarterlyChart(quarterly) {
           }
         },
         plugins: {
-          legend: { position: 'bottom', labels: { font: { family: 'Inter' }, usePointStyle: true } },
+          legend: { display: false },   // the chip rows are the legend
           tooltip: {
             callbacks: {
               label: c => `${c.dataset.label}: ${c.parsed.y == null ? '—' : isSent ? c.parsed.y.toFixed(3) : c.parsed.y}`

@@ -13,7 +13,7 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-<link rel="stylesheet" href="css/styles.css?v=20260624d">
+<link rel="stylesheet" href="css/styles.css?v=20260624e">
 </head>
 <body data-section="media">
 
@@ -58,7 +58,7 @@
 <section id="quarterly"><div class="container">
   <div class="kicker">Time series · 时间序列</div>
   <h2>The GSI in state propaganda over time<span class="zh">按对象的季度情感</span></h2>
-  <p class="lead">Quarterly coverage of the GSI by source group. Toggle between sentiment (mean sentence-level score) and article count. Click a series in the legend to hide it. The two dashed lines track China's signature GSI doctrine phrases — <em>indivisible security</em> and <em>legitimate security concerns</em> — wherever they appear in the corpus.</p>
+  <p class="lead">Quarterly coverage of the GSI. Toggle between sentiment (mean sentence-level score) and article count. The chart opens on the <strong>actor</strong> lines; click any chip below to add a series — including sentiment and volume toward <strong>authoritarian vs democratic</strong> regimes and <strong>US allies vs non-allies</strong> (by the countries each sentence references), or the two GSI doctrine phrases (<em>indivisible security</em>, <em>legitimate security concerns</em>). Click an active chip again to remove it.</p>
   <div class="card chart-card" style="margin-top:1.1rem">
     <div class="ctrl-row" style="flex-wrap:wrap;gap:.75rem">
       <div>
@@ -77,6 +77,8 @@
         </div>
       </div>
     </div>
+    <div class="ctrl-label" style="margin-top:.5rem">Series — click to show / hide</div>
+    <div id="series-chips" class="series-chips"></div>
     <div class="chart-wrap tall"><canvas id="quarterly-chart"></canvas></div>
     <p class="chart-note" id="quarterly-note">Sentiment = (positive − negative opinion-lexicon words) ÷ sentence length (Bing/Liu lexicon). Range roughly −1 to +1; 0 is neutral.</p>
   </div>
@@ -137,15 +139,16 @@
 <footer><div class="container">
   <div>Compiled by <a href="https://www.jamiegj.com">Jamie Gruffydd-Jones</a> · <a href="methods.html">Methods</a> · <a href="index.html">Overview</a></div>
   <div class="credit">Data sourced and coded by Jamie Gruffydd-Jones, Thom Vigor, Edinson Tolentino Raymondi, and Zhao Weize. Expenditure data from <a href="https://www.aiddata.org/" target="_blank" rel="noopener">https://www.aiddata.org/</a>.</div>
+  <div class="credit">Support for some of this work was also provided by the UKRI Economic and Social Research Council (<a href="https://gtr.ukri.org/projects?ref=ES%2FY005341%2F1" target="_blank" rel="noopener">ES/Y005341/1</a>).</div>
   <div class="build">Media v1.2 · 2026-06-24 (extended to 2026-06; Bing re-scored; deduped)</div>
 </div></footer>
 
 <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
 <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
 <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
-<script src="js/shared.js?v=20260624d"></script>
-<script src="js/chart-builder.js?v=20260624d"></script>
-<script src="js/media.js?v=20260624d"></script>
+<script src="js/shared.js?v=20260624e"></script>
+<script src="js/chart-builder.js?v=20260624e"></script>
+<script src="js/media.js?v=20260624e"></script>
 <script>
 document.getElementById('nav-container').innerHTML = GSI.navHTML('media.html');
 document.dispatchEvent(new Event('DOMContentLoaded'));

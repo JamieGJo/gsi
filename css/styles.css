@@ -55,6 +55,16 @@ h2 .zh{display:block;font-size:1rem;font-weight:600;color:var(--muted);margin-to
 .hero .meta{font-family:'Inter',sans-serif;font-size:.78rem;color:#9fb0c6;margin-top:1rem}
 .hero .citation{font-family:'Inter',sans-serif;font-size:.8rem;color:#9fb0c6;max-width:72ch;margin-top:.6rem;line-height:1.5}
 
+/* ---- quarterly series selector chips ---- */
+.series-chips{display:flex;flex-direction:column;gap:.4rem;margin:.35rem 0 .3rem}
+.series-row{display:flex;align-items:flex-start;gap:.6rem;flex-wrap:wrap}
+.series-row-label{font-family:'Inter',sans-serif;font-size:.7rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);min-width:118px;padding-top:.28rem}
+.series-row-chips{display:flex;gap:.35rem;flex-wrap:wrap;flex:1}
+.series-chip{font-family:'Inter',sans-serif;font-size:.78rem;line-height:1;padding:.28rem .6rem;border-radius:999px;border:1.5px solid var(--c);background:transparent;color:var(--c);cursor:pointer;opacity:.5;transition:opacity .12s,background .12s,color .12s}
+.series-chip:hover{opacity:.85}
+.series-chip.on{background:var(--c);color:#fff;opacity:1}
+@media(max-width:640px){.series-row-label{min-width:100%;padding-top:0}}
+
 /* ---- stat cards (in hero) ---- */
 .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-top:1.8rem;position:relative}
 .stat{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.13);border-radius:10px;padding:1rem 1.1rem;border-left:3px solid var(--accent)}

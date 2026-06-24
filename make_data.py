@@ -7,6 +7,7 @@ lean JSON to ./data/. Run after any update to the source files.
 """
 from pathlib import Path
 import json
+import re
 import shutil
 from datetime import datetime
 import pandas as pd
@@ -226,17 +227,77 @@ def _agg_quarter(sub, source_label):
     return pd.concat(out, ignore_index=True) if out else pd.DataFrame()
 
 
-def build_media_quarterly():
-    df = _load_media_sentences()
+# ---- regime / alliance time-series (country-tagged) -------------------
+_COUNTRY_PATTERNS = None
+def _country_patterns():
+    """The 171-country regex map maintained for the V-Dem charts (parsed
+    without importing the module, which pulls in matplotlib)."""
+    global _COUNTRY_PATTERNS
+    if _COUNTRY_PATTERNS is None:
+        import ast
+        p = Path("/Users/jamiegruffydd-jones/Documents/Documents - Jamie MacBook Air/"
+                 "Projects/GSI/data/Security/security/scripts/gsi_media_sentiment_charts.py")
+        m = re.search(r"COUNTRY_PATTERNS\s*=\s*(\{.*?\n\})", p.read_text(), re.S)
+        _COUNTRY_PATTERNS = ast.literal_eval(m.group(1))
+    return _COUNTRY_PATTERNS
+
+
+def _regime_ally_maps(cm):
+    """iso3 -> Authoritarian/Democratic (V-Dem RoW, collapsed) and US ally/Non-ally (RAND)."""
+    AUTH = {"Closed Autocracy", "Electoral Autocracy"}
+    DEM = {"Electoral Democracy", "Liberal Democracy"}
+    iso_regime, iso_ally = {}, {}
+    for _, r in cm.iterrows():
+        lab = r.get("vdem_regime_label")
+        if lab in AUTH:
+            iso_regime[r["iso3"]] = "Authoritarian"
+        elif lab in DEM:
+            iso_regime[r["iso3"]] = "Democratic"
+        iso_ally[r["iso3"]] = "US ally" if r.get("rand_ally") == 1 else "Non-ally"
+    return iso_regime, iso_ally
+
+
+def _regime_ally_parts(uniq, cm):
+    """Country-tag each (unique) sentence, fold to regime/alliance categories,
+    and aggregate each as its own quarterly series. A sentence referencing both
+    an authoritarian and a democratic country contributes to both."""
+    iso_regime, iso_ally = _regime_ally_maps(cm)
+    s = uniq["Sentence"].astype(str)
+    cat_mask = {c: pd.Series(False, index=uniq.index)
+                for c in ("Authoritarian", "Democratic", "US ally", "Non-ally")}
+    for iso, pat in _country_patterns().items():
+        reg, ally = iso_regime.get(iso), iso_ally.get(iso)
+        if not reg and not ally:
+            continue
+        m = s.str.contains(pat, case=False, regex=True, na=False)
+        if reg:
+            cat_mask[reg] = cat_mask[reg] | m
+        if ally:
+            cat_mask[ally] = cat_mask[ally] | m
     parts = []
-    # Regional source-group lines (one tagged source per sentence)
+    for cat, m in cat_mask.items():
+        sub = uniq[m]
+        if len(sub):
+            parts.append(_agg_quarter(sub, cat))
+    return parts
+
+
+def build_media_quarterly(cm):
+    df = _load_media_sentences()
+    # unique sentences (the source column multi-tags a sentence once per group);
+    # corpus / phrase / regime-ally lines must not double-count those rows.
+    uniq = df.drop_duplicates(subset=["Article_ID", "Sentence"])
+    parts = []
+    # Regional source-group lines (one tagged row per referenced group)
     for src in sorted(df["source"].dropna().unique()):
         parts.append(_agg_quarter(df[df["source"] == src], src))
-    # Corpus-wide 'All articles' line
-    parts.append(_agg_quarter(df, "All articles"))
+    # Corpus-wide 'All articles' line (unique sentences)
+    parts.append(_agg_quarter(uniq, "All articles"))
+    # Regime / alliance lines (country-tagged, unique sentences)
+    parts.extend(_regime_ally_parts(uniq, cm))
     # GSI doctrinal-phrase lines (a sentence may match more than one)
     for pat, label in MEDIA_PHRASES:
-        sub = df[df["Sentence"].str.contains(pat, case=False, na=False, regex=True)]
+        sub = uniq[uniq["Sentence"].str.contains(pat, case=False, na=False, regex=True)]
         if len(sub):
             parts.append(_agg_quarter(sub, label))
     out = pd.concat(parts, ignore_index=True)
@@ -348,7 +409,7 @@ def main():
     print(f"  -> {len(signings)} rows")
 
     print("Building media quarterly + by source...")
-    mqx = build_media_quarterly()
+    mqx = build_media_quarterly(cm)
     msrc = build_media_by_source()
     print(f"  -> quarterly: {len(mqx)} rows; by-source: {len(msrc)} rows")
 
