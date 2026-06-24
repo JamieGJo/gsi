@@ -230,7 +230,7 @@ function addHatchPattern(map) {
   pat.setAttribute('width', '7'); pat.setAttribute('height', '7');
   pat.setAttribute('patternTransform', 'rotate(45)');
   const rect = document.createElementNS(NS, 'rect');
-  rect.setAttribute('width', '7'); rect.setAttribute('height', '7'); rect.setAttribute('fill', '#CBC4B4');
+  rect.setAttribute('width', '7'); rect.setAttribute('height', '7'); rect.setAttribute('fill', '#D9D2C4');
   const line = document.createElementNS(NS, 'line');
   line.setAttribute('x1', '0'); line.setAttribute('y1', '0');
   line.setAttribute('x2', '0'); line.setAttribute('y2', '7');
@@ -260,17 +260,16 @@ function initCountryMap(world, byCountry) {
   function style(feature) {
     const iso3 = isoOf(feature);
     const r = cmapState.byIso3[iso3];
-    let fill = '#EFEAE0';
-    if (r && r.mentions) {
-      if (cmapState.mode === 'mentions') {
-        fill = mentionColor(r.mentions, cmapState.mentionEdges);
-      } else {
-        // % negative: shade countries with enough mentions; the rest (mentioned
-        // but < 25) get a white diagonal hatch to mark them as excluded.
-        fill = r.mentions >= SENTIMENT_MIN
-          ? shareNegColor(r.share_negative, cmapState.shareNegMax)
-          : 'url(#hatch-excluded)';
-      }
+    let fill;
+    if (cmapState.mode === 'mentions') {
+      fill = (r && r.mentions) ? mentionColor(r.mentions, cmapState.mentionEdges) : '#EFEAE0';
+    } else {
+      // % negative: only countries with >= 25 mentions are shaded. Everyone else
+      // gets the diagonal hatch — both countries mentioned but < 25 times AND
+      // countries with no GSI mentions at all (e.g. France, DR Congo, China).
+      fill = (r && r.mentions >= SENTIMENT_MIN)
+        ? shareNegColor(r.share_negative, cmapState.shareNegMax)
+        : 'url(#hatch-excluded)';
     }
     return { fillColor: fill, weight: 0.4, opacity: 1, color: '#fff', fillOpacity: 0.95 };
   }
@@ -325,7 +324,7 @@ function initCountryMap(world, byCountry) {
       lg.innerHTML = stops.map(v =>
         `<span class="swatch"><i style="background:${shareNegColor(v, mx)}"></i> ${(v * 100).toFixed(0)}%</span>`
       ).join('')
-        + '<span class="swatch"><i style="background:repeating-linear-gradient(45deg,#CBC4B4 0 2.5px,#fff 2.5px 5px)"></i> &lt;25 — not included</span>'
+        + '<span class="swatch"><i style="background:repeating-linear-gradient(45deg,#D9D2C4 0 2.5px,#fff 2.5px 5px)"></i> &lt;25 — not included</span>'
         + '<span style="color:#5C6470">· share of sentences that are negative (Bing score &lt; 0)</span>';
     }
   }
