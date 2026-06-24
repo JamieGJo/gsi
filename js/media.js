@@ -44,7 +44,7 @@ function initStats(quarterly, bySource, articles) {
 }
 
 // ---- QUARTERLY ----
-let qChart = null, qPub = 'MFA';
+let qChart = null, qPub = 'MFA', qMetric = 'sentiment';
 function initQuarterlyChart(quarterly) {
   draw();
   document.querySelectorAll('#pub-toggle button').forEach(b => {
@@ -53,48 +53,52 @@ function initQuarterlyChart(quarterly) {
       b.classList.add('on'); qPub = b.dataset.pub; draw();
     });
   });
+  document.querySelectorAll('#metric-toggle button').forEach(b => {
+    b.addEventListener('click', () => {
+      document.querySelectorAll('#metric-toggle button').forEach(x => x.classList.remove('on'));
+      b.classList.add('on'); qMetric = b.dataset.metric; draw();
+    });
+  });
+
   function draw() {
+    const isSent = qMetric === 'sentiment';
     const quarters = [...new Set(quarterly.map(r => r.quarter))].sort();
-    const sources = [...new Set(quarterly.map(r => r.source))];
+    // sources: exclude the 'All articles' sentinel rows (those are drawn separately)
+    const sources = [...new Set(quarterly.filter(r => r.source !== 'All articles').map(r => r.source))];
+
     const datasets = sources.map(src => {
-      let rows;
-      if (qPub === 'both') {
-        const byQ = {};
-        quarterly.filter(r => r.source === src).forEach(r => {
-          if (!byQ[r.quarter]) byQ[r.quarter] = { tot: 0, w: 0 };
-          byQ[r.quarter].tot += r.mean_sent * r.n_sentences;
-          byQ[r.quarter].w += r.n_sentences;
-        });
-        rows = quarters.map(q => ({ quarter: q, mean_sent: byQ[q] ? byQ[q].tot / byQ[q].w : null }));
-      } else {
-        rows = quarters.map(q => {
-          const r = quarterly.find(x => x.source === src && x.quarter === q && x.publication === qPub);
-          return { quarter: q, mean_sent: r ? r.mean_sent : null };
-        });
-      }
+      const vals = quarters.map(q => {
+        const r = quarterly.find(x => x.source === src && x.quarter === q && x.publication === qPub);
+        return r ? (isSent ? r.mean_sent : r.n_articles) : null;
+      });
       return {
         label: src,
-        data: rows.map(r => r.mean_sent),
+        data: vals,
         borderColor: SOURCE_COLORS[src] || '#888',
         backgroundColor: SOURCE_COLORS[src] || '#888',
         tension: 0.2, spanGaps: true, pointRadius: 3, fill: false, borderWidth: 2.2
       };
     });
-    // "All articles" — corpus-wide sentence-weighted mean per quarter
-    const allByQ = {};
-    quarterly.forEach(r => {
-      if (qPub !== 'both' && r.publication !== qPub) return;
-      if (!allByQ[r.quarter]) allByQ[r.quarter] = { tot: 0, w: 0 };
-      allByQ[r.quarter].tot += r.mean_sent * r.n_sentences;
-      allByQ[r.quarter].w += r.n_sentences;
+
+    // "All articles" total line
+    const allVals = quarters.map(q => {
+      const r = quarterly.find(x => x.source === 'All articles' && x.quarter === q && x.publication === qPub);
+      return r ? (isSent ? r.mean_sent : r.n_articles) : null;
     });
     datasets.push({
       label: 'All articles',
-      data: quarters.map(q => allByQ[q] && allByQ[q].w ? allByQ[q].tot / allByQ[q].w : null),
+      data: allVals,
       borderColor: '#000', backgroundColor: '#000',
       borderWidth: 2.5, borderDash: [6, 4], tension: 0.2, spanGaps: true,
       pointRadius: 4, pointStyle: 'rectRot', fill: false, order: 0
     });
+
+    const yLabel = isSent ? 'Mean sentence sentiment' : 'Number of articles';
+    const noteEl = document.getElementById('quarterly-note');
+    if (noteEl) noteEl.textContent = isSent
+      ? 'Sentiment scores roughly in −1 (very negative) to +1 (very positive); 0 is neutral. VADER-style compound score.'
+      : 'Number of distinct articles per quarter containing sentences tagged to each source group. An article may appear in multiple groups.';
+
     if (qChart) qChart.destroy();
     qChart = new Chart(document.getElementById('quarterly-chart'), {
       type: 'line', data: { labels: quarters, datasets },
@@ -102,11 +106,18 @@ function initQuarterlyChart(quarterly) {
         responsive: true, maintainAspectRatio: false,
         interaction: { mode: 'index', intersect: false },
         scales: {
-          y: { title: { display: true, text: 'Mean sentence sentiment' }, suggestedMin: -0.3, suggestedMax: 0.3 }
+          y: {
+            title: { display: true, text: yLabel },
+            ...(isSent ? { suggestedMin: -0.3, suggestedMax: 0.3 } : { beginAtZero: true })
+          }
         },
         plugins: {
           legend: { position: 'bottom', labels: { font: { family: 'Inter' }, usePointStyle: true } },
-          tooltip: { callbacks: { label: c => `${c.dataset.label}: ${c.parsed.y == null ? '—' : c.parsed.y.toFixed(3)}` } }
+          tooltip: {
+            callbacks: {
+              label: c => `${c.dataset.label}: ${c.parsed.y == null ? '—' : isSent ? c.parsed.y.toFixed(3) : c.parsed.y}`
+            }
+          }
         }
       }
     });

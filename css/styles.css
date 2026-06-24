@@ -53,6 +53,7 @@ h2 .zh{display:block;font-size:1rem;font-weight:600;color:var(--muted);margin-to
 .hero .zh-title{display:block;font-family:'Noto Serif SC',serif;font-size:1.05rem;color:#cdd6e4;font-weight:500;margin-top:.5rem}
 .hero .thesis{font-size:1.1rem;color:#e7ecf3;max-width:62ch;margin-top:1.1rem;position:relative}
 .hero .meta{font-family:'Inter',sans-serif;font-size:.78rem;color:#9fb0c6;margin-top:1rem}
+.hero .citation{font-family:'Inter',sans-serif;font-size:.8rem;color:#9fb0c6;max-width:72ch;margin-top:.6rem;line-height:1.5}
 
 /* ---- stat cards (in hero) ---- */
 .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-top:1.8rem;position:relative}

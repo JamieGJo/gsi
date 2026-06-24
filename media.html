@@ -13,7 +13,7 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-<link rel="stylesheet" href="css/styles.css?v=20260623k">
+<link rel="stylesheet" href="css/styles.css?v=20260624a">
 </head>
 <body data-section="media">
 
@@ -21,7 +21,7 @@
 
 <header class="hero"><div class="container">
   <div class="kicker">Media sentiment · 媒体话语 · 2022 – 2025</div>
-  <h1>How MFA and Xinhua frame the GSI</h1>
+  <h1>How the Ministry of Foreign Affairs and Xinhua frame the GSI</h1>
   <span class="zh-title">外交部与新华社的全球安全倡议话语</span>
   <p class="thesis">1,530 articles. Each sentence is tagged for the regional group or country it references and scored for sentiment. This lets us see who China's GSI rhetoric targets and how the tone differs by audience.</p>
   <div class="stats">
@@ -57,10 +57,17 @@
 <!-- QUARTERLY SENTIMENT (now below the map) -->
 <section id="quarterly"><div class="container">
   <div class="kicker">Time series · 时间序列</div>
-  <h2>Quarterly sentiment by source group<span class="zh">按对象的季度情感</span></h2>
-  <p class="lead">Mean sentence-level sentiment per quarter, separately for MFA and Xinhua. Click a series in the legend to hide it. The black "All articles" line is the corpus-wide average.</p>
+  <h2>The GSI in state propaganda over time<span class="zh">按对象的季度情感</span></h2>
+  <p class="lead">Quarterly coverage of the GSI by source group. Toggle between sentiment (mean sentence-level score) and article count. Click a series in the legend to hide it.</p>
   <div class="card chart-card" style="margin-top:1.1rem">
-    <div class="ctrl-row">
+    <div class="ctrl-row" style="flex-wrap:wrap;gap:.75rem">
+      <div>
+        <div class="ctrl-label">Metric</div>
+        <div class="toggle" id="metric-toggle">
+          <button data-metric="sentiment" class="on">Sentiment</button>
+          <button data-metric="articles">Article count</button>
+        </div>
+      </div>
       <div>
         <div class="ctrl-label">Publication</div>
         <div class="toggle" id="pub-toggle">
@@ -71,7 +78,7 @@
       </div>
     </div>
     <div class="chart-wrap tall"><canvas id="quarterly-chart"></canvas></div>
-    <p class="chart-note">Sentiment scores roughly in −1 (very negative) to +1 (very positive); 0 is neutral. VADER-style compound score.</p>
+    <p class="chart-note" id="quarterly-note">Sentiment scores roughly in −1 (very negative) to +1 (very positive); 0 is neutral. VADER-style compound score.</p>
   </div>
 </div></section>
 
@@ -136,9 +143,9 @@
 <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
 <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
 <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
-<script src="js/shared.js?v=20260623k"></script>
-<script src="js/chart-builder.js?v=20260623k"></script>
-<script src="js/media.js?v=20260623k"></script>
+<script src="js/shared.js?v=20260624a"></script>
+<script src="js/chart-builder.js?v=20260624a"></script>
+<script src="js/media.js?v=20260624a"></script>
 <script>
 document.getElementById('nav-container').innerHTML = GSI.navHTML('media.html');
 document.dispatchEvent(new Event('DOMContentLoaded'));
