@@ -7,8 +7,10 @@ const SUPPORT_COLOR = {
   'Noncommittal':         '#8FB3B6',  // pale jade
   'No support':           '#E1DACA'   // pale cream
 };
-// Rank scale 0..4 only (no rank 5 in this corpus)
-const RANK_COLOR = ['#E1DACA','#B5C9CB','#7BA2A5','#3A7274','#0E3437'];
+// Rank scale 0..4 only (no rank 5 in this corpus). Multi-hue ordinal ramp
+// (cream → gold → green → blue → dark teal) — monotonically darker AND distinct
+// in hue so ranks 1–3 are clearly separable.
+const RANK_COLOR = ['#EBE3D1','#E2C24A','#57AE7C','#2B7C9C','#103A4E'];
 const RANK_FULL_LABEL = {
   0: 'No mention',
   1: 'Non-committal acknowledgement',
@@ -86,18 +88,20 @@ function isoOf(feature) {
   return p['ISO3166-1-Alpha-3'] || p.iso_a3 || p.ISO_A3 || p.adm0_a3;
 }
 
-function colorFor(s) {
-  if (!s) return '#EFEAE0';
+function colorFor(s, iso3) {
+  // China proposed the GSI — it has no "support status", so it stays blank.
+  if (iso3 === 'CHN') return '#EFEAE0';
+  // Every other country (incl. those absent from the dataset) is treated as the
+  // zero category — they did not publicly support the GSI.
   switch (mapState.colorBy) {
     case 'support':
-      return SUPPORT_COLOR[s.LevelOfSupport || 'No support'];
+      return SUPPORT_COLOR[(s && s.LevelOfSupport) || 'No support'];
     case 'ranking': {
-      const r = s.Ranking;
-      if (r == null) return '#EFEAE0';
+      const r = (s && s.Ranking != null) ? s.Ranking : 0;
       return RANK_COLOR[Math.max(0, Math.min(4, r))];
     }
     case 'implement':
-      return IMPL_COLOR[(s.Implement || '').trim()] || '#EFEAE0';
+      return IMPL_COLOR[((s && s.Implement) || 'Not join').trim()] || IMPL_COLOR['Not join'];
   }
   return '#EFEAE0';
 }
@@ -119,7 +123,7 @@ function initMap(world, byIso3) {
   function style(feature) {
     const iso3 = isoOf(feature);
     const s = byIso3[iso3];
-    const fill = colorFor(s);
+    const fill = colorFor(s, iso3);
     const dim = mapState.filter && !matchesFilter(s);
     return {
       fillColor: fill, weight: 0.4, opacity: 1, color: '#fff',
@@ -135,7 +139,9 @@ function initMap(world, byIso3) {
       mouseout: e => mapState.layer.resetStyle(e.target),
       click: () => { if (s) window.location.href = `index.html#country=${iso3}`; }
     });
-    if (s) {
+    if (iso3 === 'CHN') {
+      layer.bindTooltip(`<b>${name}</b><br><span style="color:#5C6470">GSI proposer — support status not applicable</span>`, { sticky: true });
+    } else if (s) {
       layer.bindTooltip(`
         <div style="font-family:Inter,sans-serif;font-size:.84rem">
           <b style="font-size:1rem">${name}</b><br>
@@ -147,7 +153,7 @@ function initMap(world, byIso3) {
           ${s.China_ally_label ? `<span style="color:#5C6470">${s.China_ally_label}</span>` : ''}
         </div>`, { sticky: true });
     } else {
-      layer.bindTooltip(`<b>${name}</b><br><span style="color:#5C6470">No data</span>`, { sticky: true });
+      layer.bindTooltip(`<b>${name}</b><br><b>No public support</b> (Rank 0)`, { sticky: true });
     }
   }
 
