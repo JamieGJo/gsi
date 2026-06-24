@@ -7,16 +7,18 @@ const SUPPORT_COLOR = {
   'Noncommittal':         '#8FB3B6',  // pale jade
   'No support':           '#E1DACA'   // pale cream
 };
-// Rank scale 0..4 only (no rank 5 in this corpus). Multi-hue ordinal ramp
-// (cream → gold → green → blue → dark teal) — monotonically darker AND distinct
-// in hue so ranks 1–3 are clearly separable.
-const RANK_COLOR = ['#EBE3D1','#E2C24A','#57AE7C','#2B7C9C','#103A4E'];
+// Rank scale 0..5. 5 is the implementation tier (countries that have agreed to
+// join / implement, derived from the Implement field). Multi-hue ordinal ramp
+// (cream → gold → green → blue → dark teal → near-black) — monotonically darker
+// AND distinct in hue so ranks 1–4 stay clearly separable.
+const RANK_COLOR = ['#EBE3D1','#E2C24A','#57AE7C','#2E8FB0','#1C5A6B','#0B1A1E'];
 const RANK_FULL_LABEL = {
   0: 'No mention',
   1: 'Non-committal acknowledgement',
   2: 'Positive language but no explicit support',
   3: 'Simple support',
-  4: 'High support (strongly / resolutely)'
+  4: 'High support (strongly / resolutely)',
+  5: 'Agreed to implement / pursue further cooperation'
 };
 const IMPL_COLOR = { 'Join': '#0B1419', 'Not join': '#8FB3B6' };
 
@@ -51,6 +53,9 @@ const NONGSI_FILTERS = [
   // Derive a `China_partnership` Yes/No flag from China_ally_label
   signings.forEach(s => {
     s.China_partnership = (s.China_ally_label && s.China_ally_label.trim()) ? 'Yes' : 'No';
+    // Implementation is the top of the support ladder: countries that agreed to
+    // join / implement become rank 5 (raw 0–4 ranking is preserved in the data).
+    if ((s.Implement || '').toLowerCase() === 'join') s.Ranking = 5;
   });
   const byIso3 = {};
   signings.forEach(s => { if (s.iso3) byIso3[s.iso3] = s; });
@@ -98,7 +103,7 @@ function colorFor(s, iso3) {
       return SUPPORT_COLOR[(s && s.LevelOfSupport) || 'No support'];
     case 'ranking': {
       const r = (s && s.Ranking != null) ? s.Ranking : 0;
-      return RANK_COLOR[Math.max(0, Math.min(4, r))];
+      return RANK_COLOR[Math.max(0, Math.min(5, r))];
     }
     case 'implement':
       return IMPL_COLOR[((s && s.Implement) || 'Not join').trim()] || IMPL_COLOR['Not join'];
@@ -176,7 +181,7 @@ function initMap(world, byIso3) {
           `<span class="swatch"><i style="background:${v}"></i> ${k}</span>`).join('');
         break;
       case 'ranking':
-        html = [0,1,2,3,4].map(r =>
+        html = [0,1,2,3,4,5].map(r =>
           `<span class="swatch"><i style="background:${RANK_COLOR[r]}"></i><span style="margin-left:.25rem"><b>${r}</b> — ${RANK_FULL_LABEL[r]}</span></span>`
         ).join('');
         break;
@@ -347,7 +352,7 @@ function initBuilder(signings) {
       BRICS_member: 'BRICS member',
       Forum: 'Forum of signing',
       year: 'Signing year',
-      Ranking: 'Rank of support (0–4)',
+      Ranking: 'Rank of support (0–5)',
       China_level: 'China partnership level (0–7)',
       EDI: 'Economist Democracy Index'
     },
@@ -372,7 +377,7 @@ function initBuilder(signings) {
           mark: { type: 'point', size: 90, opacity: 0.75, filled: true },
           encoding: {
             x: { field: 'China_level', type: 'quantitative', title: 'China partnership level (0–7)' },
-            y: { field: 'Ranking', type: 'quantitative', title: 'Rank (0–4)' },
+            y: { field: 'Ranking', type: 'quantitative', title: 'Rank (0–5)' },
             color: { field: 'vdem', type: 'nominal' },
             tooltip: [{ field: 'country' }, { field: 'Ranking' }, { field: 'China_level' }, { field: 'China_ally_label' }]
           }
