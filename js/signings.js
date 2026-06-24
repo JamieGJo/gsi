@@ -349,8 +349,8 @@ function initBuilder(signings) {
       OECD: 'OECD member',
       China_neighbor: "China's neighbour",
       BRICS_member: 'BRICS member',
-      Forum: 'Forum of signing',
-      year: 'Signing year',
+      Forum: 'Forum of support',
+      year: 'Year of support',
       Ranking: 'Rank of support (0–5)',
       China_level: 'China partnership level (0–7)',
       EDI: 'Economist Democracy Index'

@@ -21,7 +21,7 @@
     if (mount && !mount.innerHTML.trim()) {
       mount.innerHTML = `
         <div style="background:#fff;border:1px dashed var(--line);border-radius:12px;padding:1.5rem;text-align:center;color:var(--muted);font-family:Inter,sans-serif">
-          Select a country above to load its profile — signing status, media exposure, and security/surveillance expenditure received.
+          Select a country above to load its profile — support status, media exposure, and security/surveillance expenditure received.
         </div>`;
     }
   }
@@ -115,7 +115,7 @@ function renderSigningCard(country, sg) {
     : country.rand_ally === 0 ? 'Non-ally' : '—';
 
   return `
-    <div class="pre-h">GSI signing</div>
+    <div class="pre-h">GSI support</div>
     <h3>Public support for the GSI</h3>
     <p style="margin-bottom:.5rem;display:flex;align-items:center;gap:.6rem;flex-wrap:wrap">
       <span class="chip ${statusChip}" style="font-size:.78rem">${status}</span>
@@ -124,7 +124,7 @@ function renderSigningCard(country, sg) {
     </p>
     ${implementText ? `<p style="margin-bottom:.7rem">${implementText}</p>` : ''}
     <div class="cc-stats">
-      <div class="cc-stat"><div class="num">${year}</div><div class="lbl">Signing year</div></div>
+      <div class="cc-stat"><div class="num">${year}</div><div class="lbl">Year of support</div></div>
       <div class="cc-stat"><div class="num" style="font-size:.95rem;line-height:1.2">${forum}</div><div class="lbl">Forum</div></div>
       <div class="cc-stat"><div class="num" style="font-size:.95rem;line-height:1.2">${country.vdem_regime_label || '—'}</div><div class="lbl">V-Dem regime</div></div>
       <div class="cc-stat"><div class="num" style="font-size:.95rem;line-height:1.2">${allyText}</div><div class="lbl">U.S. alliance status</div></div>

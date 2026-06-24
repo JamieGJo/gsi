@@ -140,7 +140,7 @@ GSI.navHTML = (currentPage) => `
   </div>
   <div class="links">
     <a href="index.html">Overview</a>
-    <a href="signings.html">Signings</a>
+    <a href="signings.html">Supporters</a>
     <a href="media.html">Media sentiment</a>
     <a href="expenditure.html">Expenditure</a>
     <a href="methods.html">Methods</a>
