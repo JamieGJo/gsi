@@ -58,6 +58,11 @@ const AMOUNT_RAMP = ['#F2E8DA','#E5B8A0','#D17C5C','#B0382C','#7E1414','#3A0606'
 const DEAL_RAMP   = ['#F2E8DA','#D9B098','#B86C50','#8A2520','#4E0A0A'];
 // Purple ramp for the security-share view, to distinguish from the amount ramp
 const SHARE_RAMP  = ['#F2E8DA','#D9C2D6','#B387B3','#7E4690','#4A1C5E','#2A0E3E'];
+// Fixed round-number breaks (%) for the share view. The distribution is heavily
+// right-skewed (≈73 of 101 countries below 2%), so quantile breaks lumped the
+// whole 4%–32% top end into one stop. Round cutoffs give the top end real
+// resolution: 6 colours = zero · ≤1% · ≤5% · ≤10% · ≤20% · >20%.
+const SHARE_BREAKS = [1, 5, 10, 20];
 
 function colorFromBin(value, breaks, ramp) {
   if (!value || value <= 0) return ramp[0];
@@ -120,7 +125,7 @@ function rebuildByIso3(deals) {
   // Quantile breaks for high-contrast binned colouring
   mapState.amtBreaks   = quantileBreaks(Object.values(amt),   AMOUNT_RAMP.length - 1);
   mapState.dealBreaks  = quantileBreaks(Object.values(count), DEAL_RAMP.length - 1);
-  mapState.shareBreaks = quantileBreaks(Object.values(share), SHARE_RAMP.length - 1);
+  mapState.shareBreaks = SHARE_BREAKS;   // fixed round breaks (see SHARE_BREAKS)
 }
 
 function matchesFilter(c) {
@@ -234,7 +239,12 @@ function initMap(world, deals, cm, clgByIso3) {
       ).join('') + `<span style="color:#5C6470">· ${mapState.yearFrom}–${mapState.yearTo}</span>`;
     } else if (mapState.colorBy === 'share') {
       const breaks = mapState.shareBreaks;
-      const labels = ['0%', ...breaks.map(v => '≤ ' + v.toFixed(2) + '%')];
+      // 6 colours = zero · ≤b0 · ≤b1 · ≤b2 · ≤b3 · >b3 (open top)
+      const labels = SHARE_RAMP.map((c, i) => {
+        if (i === 0) return '0%';
+        if (i === SHARE_RAMP.length - 1) return '> ' + breaks[breaks.length - 1] + '%';
+        return '≤ ' + breaks[i - 1] + '%';
+      });
       main = SHARE_RAMP.map((c, i) =>
         `<span class="swatch"><i style="background:${c}"></i> ${labels[i] || ''}</span>`
       ).join('') + `<span style="color:#5C6470">· Security &amp; surveillance ÷ all Chinese CLG, ${mapState.yearFrom}–${mapState.yearTo}</span>`;
@@ -426,9 +436,13 @@ function initBuilder(deals) {
     data,
     section: 'Expenditure',
     dimensions: {
-      categorical: ['year', 'recipient', 'sector', 'dataset', 'funder'],
+      // Only low-cardinality dims in the free X/Colour dropdowns. recipient (121
+      // values) and funder (73) are unreadable as axes/legends in the generic
+      // builder, so they're omitted here — the "Top recipients" preset still
+      // uses recipient via its own spec.
+      categorical: ['year', 'sector', 'dataset'],
       quantitative: ['amt_2023'],
-      additive: ['amt_2023']   // money sums meaningfully; high-card recipient/funder auto-dropped from Colour
+      additive: ['amt_2023']   // only money sums meaningfully
     },
     labels: {
       year: 'Commitment year',
