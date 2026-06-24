@@ -427,7 +427,8 @@ function initBuilder(deals) {
     section: 'Expenditure',
     dimensions: {
       categorical: ['year', 'recipient', 'sector', 'dataset', 'funder'],
-      quantitative: ['amt_2023']
+      quantitative: ['amt_2023'],
+      additive: ['amt_2023']   // money sums meaningfully; high-card recipient/funder auto-dropped from Colour
     },
     labels: {
       year: 'Commitment year',

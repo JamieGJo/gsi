@@ -5,8 +5,18 @@ GSI.initChartBuilder = function(opts) {
   const { mount, data, section, dimensions, presets } = opts;
   const quantDims = dimensions.quantitative || dimensions.numeric || [];
   const catDims   = dimensions.categorical || [];
+  // Only these quantitatives are summable (money / counts); summing a mean,
+  // ratio, ordinal rank or index is meaningless, so "Sum of …" is hidden otherwise.
+  const additive  = dimensions.additive || [];
   const labels    = opts.labels || {};
   const labelOf   = (f) => labels[f] || f;
+  // Colour dropdown only offers categoricals with few enough distinct values to
+  // make a readable legend (drops e.g. 121 recipients / 73 funders).
+  const maxColorCard = opts.maxColorCardinality || 20;
+  const distinctCount = (f) => new Set(data.map(r => r[f])).size;
+  const colorDims = catDims.filter(d => distinctCount(d) <= maxColorCard);
+  // X axis offers every dimension; dedupe in case a field is both cat & quant.
+  const xDims = [...new Set([...catDims, ...quantDims])];
 
   const root = document.getElementById(mount);
   if (!root) { console.warn('[builder] mount missing:', mount); return; }
@@ -32,7 +42,7 @@ GSI.initChartBuilder = function(opts) {
       <div class="ctrl-group">
         <div class="ctrl-label">X axis</div>
         <select class="ctrl" id="${mount}-x">
-          ${[...catDims, ...quantDims].map(d => `<option value="${d}">${labelOf(d)}</option>`).join('')}
+          ${xDims.map(d => `<option value="${d}">${labelOf(d)}</option>`).join('')}
         </select>
       </div>
       <div class="ctrl-group">
@@ -40,14 +50,14 @@ GSI.initChartBuilder = function(opts) {
         <select class="ctrl" id="${mount}-y">
           <option value="__count__">Count of records</option>
           ${quantDims.map(d => `<option value="__mean__${d}">Mean of ${labelOf(d)}</option>`).join('')}
-          ${quantDims.map(d => `<option value="__sum__${d}">Sum of ${labelOf(d)}</option>`).join('')}
+          ${quantDims.filter(d => additive.includes(d)).map(d => `<option value="__sum__${d}">Sum of ${labelOf(d)}</option>`).join('')}
         </select>
       </div>
       <div class="ctrl-group">
         <div class="ctrl-label">Colour by</div>
         <select class="ctrl" id="${mount}-color">
           <option value="">(none)</option>
-          ${catDims.map(d => `<option value="${d}">${labelOf(d)}</option>`).join('')}
+          ${colorDims.map(d => `<option value="${d}">${labelOf(d)}</option>`).join('')}
         </select>
       </div>
     </div>

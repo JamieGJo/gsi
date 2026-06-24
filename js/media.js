@@ -446,7 +446,9 @@ function initBuilder(quarterly) {
       publication: r.publication,
       quarter: '' + r.quarter,
       n_sentences: r.n_sentences || 0,
-      mean_sent: r.mean_sent
+      n_articles: r.n_articles || 0,
+      mean_sent: r.mean_sent,
+      share_neg: r.share_neg
     }));
   GSI.initChartBuilder({
     mount: 'media-builder',
@@ -454,16 +456,31 @@ function initBuilder(quarterly) {
     section: 'Media sentiment',
     dimensions: {
       categorical: ['source', 'publication', 'quarter'],
-      quantitative: ['mean_sent', 'n_sentences']
+      quantitative: ['share_neg', 'mean_sent', 'n_sentences', 'n_articles'],
+      additive: ['n_sentences', 'n_articles']
     },
     labels: {
       source: 'Source group',
       publication: 'Publication (MFA / Xinhua)',
       quarter: 'Quarter',
+      share_neg: 'Share of sentences negative',
       mean_sent: 'Mean sentence sentiment',
-      n_sentences: 'Number of sentences'
+      n_sentences: 'Number of sentences',
+      n_articles: 'Number of articles'
     },
     presets: [
+      {
+        name: '% negative by source group',
+        spec: {
+          mark: 'bar',
+          encoding: {
+            y: { field: 'source', type: 'nominal', sort: '-x' },
+            yOffset: { field: 'publication', type: 'nominal' },
+            x: { aggregate: 'mean', field: 'share_neg', type: 'quantitative', title: 'Share negative', stack: null, axis: { format: '%' } },
+            color: { field: 'publication', type: 'nominal' }
+          }
+        }
+      },
       {
         name: 'Mean sentiment by source group',
         spec: {

@@ -329,8 +329,13 @@ function initBuilder(signings) {
     data,
     section: 'Signings',
     dimensions: {
-      categorical: ['LevelOfSupport','vdem','Implement','rand_ally','OECD','China_neighbor','BRICS_member','Forum','year'],
-      quantitative: ['Ranking','China_level','EDI']
+      // Forum dropped from the dropdowns (13 verbose free-text values); it stays
+      // only in the curated "Forums used" preset. Ranking exposed as a category
+      // too so you can colour / facet by rank. None of the quantitatives are
+      // additive, so no "Sum of …" options are offered.
+      categorical: ['LevelOfSupport','Ranking','vdem','Implement','rand_ally','OECD','China_neighbor','BRICS_member','year'],
+      quantitative: ['Ranking','China_level','EDI'],
+      additive: []
     },
     labels: {
       LevelOfSupport: 'Level of public support',
