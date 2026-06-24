@@ -100,9 +100,14 @@
   <h2>Media-sentiment methodology<span class="zh">媒体数据方法</span></h2>
 
   <details class="meth" open>
-    <summary>1. Corpus</summary>
+    <summary>1. Corpus &amp; sourcing</summary>
     <div class="body">
-      <p>All articles by China's Ministry of Foreign Affairs (press briefings, Q&amp;A transcripts) and Xinhua wire stories that mention the Global Security Initiative (全球安全倡议), 2022-04-21 through 2025-06-26. n = 1,530 articles; 7,734 sentences after filtering.</p>
+      <p>Every article from China's two <strong>English-language</strong> state-media services that mentions the Global Security Initiative (全球安全倡议), 2022-02-12 through 2026-06-17. <strong>n = 1,695 articles; 8,721 sentences after filtering.</strong></p>
+      <ul>
+        <li><b>Xinhua General News Service</b> — the English news wire (1,133 articles).</li>
+        <li><b>Ministry of Foreign Affairs, English website</b> — news releases plus Spokesperson's Remarks, i.e. the daily regular press conferences (562 articles).</li>
+      </ul>
+      <p>The 2022 – June 2025 base corpus is a LexisNexis export of both services. The June 2025 – June 2026 extension re-runs the same Nexis searches for the Xinhua wire and MFA News; because the Nexis "Spokesperson's Remarks" feed thins out over that window, the GSI press-conference Q&amp;As for the extension are drawn instead from a scrape of the MFA's own daily-briefing transcript archive. Genuine duplicate re-exports (the same article filed twice) are removed.</p>
     </div>
   </details>
 
@@ -122,7 +127,8 @@
   <details class="meth">
     <summary>3. Sentiment scoring</summary>
     <div class="body">
-      <p>VADER-style compound score, calibrated for Chinese state-media English-language output. Sentence-level. Range roughly −1 to +1; 0 is neutral.</p>
+      <p>Sentence-level lexicon score: <code>(positive − negative opinion words) ÷ number of content words</code>, using the Bing/Liu opinion lexicon. Range roughly −1 to +1; 0 is neutral.</p>
+      <p>The <strong>whole corpus (2022–2026) is scored with this one method</strong>, so the extension is directly comparable to the historical series. (The original 2022–2025 release used a different, undocumented lexicon; re-scoring everything uniformly preserves the by-source ordering — USA/NATO most negative, ASEAN most positive — while compressing magnitudes slightly toward zero.)</p>
     </div>
   </details>
 

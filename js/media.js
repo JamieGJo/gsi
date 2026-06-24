@@ -115,7 +115,7 @@ function initQuarterlyChart(quarterly) {
     const yLabel = isSent ? 'Mean sentence sentiment' : 'Number of articles';
     const noteEl = document.getElementById('quarterly-note');
     if (noteEl) noteEl.textContent = isSent
-      ? 'Sentiment scores roughly in −1 (very negative) to +1 (very positive); 0 is neutral. VADER-style compound score.'
+      ? 'Sentiment = (positive − negative opinion-lexicon words) ÷ sentence length (Bing/Liu lexicon). Range roughly −1 to +1; 0 is neutral.'
       : 'Number of distinct articles per quarter containing sentences tagged to each source group. An article may appear in multiple groups.';
 
     if (qChart) qChart.destroy();

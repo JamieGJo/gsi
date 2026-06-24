@@ -1,6 +1,6 @@
 {
   "version": "v1.1",
-  "build_date": "2026-06-23",
+  "build_date": "2026-06-24",
   "citation": "Gruffydd-Jones, J. (2026). GSI Datasets. https://github.com/jjgj/gsi-datasets",
   "datasets": {
     "signings": {
@@ -8,8 +8,8 @@
       "coverage": "2022-2025"
     },
     "media": {
-      "articles": 1530,
-      "countries_in_map": 94,
+      "articles": 1695,
+      "countries_in_map": 56,
       "country_mention_threshold": 25
     },
     "expenditure": {

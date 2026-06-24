@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GSI Media — how Chinese state media frames the Global Security Initiative</title>
-<meta name="description" content="Sentiment, volume, and country focus in Chinese MFA and Xinhua articles on the Global Security Initiative, 2022-2025.">
+<meta name="description" content="Sentiment, volume, and country focus in Chinese MFA and Xinhua articles on the Global Security Initiative, 2022-2026.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet">
@@ -13,17 +13,17 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-<link rel="stylesheet" href="css/styles.css?v=20260624b">
+<link rel="stylesheet" href="css/styles.css?v=20260624d">
 </head>
 <body data-section="media">
 
 <div class="nav"><div class="container" id="nav-container"></div></div>
 
 <header class="hero"><div class="container">
-  <div class="kicker">Media sentiment · 媒体话语 · 2022 – 2025</div>
+  <div class="kicker">Media sentiment · 媒体话语 · 2022 – 2026</div>
   <h1>How the Ministry of Foreign Affairs and Xinhua frame the GSI</h1>
   <span class="zh-title">外交部与新华社的全球安全倡议话语</span>
-  <p class="thesis">1,530 articles. Each sentence is tagged for the regional group or country it references and scored for sentiment. This lets us see who China's GSI rhetoric targets and how the tone differs by audience.</p>
+  <p class="thesis">1,695 articles from China's two <b>English-language</b> state-media channels — the Xinhua English news wire and the Ministry of Foreign Affairs' English website (news releases and spokesperson press briefings), 2022–2026. Each sentence is tagged for the regional group or country it references and scored for sentiment, so we can see who China's GSI rhetoric targets and how the tone differs by audience.</p>
   <div class="stats">
     <div class="stat"><div class="num" id="s-articles">—</div><div class="lbl">articles mentioning GSI</div></div>
     <div class="stat"><div class="num" id="s-sentences">—</div><div class="lbl">sentences scored for sentiment</div></div>
@@ -78,7 +78,7 @@
       </div>
     </div>
     <div class="chart-wrap tall"><canvas id="quarterly-chart"></canvas></div>
-    <p class="chart-note" id="quarterly-note">Sentiment scores roughly in −1 (very negative) to +1 (very positive); 0 is neutral. VADER-style compound score.</p>
+    <p class="chart-note" id="quarterly-note">Sentiment = (positive − negative opinion-lexicon words) ÷ sentence length (Bing/Liu lexicon). Range roughly −1 to +1; 0 is neutral.</p>
   </div>
 </div></section>
 
@@ -97,7 +97,7 @@
 <section id="articles"><div class="container">
   <div class="kicker">Articles · 文章检索</div>
   <h2>Search the GSI media corpus<span class="zh">检索原始文章</span></h2>
-  <p class="lead">Search and sort the 1,530 MFA + Xinhua articles. Sort by sentiment to see the extremes; filter by publication or by keyword.</p>
+  <p class="lead">Search and sort the 1,695 MFA + Xinhua articles. Sort by sentiment to see the extremes; filter by publication or by keyword.</p>
   <div class="card chart-card" style="margin-top:1.1rem">
     <div class="ctrl-row">
       <input class="ctrl" id="art-search" type="search" placeholder="Search headline or snippet…" style="flex:1;min-width:220px">
@@ -137,22 +137,27 @@
 <footer><div class="container">
   <div>Compiled by <a href="https://www.jamiegj.com">Jamie Gruffydd-Jones</a> · <a href="methods.html">Methods</a> · <a href="index.html">Overview</a></div>
   <div class="credit">Data sourced and coded by Jamie Gruffydd-Jones, Thom Vigor, Edinson Tolentino Raymondi, and Zhao Weize. Expenditure data from <a href="https://www.aiddata.org/" target="_blank" rel="noopener">https://www.aiddata.org/</a>.</div>
-  <div class="build">Media v1.1 · 2026-06-23</div>
+  <div class="build">Media v1.2 · 2026-06-24 (extended to 2026-06; Bing re-scored; deduped)</div>
 </div></footer>
 
 <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
 <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
 <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
-<script src="js/shared.js?v=20260624b"></script>
-<script src="js/chart-builder.js?v=20260624b"></script>
-<script src="js/media.js?v=20260624b"></script>
+<script src="js/shared.js?v=20260624d"></script>
+<script src="js/chart-builder.js?v=20260624d"></script>
+<script src="js/media.js?v=20260624d"></script>
 <script>
 document.getElementById('nav-container').innerHTML = GSI.navHTML('media.html');
 document.dispatchEvent(new Event('DOMContentLoaded'));
 
 GSI.initMethodsDrawer(`
-  <h4>Corpus</h4>
-  <p>All articles by China's Ministry of Foreign Affairs (press briefings, Q&amp;A transcripts) and Xinhua wire stories that mention the Global Security Initiative (全球安全倡议), 2022-04-21 through 2025-06-26. n = 1,530 articles.</p>
+  <h4>Corpus &amp; sourcing</h4>
+  <p>Every article from China's two <strong>English-language</strong> state-media services that mentions the Global Security Initiative (全球安全倡议), 2022-02-12 through 2026-06-17. <strong>n = 1,695 articles, 8,721 sentences.</strong> The two services are:</p>
+  <ul>
+    <li><strong>Xinhua General News Service</strong> — the English-language news wire (1,133 articles).</li>
+    <li><strong>Ministry of Foreign Affairs, English website</strong> — news releases plus Spokesperson's Remarks, i.e. the daily regular press conferences (562 articles).</li>
+  </ul>
+  <p>The 2022 – June 2025 base corpus is a LexisNexis export of both services. The June 2025 – June 2026 extension re-runs the same Nexis searches for the Xinhua wire and MFA News; because the Nexis "Spokesperson's Remarks" feed thins out over that window, the GSI <em>press-conference</em> Q&amp;As for the extension are taken instead from a scrape of the MFA's own daily-briefing transcript archive. Genuine duplicate re-exports (the same article filed twice) were removed.</p>
 
   <h4>Source-group tagging</h4>
   <p>Each sentence is tagged with one regional class based on which countries / organisations it references: USA/NATO, UN, ASEAN, BRICS, SCO, EU, AU.</p>
@@ -161,13 +166,13 @@ GSI.initMethodsDrawer(`
   <p>The two dashed lines on the time series count sentences containing China's signature GSI formulations: <em>indivisible security</em> (security as indivisible) and <em>legitimate security concerns</em> (the corpus never uses "interests"). These are matched directly in the sentence text and are independent of the regional tagging — a sentence may belong to a region <em>and</em> a phrase. Both are heavily front-loaded to the GSI's 2022 launch.</p>
 
   <h4>Sentiment scoring</h4>
-  <p>VADER-style compound score, calibrated for Chinese state-media English-language output. Sentence-level. Range roughly −1 to +1; 0 is neutral.</p>
+  <p>Sentence-level lexicon score: (positive − negative opinion words) ÷ number of content words, using the Bing/Liu opinion lexicon. The whole corpus (2022–2026) is scored with this one method for consistency. Range roughly −1 to +1; 0 is neutral.</p>
 
   <h4>Country-level map</h4>
   <p>The "Mentions and sentiment by country" map only shades countries with ≥25 mentions across the corpus, to keep noisy single-mention countries from dominating the colour scale.</p>
 
   <h4>Limitations</h4>
-  <p>English-language coverage only. Pure Chinese-language coverage in <em>People's Daily</em> and other domestic channels is not included here.</p>
+  <p><strong>English-language output only.</strong> This is China's GSI messaging to international audiences, via the English Xinhua wire and the MFA English site. Chinese-language coverage (<em>People's Daily</em>, the Chinese Xinhua services, domestic briefings) is not included, so the tone here reflects outward-facing framing rather than domestic discourse. By 2025–26 the GSI is increasingly invoked in passing alongside the other "global initiatives" (notably the Global Governance Initiative) rather than as the headline theme.</p>
 `, 'methods.html#media');
 </script>
 </body>
