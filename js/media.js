@@ -182,7 +182,7 @@ function initQuarterlyChart(quarterly) {
 // SENTIMENT_MIN: countries below this mention count are shaded in the mentions
 // view but greyed in the % negative view (too few sentences for a stable share).
 const SENTIMENT_MIN = 25;
-let cmapState = { layer: null, mode: 'mentions', byIso3: {}, mentionEdges: [7, 11, 21, 56], shareNegMax: 0.5 };
+let cmapState = { layer: null, mode: 'mentions', byIso3: {}, mentionEdges: [10, 25, 50, 100, 200], mentionMax: 312, shareNegMax: 0.5 };
 
 function isoOf(feature) {
   const p = feature.properties;
@@ -197,9 +197,10 @@ function shareNegColor(v, max) {
   if (v == null) return '#F4ECDE';
   return interp(SHARENEG_STOPS, Math.min(1, v / (max || 0.5)));
 }
-// Mentions use 5 DISCRETE quantile bins (≈equal countries per bin) for maximum
-// contrast — a smooth log ramp left most of the field looking the same pale shade.
-const MENTION_COLORS = ['#EAD9AE', '#D9A24E', '#C2762E', '#9A531C', '#52280B'];
+// Mentions use 6 DISCRETE bins on round breakpoints that span the FULL range
+// (a few countries reach 300+), so the heavily-covered states stand apart.
+const MENTION_EDGES = [10, 25, 50, 100, 200];   // -> 6 bins, top is 201..max
+const MENTION_COLORS = ['#F0DFB4', '#E0B968', '#CC8B3C', '#B0641F', '#834213', '#4A2509'];
 function mentionColor(v, edges) {
   if (!v) return '#F4ECDE';
   let i = 0; while (i < edges.length && v > edges[i]) i++;
@@ -219,12 +220,9 @@ function interp(stops, t) {
 function initCountryMap(world, byCountry) {
   const m = {}; byCountry.forEach(r => { m[r.iso3] = r; });
   cmapState.byIso3 = m;
-  // mention bins: 5 quantile edges from countries with >=1 mention
-  const mv = byCountry.map(r => r.mentions).filter(v => v > 0).sort((a, b) => a - b);
-  if (mv.length) {
-    const mq = p => Math.round(mv[Math.min(mv.length - 1, Math.round(p * (mv.length - 1)))]);
-    cmapState.mentionEdges = [mq(0.2), mq(0.4), mq(0.6), mq(0.8)];
-  }
+  // mentions: fixed round bins spanning the full range; remember the true max
+  cmapState.mentionEdges = MENTION_EDGES;
+  cmapState.mentionMax = Math.max(...byCountry.map(r => r.mentions || 0), MENTION_EDGES[MENTION_EDGES.length - 1] + 1);
   // share-negative domain: 0 .. p90 over countries >= SENTIMENT_MIN (cap outliers)
   const snv = byCountry.filter(r => r.mentions >= SENTIMENT_MIN)
     .map(r => r.share_negative).filter(v => v != null).sort((a, b) => a - b);
@@ -289,8 +287,9 @@ function initCountryMap(world, byCountry) {
   function renderLegend() {
     const lg = document.getElementById('cmap-legend');
     if (cmapState.mode === 'mentions') {
-      const e = cmapState.mentionEdges;
-      const labels = [`≤${e[0]}`, `${e[0] + 1}–${e[1]}`, `${e[1] + 1}–${e[2]}`, `${e[2] + 1}–${e[3]}`, `${e[3] + 1}+`];
+      const e = cmapState.mentionEdges, mx = cmapState.mentionMax;
+      const labels = [`≤${e[0]}`, `${e[0] + 1}–${e[1]}`, `${e[1] + 1}–${e[2]}`,
+                      `${e[2] + 1}–${e[3]}`, `${e[3] + 1}–${e[4]}`, `${e[4] + 1}–${mx}`];
       lg.innerHTML = labels.map((lab, i) =>
         `<span class="swatch"><i style="background:${MENTION_COLORS[i]}"></i> ${lab}</span>`
       ).join('') + '<span style="color:#5C6470">· mentions in the GSI corpus (all countries)</span>';
