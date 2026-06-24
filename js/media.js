@@ -339,6 +339,11 @@ function initBySourceChart(bySource, quarterly) {
   const regimeRows = quarterly.filter(r =>
     REGIME_SERIES.includes(r.source) && (r.publication === 'MFA' || r.publication === 'Xinhua'));
 
+  // share-negative field differs by source (bySource: share_negative; quarterly: share_neg).
+  // Declared before draw() is first called — draw() closes over it, so calling
+  // draw() before this line would hit the temporal dead zone and throw.
+  const negOf = r => (r.share_negative != null ? r.share_negative : r.share_neg) || 0;
+
   draw();
   document.querySelectorAll('#bs-mode button').forEach(b => {
     b.addEventListener('click', () => {
@@ -346,9 +351,6 @@ function initBySourceChart(bySource, quarterly) {
       b.classList.add('on'); bsMode = b.dataset.bsmode; draw();
     });
   });
-
-  // share-negative field differs by source (bySource: share_negative; quarterly: share_neg)
-  const negOf = r => (r.share_negative != null ? r.share_negative : r.share_neg) || 0;
 
   function draw() {
     const rows = bsMode === 'regime' ? regimeRows : bySource;
