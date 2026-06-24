@@ -46,7 +46,7 @@ function seriesStyle(label) {
   const [quarterly, bySource, byCountry, articles, world] = await Promise.all([
     fetch('data/media_quarterly.json').then(r => r.json()),
     fetch('data/media_by_source.json').then(r => r.json()),
-    fetch('data/media_by_country.json').then(r => r.json()),
+    fetch('data/media_by_country_all.json').then(r => r.json()),
     fetch('data/media_articles.json').then(r => r.json()),
     GSI.loadWorldGeo()
   ]);
@@ -179,7 +179,10 @@ function initQuarterlyChart(quarterly) {
 }
 
 // ---- COUNTRY MAP ----
-let cmapState = { layer: null, mode: 'mentions', byIso3: {}, maxMentions: 1, shareNegMax: 0.5 };
+// SENTIMENT_MIN: countries below this mention count are shaded in the mentions
+// view but greyed in the % negative view (too few sentences for a stable share).
+const SENTIMENT_MIN = 25;
+let cmapState = { layer: null, mode: 'mentions', byIso3: {}, mentionEdges: [7, 11, 21, 56], shareNegMax: 0.5 };
 
 function isoOf(feature) {
   const p = feature.properties;
@@ -194,12 +197,13 @@ function shareNegColor(v, max) {
   if (v == null) return '#F4ECDE';
   return interp(SHARENEG_STOPS, Math.min(1, v / (max || 0.5)));
 }
-function mentionColor(v, max) {
+// Mentions use 5 DISCRETE quantile bins (≈equal countries per bin) for maximum
+// contrast — a smooth log ramp left most of the field looking the same pale shade.
+const MENTION_COLORS = ['#EAD9AE', '#D9A24E', '#C2762E', '#9A531C', '#52280B'];
+function mentionColor(v, edges) {
   if (!v) return '#F4ECDE';
-  // sharper log curve, deeper deep end
-  const t = Math.min(1, Math.log10(1 + v) / Math.log10(1 + max));
-  const stops = [[244, 236, 222], [218, 180, 130], [184, 101, 29], [134, 64, 14], [70, 30, 6]];
-  return interp(stops, t);
+  let i = 0; while (i < edges.length && v > edges[i]) i++;
+  return MENTION_COLORS[i];
 }
 function interp(stops, t) {
   const seg = 1 / (stops.length - 1);
@@ -215,9 +219,15 @@ function interp(stops, t) {
 function initCountryMap(world, byCountry) {
   const m = {}; byCountry.forEach(r => { m[r.iso3] = r; });
   cmapState.byIso3 = m;
-  cmapState.maxMentions = Math.max(...byCountry.map(r => r.mentions || 0), 1);
-  // share-negative domain: 0 .. p90 (cap conflict-state outliers like Iraq 0.73)
-  const snv = byCountry.map(r => r.share_negative).filter(v => v != null).sort((a, b) => a - b);
+  // mention bins: 5 quantile edges from countries with >=1 mention
+  const mv = byCountry.map(r => r.mentions).filter(v => v > 0).sort((a, b) => a - b);
+  if (mv.length) {
+    const mq = p => Math.round(mv[Math.min(mv.length - 1, Math.round(p * (mv.length - 1)))]);
+    cmapState.mentionEdges = [mq(0.2), mq(0.4), mq(0.6), mq(0.8)];
+  }
+  // share-negative domain: 0 .. p90 over countries >= SENTIMENT_MIN (cap outliers)
+  const snv = byCountry.filter(r => r.mentions >= SENTIMENT_MIN)
+    .map(r => r.share_negative).filter(v => v != null).sort((a, b) => a - b);
   cmapState.shareNegMax = snv.length
     ? Math.max(snv[Math.round(0.9 * (snv.length - 1))], 0.2) : 0.5;
 
@@ -231,10 +241,14 @@ function initCountryMap(world, byCountry) {
     const iso3 = isoOf(feature);
     const r = cmapState.byIso3[iso3];
     let fill = '#EFEAE0';
-    if (r) {
-      fill = cmapState.mode === 'mentions'
-        ? mentionColor(r.mentions, cmapState.maxMentions)
-        : shareNegColor(r.share_negative, cmapState.shareNegMax);
+    if (r && r.mentions) {
+      if (cmapState.mode === 'mentions') {
+        fill = mentionColor(r.mentions, cmapState.mentionEdges);
+      } else {
+        // sentiment only for countries with enough mentions
+        fill = r.mentions >= SENTIMENT_MIN
+          ? shareNegColor(r.share_negative, cmapState.shareNegMax) : '#EFEAE0';
+      }
     }
     return { fillColor: fill, weight: 0.4, opacity: 1, color: '#fff', fillOpacity: 0.92 };
   }
@@ -247,15 +261,18 @@ function initCountryMap(world, byCountry) {
       mouseout: e => cmapState.layer.resetStyle(e.target),
       click: () => { if (r) window.location.href = `index.html#country=${iso3}`; }
     });
-    if (r) {
+    if (r && r.mentions) {
+      const negLine = r.mentions >= SENTIMENT_MIN
+        ? `Negative: <b>${r.share_negative == null ? '—' : (r.share_negative * 100).toFixed(0) + '%'}</b> of sentences`
+        : `<span style="color:#5C6470">&lt;${SENTIMENT_MIN} mentions — sentiment not shown</span>`;
       layer.bindTooltip(`
         <div style="font-family:Inter,sans-serif;font-size:.84rem">
           <b style="font-size:1rem">${name}</b><br>
           Mentions: <b>${(r.mentions || 0).toLocaleString()}</b><br>
-          Negative: <b>${r.share_negative == null ? '—' : (r.share_negative * 100).toFixed(0) + '%'}</b> of sentences
+          ${negLine}
         </div>`, { sticky: true });
     } else {
-      layer.bindTooltip(`<b>${name}</b><br><span style="color:#5C6470">&lt;25 mentions</span>`, { sticky: true });
+      layer.bindTooltip(`<b>${name}</b><br><span style="color:#5C6470">no GSI mentions</span>`, { sticky: true });
     }
   }
   cmapState.layer = L.geoJSON(world, { style, onEachFeature: onEach }).addTo(map);
@@ -272,11 +289,11 @@ function initCountryMap(world, byCountry) {
   function renderLegend() {
     const lg = document.getElementById('cmap-legend');
     if (cmapState.mode === 'mentions') {
-      const m = cmapState.maxMentions;
-      const stops = [0, m * 0.05, m * 0.2, m * 0.5, m];
-      lg.innerHTML = stops.map(v =>
-        `<span class="swatch"><i style="background:${mentionColor(v, m)}"></i> ${v === 0 ? '<25' : Math.round(v).toLocaleString()}</span>`
-      ).join('') + '<span style="color:#5C6470">· log scale, mentions in GSI corpus</span>';
+      const e = cmapState.mentionEdges;
+      const labels = [`≤${e[0]}`, `${e[0] + 1}–${e[1]}`, `${e[1] + 1}–${e[2]}`, `${e[2] + 1}–${e[3]}`, `${e[3] + 1}+`];
+      lg.innerHTML = labels.map((lab, i) =>
+        `<span class="swatch"><i style="background:${MENTION_COLORS[i]}"></i> ${lab}</span>`
+      ).join('') + '<span style="color:#5C6470">· mentions in the GSI corpus (all countries)</span>';
     } else {
       const mx = cmapState.shareNegMax;
       const stops = [0, mx * 0.25, mx * 0.5, mx * 0.75, mx];

@@ -13,7 +13,7 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-<link rel="stylesheet" href="css/styles.css?v=20260624g">
+<link rel="stylesheet" href="css/styles.css?v=20260624h">
 </head>
 <body data-section="media">
 
@@ -36,7 +36,7 @@
 <section id="ctymap"><div class="container">
   <div class="kicker">Country focus · 国别提及</div>
   <h2>Mentions and negativity by country<span class="zh">各国提及次数与负面比例</span></h2>
-  <p class="lead">For each country mentioned at least 25 times in the GSI corpus, the map shows either the volume of mentions or the <strong>share of sentences that are negative</strong> — a clearer signal than the mean, which is compressed because Chinese state media is uniformly positive in tone. Negativity tracks conflict and rivalry: Iraq, Syria, Afghanistan and Ukraine are highest. Hover for both; click to open the country profile.</p>
+  <p class="lead">The map shows either the <strong>volume of mentions</strong> (every country mentioned in the GSI corpus) or the <strong>share of sentences that are negative</strong> — restricted to countries with at least 25 mentions, where the share is stable. Share-negative is a clearer signal than the mean, which is compressed because Chinese state media is uniformly positive in tone; negativity tracks conflict and rivalry (Iraq, Syria, Afghanistan, Ukraine highest). Hover for both; click to open the country profile.</p>
 
   <div class="card chart-card" style="margin-top:1.1rem">
     <div class="ctrl-row">
@@ -47,7 +47,7 @@
           <button data-mode="shareneg">% negative</button>
         </div>
       </div>
-      <span style="font-family:Inter,sans-serif;font-size:.78rem;color:var(--muted);margin-left:auto">Only countries with ≥25 mentions are shaded.</span>
+      <span style="font-family:Inter,sans-serif;font-size:.78rem;color:var(--muted);margin-left:auto">Mentions: all countries. % negative: only countries with ≥25 mentions.</span>
     </div>
     <div class="map-wrap" id="cmap-canvas"></div>
     <div class="legend-bar" id="cmap-legend"></div>
@@ -147,9 +147,9 @@
 <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
 <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
 <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
-<script src="js/shared.js?v=20260624g"></script>
-<script src="js/chart-builder.js?v=20260624g"></script>
-<script src="js/media.js?v=20260624g"></script>
+<script src="js/shared.js?v=20260624h"></script>
+<script src="js/chart-builder.js?v=20260624h"></script>
+<script src="js/media.js?v=20260624h"></script>
 <script>
 document.getElementById('nav-container').innerHTML = GSI.navHTML('media.html');
 document.dispatchEvent(new Event('DOMContentLoaded'));
