@@ -217,6 +217,28 @@ function interp(stops, t) {
   return `rgb(${r},${g},${bl})`;
 }
 
+// Inject a white diagonal-hatch <pattern> into Leaflet's overlay SVG; referenced
+// as fill `url(#hatch-excluded)` for countries excluded from the % negative view.
+function addHatchPattern(map) {
+  const svg = map.getPanes().overlayPane.querySelector('svg');
+  if (!svg || svg.querySelector('#hatch-excluded')) return;
+  const NS = 'http://www.w3.org/2000/svg';
+  const defs = document.createElementNS(NS, 'defs');
+  const pat = document.createElementNS(NS, 'pattern');
+  pat.setAttribute('id', 'hatch-excluded');
+  pat.setAttribute('patternUnits', 'userSpaceOnUse');
+  pat.setAttribute('width', '7'); pat.setAttribute('height', '7');
+  pat.setAttribute('patternTransform', 'rotate(45)');
+  const rect = document.createElementNS(NS, 'rect');
+  rect.setAttribute('width', '7'); rect.setAttribute('height', '7'); rect.setAttribute('fill', '#CBC4B4');
+  const line = document.createElementNS(NS, 'line');
+  line.setAttribute('x1', '0'); line.setAttribute('y1', '0');
+  line.setAttribute('x2', '0'); line.setAttribute('y2', '7');
+  line.setAttribute('stroke', '#ffffff'); line.setAttribute('stroke-width', '2.4');
+  pat.appendChild(rect); pat.appendChild(line); defs.appendChild(pat);
+  svg.insertBefore(defs, svg.firstChild);
+}
+
 function initCountryMap(world, byCountry) {
   const m = {}; byCountry.forEach(r => { m[r.iso3] = r; });
   cmapState.byIso3 = m;
@@ -243,12 +265,14 @@ function initCountryMap(world, byCountry) {
       if (cmapState.mode === 'mentions') {
         fill = mentionColor(r.mentions, cmapState.mentionEdges);
       } else {
-        // sentiment only for countries with enough mentions
+        // % negative: shade countries with enough mentions; the rest (mentioned
+        // but < 25) get a white diagonal hatch to mark them as excluded.
         fill = r.mentions >= SENTIMENT_MIN
-          ? shareNegColor(r.share_negative, cmapState.shareNegMax) : '#EFEAE0';
+          ? shareNegColor(r.share_negative, cmapState.shareNegMax)
+          : 'url(#hatch-excluded)';
       }
     }
-    return { fillColor: fill, weight: 0.4, opacity: 1, color: '#fff', fillOpacity: 0.92 };
+    return { fillColor: fill, weight: 0.4, opacity: 1, color: '#fff', fillOpacity: 0.95 };
   }
   function onEach(feature, layer) {
     const iso3 = isoOf(feature);
@@ -274,12 +298,14 @@ function initCountryMap(world, byCountry) {
     }
   }
   cmapState.layer = L.geoJSON(world, { style, onEachFeature: onEach }).addTo(map);
+  addHatchPattern(map);   // SVG <pattern> used by the "< 25 mentions" fill
   renderLegend();
 
   document.querySelectorAll('#cmap-mode button').forEach(b => {
     b.addEventListener('click', () => {
       document.querySelectorAll('#cmap-mode button').forEach(x => x.classList.remove('on'));
       b.classList.add('on'); cmapState.mode = b.dataset.mode;
+      addHatchPattern(map);
       cmapState.layer.setStyle(style); renderLegend();
     });
   });
@@ -298,7 +324,9 @@ function initCountryMap(world, byCountry) {
       const stops = [0, mx * 0.25, mx * 0.5, mx * 0.75, mx];
       lg.innerHTML = stops.map(v =>
         `<span class="swatch"><i style="background:${shareNegColor(v, mx)}"></i> ${(v * 100).toFixed(0)}%</span>`
-      ).join('') + '<span style="color:#5C6470">· share of sentences that are negative (Bing score &lt; 0)</span>';
+      ).join('')
+        + '<span class="swatch"><i style="background:repeating-linear-gradient(45deg,#CBC4B4 0 2.5px,#fff 2.5px 5px)"></i> &lt;25 — not included</span>'
+        + '<span style="color:#5C6470">· share of sentences that are negative (Bing score &lt; 0)</span>';
     }
   }
 }
