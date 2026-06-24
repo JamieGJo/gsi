@@ -13,7 +13,7 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-<link rel="stylesheet" href="css/styles.css?v=20260624l">
+<link rel="stylesheet" href="css/styles.css?v=20260624m">
 </head>
 <body data-section="media">
 
@@ -88,11 +88,20 @@
 <!-- SOURCE GROUP BREAKDOWN -->
 <section id="bysource"><div class="container">
   <div class="kicker">Source-group breakdown · 按对象分布</div>
-  <h2>Volume and sentiment by source group<span class="zh">各对象的数量与情感对比</span></h2>
-  <p class="lead">How much each regional source group is talked about, and the mean sentiment of those sentences.</p>
+  <h2>Volume and sentiment by group<span class="zh">各对象的数量与情感对比</span></h2>
+  <p class="lead">How much each group is talked about, and the mean sentiment of those sentences. Switch the breakdown between regional source groups and the regime / alliance cut (authoritarian vs democratic, US ally vs non-ally — by the countries each sentence references).</p>
   <div class="card chart-card" style="margin-top:1.1rem">
+    <div class="ctrl-row">
+      <div>
+        <div class="ctrl-label">Breakdown by</div>
+        <div class="toggle" id="bs-mode">
+          <button data-bsmode="source" class="on">Source group</button>
+          <button data-bsmode="regime">Regime &amp; alliance</button>
+        </div>
+      </div>
+    </div>
     <div class="chart-wrap"><canvas id="bysource-chart"></canvas></div>
-    <p class="chart-note">Sentence volume (bars) and mean sentiment (dots) per source group, by publication.</p>
+    <p class="chart-note" id="bysource-note">Sentence volume (bars) and mean sentiment (dots) per source group, by publication.</p>
   </div>
 </div></section>
 
@@ -147,9 +156,9 @@
 <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
 <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
 <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
-<script src="js/shared.js?v=20260624l"></script>
-<script src="js/chart-builder.js?v=20260624l"></script>
-<script src="js/media.js?v=20260624l"></script>
+<script src="js/shared.js?v=20260624m"></script>
+<script src="js/chart-builder.js?v=20260624m"></script>
+<script src="js/media.js?v=20260624m"></script>
 <script>
 document.getElementById('nav-container').innerHTML = GSI.navHTML('media.html');
 document.dispatchEvent(new Event('DOMContentLoaded'));

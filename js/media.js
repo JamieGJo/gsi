@@ -54,7 +54,7 @@ function seriesStyle(label) {
   initStats(quarterly, bySource, articles);
   initQuarterlyChart(quarterly);
   initCountryMap(world, byCountry);
-  initBySourceChart(bySource);
+  initBySourceChart(bySource, quarterly);
   initArticlesSearch(articles);
   initBuilder(quarterly);
 })();
@@ -331,51 +331,75 @@ function initCountryMap(world, byCountry) {
   }
 }
 
-// ---- BY-SOURCE BAR / DOT ----
-function initBySourceChart(bySource) {
-  const sources = [...new Set(bySource.map(r => r.source))];
-  const sumPerSrc = {};
-  bySource.forEach(r => {
-    if (!sumPerSrc[r.source]) sumPerSrc[r.source] = { mfa_n: 0, xin_n: 0, mfa_m: 0, xin_m: 0, mfa_w: 0, xin_w: 0 };
-    const k = r.publication === 'MFA' ? 'mfa' : 'xin';
-    sumPerSrc[r.source][`${k}_n`] += r.n_sentences;
-    sumPerSrc[r.source][`${k}_m`] += r.mean_sent * r.n_sentences;
-    sumPerSrc[r.source][`${k}_w`] += r.n_sentences;
-  });
-  sources.sort((a, b) => (sumPerSrc[b].mfa_n + sumPerSrc[b].xin_n) - (sumPerSrc[a].mfa_n + sumPerSrc[a].xin_n));
-  const mfaVol = sources.map(s => sumPerSrc[s].mfa_n);
-  const xinVol = sources.map(s => sumPerSrc[s].xin_n);
-  const mfaSent = sources.map(s => sumPerSrc[s].mfa_w ? sumPerSrc[s].mfa_m / sumPerSrc[s].mfa_w : null);
-  const xinSent = sources.map(s => sumPerSrc[s].xin_w ? sumPerSrc[s].xin_m / sumPerSrc[s].xin_w : null);
+// ---- BY-SOURCE / REGIME BAR + DOT ----
+let bsChart = null, bsMode = 'source';
+function initBySourceChart(bySource, quarterly) {
+  // Regime/alliance rows aggregated from the quarterly series (overall, per
+  // publication) — same Authoritarian / Democratic / US ally / Non-ally cuts as
+  // the time series, country-tagged.
+  const regimeRows = quarterly.filter(r =>
+    REGIME_SERIES.includes(r.source) && (r.publication === 'MFA' || r.publication === 'Xinhua'));
 
-  new Chart(document.getElementById('bysource-chart'), {
-    data: {
-      labels: sources,
-      datasets: [
-        { type: 'bar', label: 'MFA volume', data: mfaVol, backgroundColor: '#1B2733', yAxisID: 'y' },
-        { type: 'bar', label: 'Xinhua volume', data: xinVol, backgroundColor: '#B8651D', yAxisID: 'y' },
-        { type: 'line', label: 'MFA mean sentiment', data: mfaSent, yAxisID: 'y1', borderColor: '#5C6470', backgroundColor: '#5C6470', pointRadius: 5, pointStyle: 'circle', showLine: false },
-        { type: 'line', label: 'Xinhua mean sentiment', data: xinSent, yAxisID: 'y1', borderColor: '#B8651D', backgroundColor: '#B8651D', pointRadius: 5, pointStyle: 'triangle', showLine: false }
-      ]
-    },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      scales: {
-        y: { position: 'left', title: { display: true, text: 'Sentence volume' }, grid: { drawOnChartArea: false } },
-        y1: {
-          position: 'right', title: { display: true, text: 'Mean sentiment' },
-          suggestedMin: -0.04, suggestedMax: 0.12,
-          // draw only the sentiment = 0 reference line
-          grid: {
-            drawOnChartArea: true,
-            color: ctx => ctx.tick.value === 0 ? 'rgba(27,39,51,0.45)' : 'transparent',
-            lineWidth: ctx => ctx.tick.value === 0 ? 1.5 : 0
-          }
-        }
-      },
-      plugins: { legend: { position: 'bottom', labels: { font: { family: 'Inter' } } } }
-    }
+  draw();
+  document.querySelectorAll('#bs-mode button').forEach(b => {
+    b.addEventListener('click', () => {
+      document.querySelectorAll('#bs-mode button').forEach(x => x.classList.remove('on'));
+      b.classList.add('on'); bsMode = b.dataset.bsmode; draw();
+    });
   });
+
+  function draw() {
+    const rows = bsMode === 'regime' ? regimeRows : bySource;
+    const agg = {};
+    rows.forEach(r => {
+      if (!agg[r.source]) agg[r.source] = { mfa_n: 0, xin_n: 0, mfa_m: 0, xin_m: 0 };
+      const k = r.publication === 'MFA' ? 'mfa' : 'xin';
+      agg[r.source][`${k}_n`] += r.n_sentences;
+      agg[r.source][`${k}_m`] += r.mean_sent * r.n_sentences;
+    });
+    const cats = bsMode === 'regime'
+      ? REGIME_SERIES.filter(c => agg[c])
+      : Object.keys(agg).sort((a, b) => (agg[b].mfa_n + agg[b].xin_n) - (agg[a].mfa_n + agg[a].xin_n));
+    const mfaVol  = cats.map(s => agg[s].mfa_n);
+    const xinVol  = cats.map(s => agg[s].xin_n);
+    const mfaSent = cats.map(s => agg[s].mfa_n ? agg[s].mfa_m / agg[s].mfa_n : null);
+    const xinSent = cats.map(s => agg[s].xin_n ? agg[s].xin_m / agg[s].xin_n : null);
+
+    const noteEl = document.getElementById('bysource-note');
+    if (noteEl) noteEl.textContent = bsMode === 'regime'
+      ? 'Sentence volume (bars) and mean sentiment (dots) toward authoritarian / democratic regimes and US allies / non-allies — by the countries each sentence references, per publication.'
+      : 'Sentence volume (bars) and mean sentiment (dots) per source group, by publication.';
+
+    if (bsChart) bsChart.destroy();
+    bsChart = new Chart(document.getElementById('bysource-chart'), {
+      data: {
+        labels: cats,
+        datasets: [
+          { type: 'bar', label: 'MFA volume', data: mfaVol, backgroundColor: '#1B2733', yAxisID: 'y' },
+          { type: 'bar', label: 'Xinhua volume', data: xinVol, backgroundColor: '#B8651D', yAxisID: 'y' },
+          { type: 'line', label: 'MFA mean sentiment', data: mfaSent, yAxisID: 'y1', borderColor: '#5C6470', backgroundColor: '#5C6470', pointRadius: 5, pointStyle: 'circle', showLine: false },
+          { type: 'line', label: 'Xinhua mean sentiment', data: xinSent, yAxisID: 'y1', borderColor: '#B8651D', backgroundColor: '#B8651D', pointRadius: 5, pointStyle: 'triangle', showLine: false }
+        ]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        scales: {
+          y: { position: 'left', title: { display: true, text: 'Sentence volume' }, grid: { drawOnChartArea: false } },
+          y1: {
+            position: 'right', title: { display: true, text: 'Mean sentiment' },
+            suggestedMin: -0.04, suggestedMax: 0.12,
+            // draw only the sentiment = 0 reference line
+            grid: {
+              drawOnChartArea: true,
+              color: ctx => ctx.tick.value === 0 ? 'rgba(27,39,51,0.45)' : 'transparent',
+              lineWidth: ctx => ctx.tick.value === 0 ? 1.5 : 0
+            }
+          }
+        },
+        plugins: { legend: { position: 'bottom', labels: { font: { family: 'Inter' } } } }
+      }
+    });
+  }
 }
 
 // ---- ARTICLES SEARCH ----
