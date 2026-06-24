@@ -148,7 +148,7 @@ function initQuarterlyChart(quarterly) {
                  : M === 'sentiment' ? 'Mean sentence sentiment' : 'Number of articles';
     const noteEl = document.getElementById('quarterly-note');
     if (noteEl) noteEl.textContent =
-      M === 'shareneg' ? 'Share of sentences with negative sentiment (Bing score < 0). Higher = more critical coverage. This is the clearest signal: USA/NATO coverage is ~40% negative vs ~6% for Global South groups, and conflict states (Iraq, Syria, Ukraine) are highest.'
+      M === 'shareneg' ? 'Share of sentences with negative sentiment (Bing score < 0). Higher = more critical coverage.'
       : M === 'sentiment' ? 'Mean sentiment = (positive − negative opinion-lexicon words) ÷ sentence length (Bing/Liu lexicon). Values are small and mostly positive — most sentences are near-neutral and Chinese state media is uniformly positive in tone — so differences between groups are real but compressed.'
       : 'Number of distinct articles per quarter in each series. An article can appear in more than one series.';
 
@@ -333,8 +333,17 @@ function initBySourceChart(bySource) {
     options: {
       responsive: true, maintainAspectRatio: false,
       scales: {
-        y: { position: 'left', title: { display: true, text: 'Sentence volume' } },
-        y1: { position: 'right', title: { display: true, text: 'Mean sentiment' }, grid: { drawOnChartArea: false }, suggestedMin: -0.04, suggestedMax: 0.12 }
+        y: { position: 'left', title: { display: true, text: 'Sentence volume' }, grid: { drawOnChartArea: false } },
+        y1: {
+          position: 'right', title: { display: true, text: 'Mean sentiment' },
+          suggestedMin: -0.04, suggestedMax: 0.12,
+          // draw only the sentiment = 0 reference line
+          grid: {
+            drawOnChartArea: true,
+            color: ctx => ctx.tick.value === 0 ? 'rgba(27,39,51,0.45)' : 'transparent',
+            lineWidth: ctx => ctx.tick.value === 0 ? 1.5 : 0
+          }
+        }
       },
       plugins: { legend: { position: 'bottom', labels: { font: { family: 'Inter' } } } }
     }
