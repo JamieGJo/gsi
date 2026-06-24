@@ -7,10 +7,10 @@ const SUPPORT_COLOR = {
   'Noncommittal':         '#8FB3B6',  // pale jade
   'No support':           '#E1DACA'   // pale cream
 };
-// Rank scale 0..5. 5 is the implementation tier (countries that have agreed to
-// join / implement, derived from the Implement field). Multi-hue ordinal ramp
-// (cream → gold → green → blue → dark teal → near-black) — monotonically darker
-// AND distinct in hue so ranks 1–4 stay clearly separable.
+// Rank scale 0..5, coded directly in the source file. 5 is the implementation
+// tier (countries that agreed to implement / pursue further cooperation).
+// Multi-hue ordinal ramp (cream → gold → green → blue → dark teal → near-black)
+// — monotonically darker AND distinct in hue so ranks 1–4 stay clearly separable.
 const RANK_COLOR = ['#EBE3D1','#E2C24A','#57AE7C','#2E8FB0','#1C5A6B','#0B1A1E'];
 const RANK_FULL_LABEL = {
   0: 'No mention',
@@ -50,12 +50,11 @@ const NONGSI_FILTERS = [
     fetch('data/signings.json').then(r => r.json()),
     GSI.loadWorldGeo()
   ]);
-  // Derive a `China_partnership` Yes/No flag from China_ally_label
+  // Derive a `China_partnership` Yes/No flag from China_ally_label.
+  // Ranking (0–5) comes straight from the source file — rank 5 is the
+  // implementation tier and no longer needs deriving from the Implement field.
   signings.forEach(s => {
     s.China_partnership = (s.China_ally_label && s.China_ally_label.trim()) ? 'Yes' : 'No';
-    // Implementation is the top of the support ladder: countries that agreed to
-    // join / implement become rank 5 (raw 0–4 ranking is preserved in the data).
-    if ((s.Implement || '').toLowerCase() === 'join') s.Ranking = 5;
   });
   const byIso3 = {};
   signings.forEach(s => { if (s.iso3) byIso3[s.iso3] = s; });

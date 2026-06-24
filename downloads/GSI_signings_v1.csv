@@ -1,195 +1,195 @@
-# Source: GSI Datasets | Cite as: Gruffydd-Jones, J. (2026). GSI Datasets. https://github.com/jjgj/gsi-datasets | Build: 2026-06-23
+# Source: GSI Datasets | Cite as: Gruffydd-Jones, J. (2026). GSI Datasets. https://github.com/jjgj/gsi-datasets | Build: 2026-06-24
 country,year,Forum,Language Used,Joint statement,Ranking,Implement,Level of public support,Any positivity,China ally level,China_level,China_ally,OECD country or not,China's neighbor or not,BRICS or not,US ally RAND,US arms 2022,China arms 2022,Vdem,EDI,Unnamed: 20,country.1
 Afghanistan,,,,0,0,Not join,,,Strategic cooperative partnership,3.0,1.0,No,Yes,No,1,0.0,0.0,Closed Autocracy,0.32,,Afghanistan
 Albania,,,,0,0,Not join,,,,0.0,0.0,No,No,No,1,0.0,0.0,Electoral Democracy,6.41,,Albania
-Algeria,2025.0,FOCAC,"""Supports"" ",0,2,Not join,Bilateral support,1.0,Comprehensive strategic partnership,4.0,1.0,No,No,No,0,32.0,138.0,Electoral Autocracy,3.55,,Algeria
-Andorra,,,,0,0,Not join,,,,0.0,0.0,No,No,No,0,0.0,0.0,,,,Andorra
-Angola,2024.0,Joint Statement,"""Supports""",1,2,Not join,Bilateral support,1.0,Comprehensive Strategic Partnership ,4.0,1.0,No,No,No,0,0.0,0.0,Electoral Autocracy,4.05,,Angola
-Antigua and Barbuda,2025.0,Joint Statement,"""Supports""",1,2,Not join,Bilateral support,1.0,,0.0,0.0,No,No,No,0,0.0,0.0,,,,Antigua and Barbuda
-Argentina,2023.0,Bilateral meeting,"""Are valuable""",0,1,Not join,Noncommittal,1.0,Comprehensive strategic partnership,4.0,1.0,No,No,Yes,1,15.0,0.0,Electoral Democracy,6.62,,Argentina
-Armenia,2023.0,Bilateral meeting,"""Spoke highly of""",0,2,Not join,Noncommittal,1.0,,0.0,0.0,No,No,No,0,0.0,0.0,Electoral Democracy,5.42,,Armenia
-Australia,,,,0,0,Not join,,,Comprehensive strategic partnership,4.0,1.0,Yes,No,No,1,789.0,0.0,Liberal Democracy,8.71,,Australia
-Austria,,,,0,0,Not join,,,(Friendy) Strategic partnership,2.0,1.0,Yes,No,No,0,1.0,0.0,Liberal Democracy,8.2,,Austria
-Azerbaijan,2024.0,Joint Statement,“Supports”,1,2,Not join,Bilateral support,1.0,Comprehensive strategic partnership,4.0,1.0,No,No,No,0,0.0,0.0,Electoral Autocracy,2.8,,Azerbaijan
-Bahamas,,,,0,0,Not join,,,,0.0,0.0,No,No,No,1,0.0,0.0,,,,Bahamas
-Bahrain,2024.0,Joint Statement,"""Appreciates""",1,2,Not join,Noncommittal,1.0,Comprehensive strategic partnership,4.0,1.0,No,No,No,1,244.0,0.0,Closed Autocracy,2.45,,Bahrain
-Bangladesh,2025.0,Joint Statement,"“Noted the importance of the Global Security Initiative""",1,1,Not join,Noncommittal,1.0,Comprehensive strategic cooperative partnership,5.0,1.0,No,No,No,0,5.0,228.0,Closed Autocracy,4.27,,Bangladesh
-Barbados,2023.0,Bilateral meeting,"""Ready... to actively participate in the implementation of""",0,4,Join,Bilateral support,1.0,,0.0,0.0,No,No,No,0,0.0,0.0,Liberal Democracy,,,Barbados
-Belarus,2023.0,Joint Statement,"""Supports""",1,2,Not join,Bilateral support,1.0,All-weather strategic partnership,6.0,1.0,No,No,No,0,0.0,0.0,Electoral Autocracy,1.99,,Belarus
-Belgium,,,,0,0,Not join,,,All-round (friendly) cooperative partnership ,1.0,1.0,Yes,No,No,1,0.0,0.0,Liberal Democracy,7.64,,Belgium
-Belize,,,,0,0,Not join,,,,0.0,0.0,No,No,No,0,0.0,0.0,,,,Belize
-Benin,2025.0,FOCAC,"""Supports"" ",0,2,Not join,Bilateral support,1.0,,0.0,0.0,No,No,No,0,0.0,3.0,Electoral Autocracy,4.26,,Benin
-Bhutan,2023.0,Bilateral meeting,"""Greatly appreciates and actively supports""",0,3,Not join,Bilateral support,1.0,,0.0,0.0,No,Yes,No,0,0.0,0.0,Liberal Democracy,5.54,,Bhutan
-Bolivia,2024.0,Bilateral meeting,"""Firmly supports""",0,3,Not join,Bilateral support,1.0,Strategic partnership,2.0,1.0,No,No,No,0,0.0,0.0,Electoral Democracy,4.26,,Bolivia
-Bosnia and Herzegovina,,,,0,0,Not join,,,,0.0,0.0,No,No,No,0,0.0,0.0,Electoral Democracy,5,,Bosnia and Herzegovina
-Botswana,2025.0,FOCAC,“Welcomes and supports”,0,2,Not join,Multilateral support,1.0,,0.0,0.0,No,No,No,0,0.0,0.0,Electoral Democracy,7.63,,Botswana
-Brazil,2024.0,Joint Statement,"""Welcomes""",1,2,Not join,Noncommittal,1.0,Comprehensive strategic partnership,4.0,1.0,No,No,Yes,1,11.0,0.0,Electoral Democracy,6.49,,Brazil
-Brunei,2024.0,Bilateral meeting,"""Have far-reaching impact and have greatly benefited Brunei""",0,3,Not join,Bilateral support,1.0,Strategic cooperative partnership,3.0,1.0,No,No,No,0,0.0,0.0,,,,Brunei
-Bulgaria,,,,0,0,Not join,,,Strategic partnership,2.0,1.0,No,No,No,1,0.0,0.0,Electoral Democracy,6.53,,Bulgaria
-Burkina Faso,2025.0,FOCAC,“Welcomes and supports” ,0,2,Not join,Multilateral support,1.0,,0.0,0.0,No,No,No,0,1.0,0.0,Closed Autocracy,2.55,,Burkina Faso
-Burundi,2025.0,FOCAC,"""Firmly supports""",0,3,Not join,Bilateral support,1.0,,0.0,0.0,No,No,No,0,0.0,0.0,Electoral Autocracy,2.13,,Burundi
-Cambodia,2025.0,Joint Statement,"""Highly appreciates""",1,3,Not join,Noncommittal,1.0,Comprehensive strategic cooperative partnership,5.0,1.0,No,No,No,0,0.0,38.0,Electoral Autocracy,2.7,,Cambodia
-Cameroon,2025.0,FOCAC,“Welcomes and supports”,0,2,Not join,Multilateral support,1.0,,0.0,0.0,No,No,No,0,0.0,0.0,Electoral Autocracy,2.56,,Cameroon
-Canada,,,,0,0,Not join,,,Strategic partnership,2.0,1.0,Yes,No,No,1,45.0,0.0,Electoral Democracy,8.88,,Canada
-Cape Verde,2025.0,FOCAC,“Welcomes and supports” ,0,2,Not join,Multilateral support,1.0,,0.0,0.0,No,No,No,0,0.0,0.0,Electoral Democracy,7.58,,Cape Verde
-Central African Republic,2025.0,FOCAC,"""Willing to fully support and work with China to promote the implementation of these initiatives""",0,4,Join,Bilateral support,1.0,,0.0,0.0,No,No,No,0,0.0,0.0,Electoral Autocracy,1.18,,Central African Republic
-Chad,2025.0,FOCAC,“Welcomes and supports”,0,2,Not join,Multilateral support,1.0,,0.0,0.0,No,No,No,0,0.0,0.0,Electoral Autocracy,1.76,,Chad
-Chile,2023.0,Joint Statement,"""Appreciates and affirms""",1,2,Not join,Noncommittal,1.0,Comprehensive strategic partnership,4.0,1.0,Yes,No,No,1,0.0,0.0,Liberal Democracy,7.98,,Chile
-Colombia,2023.0,Joint Statement,"""Welcomes""",1,2,Not join,Noncommittal,1.0,Strategic partnership,2.0,1.0,No,No,No,1,49.0,0.0,Electoral Democracy,6.55,,Colombia
-Comoros,2025.0,FOCAC,“Welcomes and supports” ,0,2,Not join,Multilateral support,1.0,,0.0,0.0,No,No,No,0,0.0,0.0,Electoral Autocracy,2.81,,Comoros
-Congo,2025.0,FOCAC,“Welcomes and supports” ,0,2,Not join,Multilateral support,1.0,Comprehensive strategic cooperative partnership,5.0,1.0,No,No,No,0,0.0,0.0,Electoral Autocracy,2.79,,Congo
-Costa Rica,2022.0,Bilateral meeting,"""Highly appreciates and actively supports""",0,4,Join,Bilateral support,1.0,Strategic partnership,2.0,1.0,Yes,No,No,1,0.0,0.0,Liberal Democracy,8.29,,Costa Rica
-Côte d'Ivoire,2025.0,FOCAC,"""Supports"" ",0,2,Not join,Bilateral support,1.0,,0.0,0.0,No,No,No,0,2.0,6.0,Electoral Autocracy,4.24,,Côte d'Ivoire
-Croatia,,,,0,0,Not join,,,Comprehensive cooperative partnership,1.0,1.0,No,No,No,1,29.0,0.0,Electoral Democracy,6.5,,Croatia
-Cuba,2022.0,Joint Statement,"""Supports""",1,2,Not join,Bilateral support,1.0,,0.0,0.0,No,No,No,1,0.0,0.0,Closed Autocracy,2.65,,Cuba
-Cyprus,,,,0,0,Not join,,,Strategic partnership,2.0,1.0,No,No,No,0,0.0,0.0,Liberal Democracy,7.38,,Cyprus
-Czechia,,,,0,0,Not join,,,Strategic partnership,2.0,1.0,Yes,No,No,1,0.0,0.0,Liberal Democracy,7.97,,Czechia
-Democratic Republic of Congo,2023.0,Joint Statement,"“Willing to strengthen cooperation""",1,4,Join,Bilateral support,1.0,Comprehensive strategic cooperative partnership,5.0,1.0,No,No,No,0,0.0,0.0,Electoral Autocracy,1.68,,Democratic Republic of Congo
-Denmark,,,,0,0,Not join,,,Comprehensive strategic partnership,4.0,1.0,Yes,No,No,1,134.0,0.0,Liberal Democracy,9.28,,Denmark
-Djibouti,2024.0,Joint Statement,"""Welcomes and supports""",1,2,Not join,Multilateral support,1.0,Comprehensive strategic partnership,4.0,1.0,No,No,No,0,0.0,0.0,Electoral Autocracy,2.7,,Djibouti
-Dominica,2025.0,Bilateral meeting,"""Support and welcome""",0,2,Not join,Bilateral support,1.0,,0.0,0.0,No,No,No,0,0.0,0.0,,,,Dominica
-Dominican Republic,,,,0,0,Not join,,,,0.0,0.0,No,No,No,1,5.0,0.0,Electoral Democracy,6.39,,Dominican Republic
-Ecuador,,,,0,0,Not join,,,Comprehensive strategic partnership,4.0,1.0,No,No,No,0,0.0,0.0,Electoral Democracy,5.69,,Ecuador
-Egypt,2023.0,China–Arab Forum,“Supports”,0,2,Not join,Bilateral support,1.0,Comprehensive strategic partnership,4.0,1.0,No,No,Yes,1,42.0,0.0,Electoral Autocracy,2.93,,Egypt
-El Salvador,,,,0,0,Not join,,,,0.0,0.0,No,No,No,1,7.0,0.0,Electoral Autocracy,5.06,,El Salvador
-Equatorial Guinea,2024.0,Joint Statement,"""Highly appreciates and strongly supported""",1,3,Not join,Bilateral support,1.0,Comprehensive strategic cooperative partnership,5.0,1.0,No,No,No,0,0.0,0.0,Electoral Autocracy,1.92,,Equatorial Guinea
-Eritrea,2025.0,FOCAC,“Welcomes and supports”,0,2,Not join,Multilateral support,1.0,,0.0,0.0,No,No,No,0,0.0,0.0,Closed Autocracy,1.97,,Eritrea
-Estonia,,,,0,0,Not join,,,,0.0,0.0,Yes,No,No,1,0.0,0.0,Liberal Democracy,7.96,,Estonia
-Eswatini,,,,0,0,Not join,,,,0.0,0.0,No,No,No,0,0.0,0.0,Closed Autocracy,3.01,,Eswatini
-Ethiopia,2023.0,Joint Statement,"“Appreciates and supports""",1,2,Not join,Bilateral support,1.0,All-weather strategic partnership,6.0,1.0,No,No,Yes,0,0.0,43.0,Electoral Autocracy,3.37,,Ethiopia
-Fiji,2024.0,Joint Statement,“Acknowledges”,1,1,Not join,Noncommittal,1.0,Comprehensive strategic partnership,4.0,1.0,No,No,No,0,0.0,0.0,Electoral Democracy,5.39,,Fiji
-Finland,,,,0,0,Not join,,,New cooperative partnership,1.0,1.0,Yes,No,No,0,0.0,0.0,Liberal Democracy,9.29,,Finland
-France,,,,0,0,Not join,,,Comprehensive strategic partnership,4.0,1.0,Yes,No,No,1,10.0,0.0,Liberal Democracy,8.07,,France
-Gabon,2023.0,Joint Statement,"“Willing to strengthen cooperation...on the implementation of""",1,4,Join,Bilateral support,1.0,Comprehensive strategic cooperative partnership,5.0,1.0,No,No,No,0,0.0,0.0,Electoral Autocracy,2.18,,Gabon
-Gambia,2025.0,FOCAC,"""Supports"" ",0,2,Not join,Bilateral support,1.0,,0.0,0.0,No,No,No,0,0.0,0.0,Electoral Democracy,4.47,,Gambia
-Georgia,2023.0,Joint Statement,"""Supports""",1,2,Not join,Bilateral support,1.0,,0.0,0.0,No,No,No,0,2.0,0.0,Electoral Democracy,5.2,,Georgia
-Germany,,,,0,0,Not join,,,All-round strategic partnership,4.0,1.0,Yes,No,No,1,197.0,0.0,Liberal Democracy,8.8,,Germany
-Ghana,2025.0,FOCAC,“Welcomes and supports” ,0,2,Not join,Multilateral support,1.0,,0.0,0.0,No,No,No,0,0.0,0.0,Electoral Democracy,6.24,,Ghana
-Greece,,,,0,0,Not join,,,Comprehensive strategic partnership,4.0,1.0,Yes,No,No,1,124.0,0.0,Electoral Democracy,7.97,,Greece
-Greenland,,,,0,0,Not join,,,,0.0,0.0,No,No,No,0,,,,,,GREENLAND (DEN.)
-Grenada,2023.0,Bilateral meeting,"""Willing to actively participate in""",0,4,Join,Bilateral support,1.0,,0.0,0.0,No,No,No,0,0.0,0.0,,,,Grenada
-Guatemala,,,,0,0,Not join,,,,0.0,0.0,No,No,No,1,10.0,0.0,Electoral Democracy,4.68,,Guatemala
-Guinea,2025.0,FOCAC,“Welcomes and supports” ,0,2,Not join,Bilateral support,1.0,Comprehensive strategic cooperative partnership,5.0,1.0,No,No,No,0,0.0,0.0,Closed Autocracy,2.15,,Guinea
-Guinea-Bissau,2024.0,Joint Statement,"""Highly appreciates and firmly supports""",1,3,Not join,Bilateral support,1.0,Strategic partnership,2.0,1.0,No,No,No,0,0.0,0.0,Electoral Autocracy,2.03,,Guinea-Bissau
-Guyana,2023.0,Joint Statement,"""Applauded""",1,2,Not join,Noncommittal,1.0,,0.0,0.0,No,No,No,0,0.0,0.0,Electoral Autocracy,6.26,,Guyana
-Haiti,,,,0,0,Not join,,,,0.0,0.0,No,No,No,1,0.0,0.0,Closed Autocracy,2.81,,Haiti
-Honduras,2023.0,"Bilateral meeting, joint statement","""Deeply admires""",1,3,Not join,Noncommittal,1.0,,0.0,0.0,No,No,No,1,0.0,0.0,Electoral Democracy,4.98,,Honduras
-Hungary,2024.0,Joint Statement,"""Attaches importance to""",1,2,Not join,Noncommittal,1.0,(New era and all-weather) comprehensive strategic partnership,6.0,1.0,Yes,No,No,1,0.0,0.0,Electoral Autocracy,6.51,,Hungary
-Iceland,,,,0,0,Not join,,,,0.0,0.0,Yes,No,No,1,0.0,0.0,Liberal Democracy,9.52,,Iceland
-India,,,,0,0,Not join,,,Strategic cooperative partnership,3.0,1.0,No,Yes,Yes,0,234.0,0.0,Electoral Autocracy,7.04,,India
-Indonesia,2024.0,"Bilateral meeting, joint statement, Multilateral Belt and Road forum","""Supports"" ",1,2,Not join,Bilateral support,1.0,Comprehensive strategic partnership,4.0,1.0,No,No,No,0,11.0,0.0,Electoral Autocracy,6.44,,Indonesia
-Iran,2023.0,Joint Statement,"""Supports""",1,2,Not join,Bilateral support,1.0,Comprehensive strategic partnership,4.0,1.0,No,No,Yes,0,0.0,0.0,Closed Autocracy,1.96,,Iran
-Iraq,2022.0,Bilateral meeting,"""Pay attention to""",0,1,Not join,Multilateral support,1.0,,0.0,0.0,No,No,No,0,11.0,0.0,Electoral Autocracy,3.13,,Iraq
-Ireland,,,,0,0,Not join,,,Innovative comprehensive partnership,2.0,1.0,Yes,No,No,0,0.0,0.0,Liberal Democracy,9.13,,Ireland
-Israel,,,,0,0,Not join,,,Comprehensive strategic partnership,4.0,1.0,Yes,No,No,1,430.0,0.0,Liberal Democracy,7.93,,Israel
-Italy,,,,0,0,Not join,,,Strategic partnership,2.0,1.0,Yes,No,No,1,214.0,0.0,Liberal Democracy,7.69,,Italy
-Jamaica,2026.0,Joint Statement,"""Welcomes this and is willing to work with China to actively explore the implementation""",1,4,Join,Bilateral support,1.0,Strategic partnership,2.0,1.0,No,No,No,0,0.0,0.0,Electoral Democracy,7.13,,Jamaica
-Japan,,,,0,0,Not join,,,,0.0,0.0,Yes,Yes,No,1,1402.0,0.0,Liberal Democracy,8.33,,Japan
-Jordan,2022.0,Bilateral meeting,"""Pay attention to""",0,1,Not join,Multilateral support,1.0,Strategic partnership,2.0,1.0,No,No,No,1,23.0,0.0,Closed Autocracy,3.17,,Jordan
-Kazakhstan,2025.0,"Bilateral meeting, Multilateral SCO Summits, China-Central Asia summits","""Actively champions""",0,4,Join,Bilateral support,1.0,(Permanent) comprehensive strategic partnership,4.0,1.0,No,Yes,No,0,0.0,0.0,Electoral Autocracy,2.91,,Kazakhstan
-Kenya,2025.0,"Bilateral meeting, joint statement; Multilateral FOCAC summit","""Commends and actively supports""",1,3,Not join,Bilateral support,1.0,Comprehensive strategic cooperative partnership,5.0,1.0,No,No,No,0,0.0,0.0,Electoral Democracy,5.05,,Kenya
-Kiribati,,,,0,0,Not join,,,,0.0,0.0,No,No,No,0,0.0,0.0,,,,Kiribati
-Kuwait,2023.0,Bilateral meeting,“Firmly support and actively participate in”,0,4,Join,Bilateral support,1.0,,0.0,0.0,No,No,No,1,1310.0,0.0,Closed Autocracy,3.5,,Kuwait
-Kyrgyzstan,2025.0,Joint Statement,"""Highly appreciates and supports""",1,3,Not join,Bilateral support,1.0,(New era) Comprehensive strategic partnership,4.0,1.0,No,Yes,No,0,0.0,0.0,Electoral Autocracy,3.27,,Kyrgyzstan
-Laos,2025.0,"Bilateral meeting, joint statement","""Attaches great importance to"" ",1,3,Not join,Noncommittal,1.0,Comprehensive strategic cooperative partnership,5.0,1.0,No,Yes,No,0,0.0,0.0,Closed Autocracy,1.71,,Laos
-Latvia,,,,0,0,Not join,,,,0.0,0.0,Yes,No,No,1,15.0,0.0,Liberal Democracy,7.37,,Latvia
-Lebanon,,,,0,1,Not join,Multilateral support,1.0,,0.0,0.0,No,No,No,0,30.0,0.0,Electoral Autocracy,3.64,,Lebanon
-Lesotho,2025.0,FOCAC,“Welcomes and supports”,0,2,Not join,Multilateral support,1.0,,0.0,0.0,No,No,No,0,0.0,0.0,Electoral Democracy,6.23,,Lesotho
-Liberia,2025.0,FOCAC,"""Highly praised""",0,3,Not join,Noncommittal,1.0,Comprehensive cooperative partnership,1.0,1.0,No,No,No,0,0.0,0.0,Electoral Democracy,5.57,,Liberia
-Libya,2025.0,FOCAC,“Welcomes and supports” ,0,2,Not join,Multilateral support,1.0,,0.0,0.0,No,No,No,0,0.0,0.0,Closed Autocracy,2.31,,Libya
-Liechtenstein,,,,0,0,Not join,,,,0.0,0.0,No,No,No,0,0.0,0.0,,,,Liechtenstein
-Lithuania,,,,0,0,Not join,,,,0.0,0.0,Yes,No,No,1,42.0,0.0,Electoral Democracy,7.31,,Lithuania
-Luxembourg,,,,0,0,Not join,,,,0.0,0.0,Yes,No,No,1,0.0,0.0,Liberal Democracy,8.81,,Luxembourg
-Madagascar,2025.0,FOCAC,“Welcomes and supports” ,0,2,Not join,Multilateral support,1.0,Comprehensive cooperative partnership,1.0,1.0,No,No,No,0,0.0,0.0,Electoral Autocracy,5.06,,Madagascar
-Malawi,2025.0,FOCAC,“Welcomes and supports”,0,2,Not join,Multilateral support,1.0,,0.0,0.0,No,No,No,0,0.0,16.0,Electoral Democracy,6.1,,Malawi
-Malaysia,2025.0,"Bilateral meetiing, joint statement","""Ready... to actively participate in""",1,4,Join,Bilateral support,1.0,Comprehensive strategic partnership,4.0,1.0,No,No,No,0,26.0,28.0,Electoral Democracy,7.11,,Malaysia
-Maldives,2024.0,Joint Statement,"""Explore ways towards implementing""",1,4,Join,Bilateral support,1.0,Comprehensive strategic cooperative partnership,5.0,1.0,No,No,No,0,0.0,0.0,Electoral Democracy,,,Maldives
-Mali,2025.0,FOCAC,"""Willing to continuously strengthen cooperation""",0,4,Join,Bilateral support,1.0,,0.0,0.0,No,No,No,0,0.0,0.0,Closed Autocracy,2.4,,Mali
-Malta,,,,0,0,Not join,,,,0.0,0.0,No,No,No,0,0.0,0.0,Electoral Democracy,7.7,,Malta
-Marshall Islands,,,,0,0,Not join,,,,0.0,0.0,No,No,No,0,0.0,0.0,,,,Marshall Islands
-Mauritania,2025.0,FOCAC,"""Highly appreciates and actively supports""",0,3,Not join,Bilateral support,1.0,,0.0,0.0,No,No,No,0,0.0,0.0,Electoral Autocracy,3.84,,Mauritania
-Mauritius,2025.0,FOCAC,“Welcomes and supports” ,0,2,Not join,Multilateral support,1.0,,0.0,0.0,No,No,No,0,0.0,0.0,Electoral Democracy,8.23,,Mauritius
-Mexico,,,,0,0,Not join,,,Comprehensive strategic partnership,4.0,1.0,Yes,No,No,0,0.0,0.0,Electoral Democracy,5.25,,Mexico
-Micronesia,2024.0,Joint Statement,"“Both sides will explore cooperation under the framework of""",1,1,Not join,Noncommittal,1.0,Comprehensive strategic partnership,4.0,1.0,No,No,No,0,,,,,,Micronesia
-Moldova,,,,0,0,Not join,,,,,,,,,0,0.0,0.0,Electoral Democracy,6.23,,Moldova
-Monaco,,,,0,0,Not join,,,,,,,,,0,0.0,0.0,,,,Monaco
-Mongolia,2023.0,Bilateral meeting,“Resolutely supports”,0,3,Not join,Bilateral support,1.0,Comprehensive strategic partnership,4.0,1.0,No,Yes,No,0,0.0,0.0,Electoral Democracy,6.48,,Mongolia
-Montenegro,,,,0,0,Not join,,,,0.0,0.0,No,No,No,1,2.0,0.0,Electoral Democracy,6.45,,Montenegro
-Morocco,2025.0,FOCAC,“Welcomes and supports” ,0,2,Not join,Multilateral support,1.0,Strategic partnership,2.0,1.0,No,No,No,1,349.0,6.0,Closed Autocracy,4.97,,Morocco
-Mozambique,2025.0,FOCAC,“Welcomes and supports” ,0,2,Not join,Multilateral support,1.0,Comprehensive strategic cooperative partnership,5.0,1.0,No,No,No,0,0.0,0.0,Electoral Autocracy,3.38,,Mozambique
-Myanmar,2025.0,Bilateral meeting,"""Willingness to work with China and other countries to implement the GSI""",0,4,Join,Bilateral support,1.0,Comprehensive strategic cooperative partnership,5.0,1.0,No,Yes,No,0,0.0,102.0,Closed Autocracy,0.96,,Myanmar
-Namibia,2025.0,FOCAC,"""Endorsed and joined""",0,4,Join,Bilateral support,1.0,Comprehensive strategic cooperative partnership,5.0,1.0,No,No,No,0,0.0,0.0,Electoral Democracy,6.48,,Namibia
-Nepal,,,,0,0,Not join,,,Strategic cooperative relationship,3.0,1.0,No,Yes,No,0,0.0,0.0,Electoral Democracy,4.49,,Nepal
-Netherlands,,,,0,0,Not join,,,Comprehensive cooperative partnership,1.0,1.0,Yes,No,No,1,708.0,0.0,Liberal Democracy,9,,Netherlands
-New Zealand,,,,0,0,Not join,,,Comprehensive strategic partnership,4.0,1.0,Yes,No,No,1,130.0,0.0,Liberal Democracy,9.61,,New Zealand
-Nicaragua,2023.0,Bilateral meeting,“Supports”,0,2,Not join,Bilateral support,1.0,,0.0,0.0,No,No,No,0,0.0,0.0,Electoral Autocracy,2.26,,Nicaragua
-Niger,2025.0,FOCAC,“Welcomes and supports”,0,2,Not join,Multilateral support,1.0,,0.0,0.0,No,No,No,0,11.0,0.0,Closed Autocracy,1.95,,Niger
-Nigeria,2025.0,FOCAC,"""Applauds and supports""",0,2,Not join,Bilateral support,1.0,Strategic partnership,2.0,1.0,No,No,No,0,0.0,35.0,Electoral Democracy,4.1,,Nigeria
-North Korea,2022.0,Public statement (via Foreign Ministry),“Fully supports”,0,3,Not join,Bilateral support,1.0,,0.0,0.0,No,Yes,No,0,0.0,0.0,Closed Autocracy,1.08,,North Korea
-North Macedonia,,,,0,0,Not join,,,,0.0,0.0,No,No,No,0,1.0,0.0,Electoral Democracy,6.1,,North Macedonia
-Norway,,,,0,0,Not join,,,,0.0,0.0,Yes,No,No,1,692.0,0.0,Liberal Democracy,9.81,,Norway
-Oman,2022.0,Bilateral meeting,"""Pay attention to""",0,1,Not join,Multilateral support,1.0,,0.0,0.0,No,No,No,1,0.0,0.0,Closed Autocracy,3.12,,Oman
-Pakistan,2022.0,Joint Statement,“Strong support”,1,3,Not join,Bilateral support,1.0,All-weather strategic cooperative partnership,6.0,1.0,No,Yes,No,1,0.0,1322.0,Electoral Autocracy,4.13,,Pakistan
-Palau,,,,0,0,Not join,,,,0.0,0.0,No,No,No,0,0.0,0.0,,,,Palau
-Palestine,2023.0,Joint Statement,"""Highly appreciates""",1,3,Not join,Noncommittal,1.0,Strategic partnership,2.0,1.0,No,No,No,0,,,Electoral Autocracy,3.47,,Palestine
-Panama,,,,0,0,Not join,,,,0.0,0.0,No,No,No,1,0.0,0.0,Electoral Democracy,6.91,,Panama
-Papua New Guinea,2024.0,Joint Statement,"""Welcomes and supports""",1,2,Not join,Bilateral support,1.0,Comprehensive strategic partnership,4.0,1.0,No,No,No,0,0.0,0.0,Electoral Autocracy,5.97,,Papua New Guinea
-Paraguay,,,,0,0,Not join,,,,0.0,0.0,No,No,No,1,0.0,0.0,Electoral Democracy,5.89,,Paraguay
-Peru,2023.0,Joint Statement,"""Supports""",1,2,Not join,Bilateral support,1.0,Comprehensive strategic partnership,4.0,1.0,No,No,No,1,14.0,0.0,Electoral Democracy,5.81,,Peru
-Philippines,2023.0,Joint Statement,"""Explore possible cooperation""",1,1,Not join,Noncommittal,1.0,,0.0,0.0,No,Yes,No,1,4.0,0.0,Electoral Autocracy,6.66,,Philippines
-Poland,,,,0,0,Not join,,,Comprehensive strategic partnership,4.0,1.0,Yes,No,No,1,171.0,0.0,Electoral Democracy,7.04,,Poland
-Portugal,,,,0,0,Not join,,,Comprehensive strategic partnership,4.0,1.0,Yes,No,No,1,0.0,0.0,Liberal Democracy,7.95,,Portugal
-Qatar,2022.0,Bilateral meeting,"""Pay attention to""",0,1,Not join,Multilateral support,1.0,Strategic partnership,2.0,1.0,No,No,No,1,1312.0,0.0,Closed Autocracy,3.65,,Qatar
-Romania,,,,0,0,Not join,,,Comprehensive (friendly) cooperative partnership,1.0,1.0,No,No,No,1,168.0,0.0,Electoral Democracy,6.45,,Romania
-Russia,2023.0,Joint Statement,"""Jointly implementing""",1,4,Join,Bilateral support,1.0,Comprehensive strategic coordinated partnership in a new era,7.0,1.0,No,Yes,Yes,0,1.0,5.0,Electoral Autocracy,2.22,,Russia
-Rwanda,2025.0,FOCAC,"""Supports…ready to jointly implement""",0,4,Join,Bilateral support,1.0,,0.0,0.0,No,No,No,0,0.0,0.0,Electoral Autocracy,3.34,,Rwanda
-Saint Kitts and Nevis,,,,0,0,Not join,,,,0.0,0.0,No,No,No,0,0.0,0.0,,,,Saint Kitts and Nevis
-Saint Lucia,,,,0,0,Not join,,,,0.0,0.0,No,No,No,0,0.0,0.0,,,,Saint Lucia
-Saint Vincent and the Grenadines,,,,0,0,Not join,,,,0.0,0.0,No,No,No,0,0.0,0.0,,,,Saint Vincent and the Grenadines
-Samoa,2024.0,Joint Statement,"""Welcomes""",1,2,Not join,Noncommittal,1.0,,0.0,0.0,No,No,No,0,0.0,0.0,,,,Samoa
-San Marino,,,,0,0,Not join,,,,,,,,,0,0.0,0.0,,,,San Marino
-São Tomé and Príncipe,2025.0,FOCAC,"""Highly appreciates and actively supports""",0,3,Not join,Bilateral support,1.0,Comprehensive cooperative partnership,1.0,1.0,No,No,No,0,0.0,0.0,Electoral Democracy,,,São Tomé and Príncipe
-Saudi Arabia,2023.0,China–Arab Forum,“Appreciates”,0,2,Not join,Noncommittal,1.0,Comprehensive strategic partnership,4.0,1.0,No,No,Yes,1,2006.0,20.0,Closed Autocracy,2.08,,Saudi Arabia
-Senegal,2024.0,Joint Statement,"""Willing to carry forward the friendly tradition and in the framework of solidarity… ""ready to implement""",1,4,Join,Bilateral support,1.0,Comprehensive strategic cooperative partnership,5.0,1.0,No,No,No,0,0.0,0.0,Electoral Democracy,5.93,,Senegal
-Serbia,2024.0,"Bilateral meeting, joint statement","""Ready to implement""",1,4,Join,Bilateral support,,Comprehensive strategic partnership,4.0,1.0,No,No,No,0,2.0,157.0,Electoral Autocracy,6.26,,Serbia
-Seychelles,2025.0,FOCAC,“Welcomes and supports” ,0,2,Not join,Multilateral support,1.0,,0.0,0.0,No,No,No,0,0.0,0.0,Liberal Democracy,,,Seychelles
-Sierra Leone,2025.0,FOCAC,"""Willing to strengthen cooperation on the implementation of""",0,4,Join,Bilateral support,1.0,Comprehensive strategic cooperative partnership,5.0,1.0,No,No,No,0,0.0,0.0,Electoral Autocracy,4.44,,Sierra Leone
-Singapore,,,,0,0,Not join,,,All-round high-quality forward-looking partnership,1.0,1.0,No,No,No,0,336.0,0.0,Electoral Autocracy,6.22,,Singapore
-Slovakia,2024.0,Joint Statement,"""Ready to discuss and exchange the views on""",1,1,Not join,Noncommittal,1.0,Strategic partnership,2.0,1.0,Yes,No,No,1,0.0,0.0,Electoral Democracy,7.21,,Slovakia
-Slovenia,,,,0,0,Not join,,,,0.0,0.0,Yes,No,No,1,0.0,0.0,Liberal Democracy,7.75,,Slovenia
-Solomon Islands,2024.0,Joint Statement,“Welcomes and supports”,1,2,Not join,Bilateral support,1.0,Comprehensive strategic partnership,4.0,1.0,No,No,No,0,0.0,0.0,Electoral Democracy,,,Solomon Islands
-Somalia,2025.0,FOCAC,“Welcomes and supports” ,0,2,Not join,Multilateral support,1.0,,0.0,0.0,No,No,No,0,0.0,0.0,Closed Autocracy,,,Somalia
-South Africa,2024.0,Joint Statement,"""Recognizes that..aimed at maintaining global peace and security""",1,1,Not join,Noncommittal,1.0,All round strategic cooperative partnership,5.0,1.0,No,No,Yes,0,0.0,0.0,Electoral Democracy,d,,South Africa
-South Korea,,,,0,0,Not join,,,Strategic cooperative partnership,3.0,1.0,Yes,No,No,1,423.0,0.0,Liberal Democracy,8.03,,South Korea
-South Sudan,2025.0,FOCAC,“Welcomes and supports”,0,2,Not join,Multilateral support,1.0,,0.0,0.0,No,No,No,0,0.0,0.0,Closed Autocracy,,,South Sudan
-Spain,,,,0,0,Not join,,,Comprehensive strategic partnership,4.0,1.0,Yes,No,No,1,71.0,0.0,Liberal Democracy,8.07,,Spain
-Sri Lanka,2025.0,Joint Statement,"""Reaffirmed its commitment to supporting and actively participating in the development of""",1,4,Join,Bilateral support,1.0,Strategic cooperative partnership,3.0,1.0,No,No,No,0,0.0,0.0,Electoral Democracy,6.57,,Sri Lanka
-Sudan,2025.0,FOCAC,“Welcomes and supports” ,0,2,Not join,Multilateral support,1.0,Strategic partnership,2.0,1.0,No,No,No,0,0.0,0.0,Closed Autocracy,1.46,,Sudan
-Suriname,2024.0,Joint Statement,“supports”,1,2,Not join,Bilateral support,1.0,Strategic cooperative relationship,3.0,1.0,No,No,No,0,0.0,0.0,Electoral Democracy,6.79,,Suriname
-Sweden,,,,0,0,Not join,,,,0.0,0.0,No,No,No,0,318.0,0.0,Liberal Democracy,9.39,,Sweden
-Switzerland,,,,0,0,Not join,,,(Innovative) Strategic partnership,2.0,1.0,Yes,No,No,0,15.0,0.0,Liberal Democracy,9.14,,Switzerland
-Syria,2023.0,Joint Statement,"""Highly appreciates and actively supports""",1,3,Not join,Bilateral support,1.0,Strategic partnership,2.0,1.0,No,No,No,0,0.0,0.0,Closed Autocracy,1.43,,Syria
-Tajikistan,2025.0,"Bilateral meeting, joint statement; Multilateral, China-Central Asia summit","""Supports"" ",1,2,Not join,Bilateral support,1.0,(New era) Comprehensive strategic cooperative partnership,5.0,1.0,No,Yes,No,0,0.0,0.0,Electoral Autocracy,1.94,,Tajikistan
-Tanzania,2022.0,Joint Statement,"""Highly appreciates and actively supports""",1,3,Not join,Bilateral support,1.0,Comprehensive strategic cooperative partnership,5.0,1.0,No,No,No,0,0.0,0.0,Electoral Autocracy,5.1,,Tanzania
-Thailand,2025.0,Bilateral meeting,"""Supports"" ",0,2,Not join,Bilateral support,1.0,Comprehensive strategic cooperative partnership,5.0,1.0,No,No,No,1,35.0,177.0,Electoral Autocracy,6.59,,Thailand
-Timor-Leste,2023.0,Joint Statement,"""Highly appreciates""",1,3,Not join,Noncommittal,1.0,Comprehensive strategic partnership,4.0,1.0,No,No,No,0,0.0,0.0,Electoral Democracy,7.06,,Timor-Leste
-Togo,2025.0,FOCAC,“Welcomes and supports” ,0,2,Not join,Multilateral support,1.0,,0.0,0.0,No,No,No,0,4.0,0.0,Electoral Autocracy,2.88,,Togo
-Tonga,,,,0,0,Not join,,,,0.0,0.0,No,No,No,0,0.0,0.0,,,,Tonga
-Trinidad and Tobago,,,,0,0,Not join,,,,0.0,0.0,No,No,No,1,0.0,0.0,Liberal Democracy,7.16,,Trinidad and Tobago
-Tunisia,2024.0,Joint Statement,“Welcomes”,1,2,Not join,Noncommittal,1.0,Strategic partnership,2.0,1.0,No,No,No,1,15.0,0.0,Electoral Autocracy,4.71,,Tunisia
-Turkey,,,,0,0,Not join,,,Strategic cooperative relationship,3.0,1.0,Yes,No,No,1,27.0,0.0,Electoral Autocracy,4.35,,Turkey
-Turkmenistan,2025.0,"Bilateral meeting, joint statement; Multilateral China-Central Asia summits",“Determined to jointly promote the implementation of” ,1,4,Join,Bilateral support,1.0,Comprehensive strategic partnership,4.0,1.0,No,No,No,0,0.0,0.0,Closed Autocracy,1.54,,Turkmenistan
-Tuvalu,,,,0,0,Not join,,,,,,,,,0,0.0,0.0,,,,Tuvalu
-Uganda,2025.0,FOCAC,“Welcomes and supports”,0,2,Not join,Multilateral support,1.0,Comprehensive cooperative partnership,1.0,1.0,No,No,No,0,0.0,0.0,Electoral Autocracy,4.31,,Uganda
-Ukraine,,,,0,0,Not join,,,Strategic partnership,2.0,1.0,No,No,No,0,879.0,0.0,Electoral Autocracy,5.42,,Ukraine
-United Arab Emirates,2024.0,Bilateral meeting,"""Highly appreciates and actively supports""",0,3,Not join,Bilateral support,1.0,Comprehensive strategic partnership,4.0,1.0,No,No,Yes,1,376.0,0.0,Closed Autocracy,3.07,,United Arab Emirates
-United Kingdom,,,,0,0,Not join,,,Comprehensive strategic partnership (in 21st century),4.0,1.0,Yes,No,No,1,768.0,0.0,Liberal Democracy,8.28,,United Kingdom
-United States,,,,0,0,Not join,,,,0.0,0.0,Yes,No,No,0,0.0,0.0,Liberal Democracy,7.85,,United States
-Uruguay,2023.0,Bilateral meeting,“Welcomes and supports” ,0,2,Not join,Bilateral support,1.0,Strategic partnership,2.0,1.0,No,No,No,1,5.0,0.0,Liberal Democracy,8.66,,Uruguay
-Uzbekistan,2024.0,Joint Statement,"""Actively supports and promotes the implementation of""",1,4,Join,Bilateral support,1.0,All-weather comprehensive strategic partnership,6.0,1.0,No,No,No,0,0.0,0.0,Closed Autocracy,2.1,,Uzbekistan
-Vanuatu,2024.0,Joint Statement,"""Welcomes and supports""",1,2,Not join,Bilateral support,1.0,,0.0,0.0,No,No,No,0,0.0,0.0,Electoral Democracy,,,Vanuatu
-Venezuela,2023.0,Joint Statement,"""Highly appreciates and supports""",1,3,Not join,Bilateral support,1.0,All-weather strategic partnership,6.0,1.0,No,No,No,0,0.0,0.0,Electoral Autocracy,2.31,,Venezuela
-Vietnam,2025.0,"Bilateral meeting, joint statement",“Welcomes and supports” ,1,2,Not join,Bilateral support,1.0,Comprehensive strategic cooperative partnership,5.0,1.0,No,Yes,No,0,0.0,0.0,Closed Autocracy,2.62,,Vietnam
-Yemen,2022.0,Bilateral meeting,"""Pay attention to""",0,1,Not join,Multilateral support,1.0,,0.0,0.0,No,No,No,0,0.0,0.0,Closed Autocracy,1.95,,Yemen
-Zambia,2023.0,Joint Statement,"""Supports.. And willing to jointly implement""",1,4,Join,Bilateral support,1.0,Comprehensive strategic cooperative partnership,5.0,1.0,No,No,No,0,0.0,0.0,Electoral Democracy,5.8,,Zambia
-Zimbabwe,2024.0,"Bilateral meeting, joint statement; Multilateral FOCAC summit","""Highly appreciates and actively supports""",1,3,Not join,Bilateral support,1.0,Comprehensive strategic cooperative partnership,5.0,1.0,No,No,No,0,0.0,0.0,Electoral Autocracy,2.98,,Zimbabwe
+Andorra,,,,0,0,Not join,,,,0.0,0.0,No,No,No,0,0.0,0.0,,,,Algeria
+Australia,,,,0,0,Not join,,,Comprehensive strategic partnership,4.0,1.0,Yes,No,No,1,789.0,0.0,Liberal Democracy,8.71,,Andorra
+Austria,,,,0,0,Not join,,,(Friendy) Strategic partnership,2.0,1.0,Yes,No,No,0,1.0,0.0,Liberal Democracy,8.2,,Angola
+Bahamas,,,,0,0,Not join,,,,0.0,0.0,No,No,No,1,0.0,0.0,,,,Antigua and Barbuda
+Belgium,,,,0,0,Not join,,,All-round (friendly) cooperative partnership ,1.0,1.0,Yes,No,No,1,0.0,0.0,Liberal Democracy,7.64,,Argentina
+Belize,,,,0,0,Not join,,,,0.0,0.0,No,No,No,0,0.0,0.0,,,,Armenia
+Bosnia and Herzegovina,,,,0,0,Not join,,,,0.0,0.0,No,No,No,0,0.0,0.0,Electoral Democracy,5,,Australia
+Bulgaria,,,,0,0,Not join,,,Strategic partnership,2.0,1.0,No,No,No,1,0.0,0.0,Electoral Democracy,6.53,,Austria
+Canada,,,,0,0,Not join,,,Strategic partnership,2.0,1.0,Yes,No,No,1,45.0,0.0,Electoral Democracy,8.88,,Azerbaijan
+Croatia,,,,0,0,Not join,,,Comprehensive cooperative partnership,1.0,1.0,No,No,No,1,29.0,0.0,Electoral Democracy,6.5,,Bahamas
+Cyprus,,,,0,0,Not join,,,Strategic partnership,2.0,1.0,No,No,No,0,0.0,0.0,Liberal Democracy,7.38,,Bahrain
+Czechia,,,,0,0,Not join,,,Strategic partnership,2.0,1.0,Yes,No,No,1,0.0,0.0,Liberal Democracy,7.97,,Bangladesh
+Denmark,,,,0,0,Not join,,,Comprehensive strategic partnership,4.0,1.0,Yes,No,No,1,134.0,0.0,Liberal Democracy,9.28,,Barbados
+Dominican Republic,,,,0,0,Not join,,,,0.0,0.0,No,No,No,1,5.0,0.0,Electoral Democracy,6.39,,Belarus
+Ecuador,,,,0,0,Not join,,,Comprehensive strategic partnership,4.0,1.0,No,No,No,0,0.0,0.0,Electoral Democracy,5.69,,Belgium
+El Salvador,,,,0,0,Not join,,,,0.0,0.0,No,No,No,1,7.0,0.0,Electoral Autocracy,5.06,,Belize
+Estonia,,,,0,0,Not join,,,,0.0,0.0,Yes,No,No,1,0.0,0.0,Liberal Democracy,7.96,,Benin
+Eswatini,,,,0,0,Not join,,,,0.0,0.0,No,No,No,0,0.0,0.0,Closed Autocracy,3.01,,Bhutan
+Finland,,,,0,0,Not join,,,New cooperative partnership,1.0,1.0,Yes,No,No,0,0.0,0.0,Liberal Democracy,9.29,,Bolivia
+France,,,,0,0,Not join,,,Comprehensive strategic partnership,4.0,1.0,Yes,No,No,1,10.0,0.0,Liberal Democracy,8.07,,Bosnia and Herzegovina
+Germany,,,,0,0,Not join,,,All-round strategic partnership,4.0,1.0,Yes,No,No,1,197.0,0.0,Liberal Democracy,8.8,,Botswana
+Greece,,,,0,0,Not join,,,Comprehensive strategic partnership,4.0,1.0,Yes,No,No,1,124.0,0.0,Electoral Democracy,7.97,,Brazil
+Greenland,,,,0,0,Not join,,,,0.0,0.0,No,No,No,0,,,,,,Brunei
+Guatemala,,,,0,0,Not join,,,,0.0,0.0,No,No,No,1,10.0,0.0,Electoral Democracy,4.68,,Bulgaria
+Haiti,,,,0,0,Not join,,,,0.0,0.0,No,No,No,1,0.0,0.0,Closed Autocracy,2.81,,Burkina Faso
+Iceland,,,,0,0,Not join,,,,0.0,0.0,Yes,No,No,1,0.0,0.0,Liberal Democracy,9.52,,Burundi
+India,,,,0,0,Not join,,,Strategic cooperative partnership,3.0,1.0,No,Yes,Yes,0,234.0,0.0,Electoral Autocracy,7.04,,Cambodia
+Ireland,,,,0,0,Not join,,,Innovative comprehensive partnership,2.0,1.0,Yes,No,No,0,0.0,0.0,Liberal Democracy,9.13,,Cameroon
+Israel,,,,0,0,Not join,,,Comprehensive strategic partnership,4.0,1.0,Yes,No,No,1,430.0,0.0,Liberal Democracy,7.93,,Canada
+Italy,,,,0,0,Not join,,,Strategic partnership,2.0,1.0,Yes,No,No,1,214.0,0.0,Liberal Democracy,7.69,,Cape Verde
+Japan,,,,0,0,Not join,,,,0.0,0.0,Yes,Yes,No,1,1402.0,0.0,Liberal Democracy,8.33,,Central African Republic
+Kiribati,,,,0,0,Not join,,,,0.0,0.0,No,No,No,0,0.0,0.0,,,,Chad
+Latvia,,,,0,0,Not join,,,,0.0,0.0,Yes,No,No,1,15.0,0.0,Liberal Democracy,7.37,,Chile
+Liechtenstein,,,,0,0,Not join,,,,0.0,0.0,No,No,No,0,0.0,0.0,,,,Colombia
+Lithuania,,,,0,0,Not join,,,,0.0,0.0,Yes,No,No,1,42.0,0.0,Electoral Democracy,7.31,,Comoros
+Luxembourg,,,,0,0,Not join,,,,0.0,0.0,Yes,No,No,1,0.0,0.0,Liberal Democracy,8.81,,Congo
+Malta,,,,0,0,Not join,,,,0.0,0.0,No,No,No,0,0.0,0.0,Electoral Democracy,7.7,,Costa Rica
+Marshall Islands,,,,0,0,Not join,,,,0.0,0.0,No,No,No,0,0.0,0.0,,,,Côte d'Ivoire
+Mexico,,,,0,0,Not join,,,Comprehensive strategic partnership,4.0,1.0,Yes,No,No,0,0.0,0.0,Electoral Democracy,5.25,,Croatia
+Moldova,,,,0,0,Not join,,,,,,,,,0,0.0,0.0,Electoral Democracy,6.23,,Cuba
+Monaco,,,,0,0,Not join,,,,,,,,,0,0.0,0.0,,,,Cyprus
+Montenegro,,,,0,0,Not join,,,,0.0,0.0,No,No,No,1,2.0,0.0,Electoral Democracy,6.45,,Czechia
+Nepal,,,,0,0,Not join,,,Strategic cooperative relationship,3.0,1.0,No,Yes,No,0,0.0,0.0,Electoral Democracy,4.49,,Democratic Republic of Congo
+Netherlands,,,,0,0,Not join,,,Comprehensive cooperative partnership,1.0,1.0,Yes,No,No,1,708.0,0.0,Liberal Democracy,9,,Denmark
+New Zealand,,,,0,0,Not join,,,Comprehensive strategic partnership,4.0,1.0,Yes,No,No,1,130.0,0.0,Liberal Democracy,9.61,,Djibouti
+North Macedonia,,,,0,0,Not join,,,,0.0,0.0,No,No,No,0,1.0,0.0,Electoral Democracy,6.1,,Dominica
+Norway,,,,0,0,Not join,,,,0.0,0.0,Yes,No,No,1,692.0,0.0,Liberal Democracy,9.81,,Dominican Republic
+Palau,,,,0,0,Not join,,,,0.0,0.0,No,No,No,0,0.0,0.0,,,,Ecuador
+Panama,,,,0,0,Not join,,,,0.0,0.0,No,No,No,1,0.0,0.0,Electoral Democracy,6.91,,Egypt
+Paraguay,,,,0,0,Not join,,,,0.0,0.0,No,No,No,1,0.0,0.0,Electoral Democracy,5.89,,El Salvador
+Poland,,,,0,0,Not join,,,Comprehensive strategic partnership,4.0,1.0,Yes,No,No,1,171.0,0.0,Electoral Democracy,7.04,,Equatorial Guinea
+Portugal,,,,0,0,Not join,,,Comprehensive strategic partnership,4.0,1.0,Yes,No,No,1,0.0,0.0,Liberal Democracy,7.95,,Eritrea
+Romania,,,,0,0,Not join,,,Comprehensive (friendly) cooperative partnership,1.0,1.0,No,No,No,1,168.0,0.0,Electoral Democracy,6.45,,Estonia
+Saint Kitts and Nevis,,,,0,0,Not join,,,,0.0,0.0,No,No,No,0,0.0,0.0,,,,Eswatini
+Saint Lucia,,,,0,0,Not join,,,,0.0,0.0,No,No,No,0,0.0,0.0,,,,Ethiopia
+Saint Vincent and the Grenadines,,,,0,0,Not join,,,,0.0,0.0,No,No,No,0,0.0,0.0,,,,Fiji
+San Marino,,,,0,0,Not join,,,,,,,,,0,0.0,0.0,,,,Finland
+Singapore,,,,0,0,Not join,,,All-round high-quality forward-looking partnership,1.0,1.0,No,No,No,0,336.0,0.0,Electoral Autocracy,6.22,,France
+Slovenia,,,,0,0,Not join,,,,0.0,0.0,Yes,No,No,1,0.0,0.0,Liberal Democracy,7.75,,Gabon
+South Korea,,,,0,0,Not join,,,Strategic cooperative partnership,3.0,1.0,Yes,No,No,1,423.0,0.0,Liberal Democracy,8.03,,Gambia
+Spain,,,,0,0,Not join,,,Comprehensive strategic partnership,4.0,1.0,Yes,No,No,1,71.0,0.0,Liberal Democracy,8.07,,Georgia
+Sweden,,,,0,0,Not join,,,,0.0,0.0,No,No,No,0,318.0,0.0,Liberal Democracy,9.39,,Germany
+Switzerland,,,,0,0,Not join,,,(Innovative) Strategic partnership,2.0,1.0,Yes,No,No,0,15.0,0.0,Liberal Democracy,9.14,,Ghana
+Tonga,,,,0,0,Not join,,,,0.0,0.0,No,No,No,0,0.0,0.0,,,,Greece
+Trinidad and Tobago,,,,0,0,Not join,,,,0.0,0.0,No,No,No,1,0.0,0.0,Liberal Democracy,7.16,,GREENLAND (DEN.)
+Turkey,,,,0,0,Not join,,,Strategic cooperative relationship,3.0,1.0,Yes,No,No,1,27.0,0.0,Electoral Autocracy,4.35,,Grenada
+Tuvalu,,,,0,0,Not join,,,,,,,,,0,0.0,0.0,,,,Guatemala
+Ukraine,,,,0,0,Not join,,,Strategic partnership,2.0,1.0,No,No,No,0,879.0,0.0,Electoral Autocracy,5.42,,Guinea
+United Kingdom,,,,0,0,Not join,,,Comprehensive strategic partnership (in 21st century),4.0,1.0,Yes,No,No,1,768.0,0.0,Liberal Democracy,8.28,,Guinea-Bissau
+United States,,,,0,0,Not join,,,,0.0,0.0,Yes,No,No,0,0.0,0.0,Liberal Democracy,7.85,,Guyana
+Iraq,2022.0,Bilateral meeting,"""Pay attention to""",0,1,Not join,Multilateral support,1.0,,0.0,0.0,No,No,No,0,11.0,0.0,Electoral Autocracy,3.13,,Haiti
+Jordan,2022.0,Bilateral meeting,"""Pay attention to""",0,1,Not join,Multilateral support,1.0,Strategic partnership,2.0,1.0,No,No,No,1,23.0,0.0,Closed Autocracy,3.17,,Honduras
+Lebanon,,,,0,1,Not join,Multilateral support,1.0,,0.0,0.0,No,No,No,0,30.0,0.0,Electoral Autocracy,3.64,,Hungary
+Oman,2022.0,Bilateral meeting,"""Pay attention to""",0,1,Not join,Multilateral support,1.0,,0.0,0.0,No,No,No,1,0.0,0.0,Closed Autocracy,3.12,,Iceland
+Qatar,2022.0,Bilateral meeting,"""Pay attention to""",0,1,Not join,Multilateral support,1.0,Strategic partnership,2.0,1.0,No,No,No,1,1312.0,0.0,Closed Autocracy,3.65,,India
+Yemen,2022.0,Bilateral meeting,"""Pay attention to""",0,1,Not join,Multilateral support,1.0,,0.0,0.0,No,No,No,0,0.0,0.0,Closed Autocracy,1.95,,Indonesia
+Argentina,2023.0,Bilateral meeting,"""Are valuable""",0,1,Not join,Noncommittal,1.0,Comprehensive strategic partnership,4.0,1.0,No,No,Yes,1,15.0,0.0,Electoral Democracy,6.62,,Iran
+Bangladesh,2025.0,Joint Statement,"“Noted the importance of the Global Security Initiative""",1,1,Not join,Noncommittal,1.0,Comprehensive strategic cooperative partnership,5.0,1.0,No,No,No,0,5.0,228.0,Closed Autocracy,4.27,,Iraq
+Fiji,2024.0,Joint Statement,“Acknowledges”,1,1,Not join,Noncommittal,1.0,Comprehensive strategic partnership,4.0,1.0,No,No,No,0,0.0,0.0,Electoral Democracy,5.39,,Ireland
+Micronesia,2024.0,Joint Statement,"“Both sides will explore cooperation under the framework of""",1,1,Not join,Noncommittal,1.0,Comprehensive strategic partnership,4.0,1.0,No,No,No,0,,,,,,Israel
+Philippines,2023.0,Joint Statement,"""Explore possible cooperation""",1,1,Not join,Noncommittal,1.0,,0.0,0.0,No,Yes,No,1,4.0,0.0,Electoral Autocracy,6.66,,Italy
+Slovakia,2024.0,Joint Statement,"""Ready to discuss and exchange the views on""",1,1,Not join,Noncommittal,1.0,Strategic partnership,2.0,1.0,Yes,No,No,1,0.0,0.0,Electoral Democracy,7.21,,Jamaica
+South Africa,2024.0,Joint Statement,"""Recognizes that..aimed at maintaining global peace and security""",1,1,Not join,Noncommittal,1.0,All round strategic cooperative partnership,5.0,1.0,No,No,Yes,0,0.0,0.0,Electoral Democracy,d,,Japan
+Algeria,2025.0,FOCAC,"""Supports"" ",0,3,Not join,Bilateral support,1.0,Comprehensive strategic partnership,4.0,1.0,No,No,No,0,32.0,138.0,Electoral Autocracy,3.55,,Jordan
+Angola,2024.0,Joint Statement,"""Supports""",1,3,Not join,Bilateral support,1.0,Comprehensive Strategic Partnership ,4.0,1.0,No,No,No,0,0.0,0.0,Electoral Autocracy,4.05,,Kazakhstan
+Antigua and Barbuda,2025.0,Joint Statement,"""Supports""",1,3,Not join,Bilateral support,1.0,,0.0,0.0,No,No,No,0,0.0,0.0,,,,Kenya
+Azerbaijan,2024.0,Joint Statement,“Supports”,1,3,Not join,Bilateral support,1.0,Comprehensive strategic partnership,4.0,1.0,No,No,No,0,0.0,0.0,Electoral Autocracy,2.8,,Kiribati
+Belarus,2023.0,Joint Statement,"""Supports""",1,3,Not join,Bilateral support,1.0,All-weather strategic partnership,6.0,1.0,No,No,No,0,0.0,0.0,Electoral Autocracy,1.99,,Kuwait
+Benin,2025.0,FOCAC,"""Supports"" ",0,3,Not join,Bilateral support,1.0,,0.0,0.0,No,No,No,0,0.0,3.0,Electoral Autocracy,4.26,,Kyrgyzstan
+Côte d'Ivoire,2025.0,FOCAC,"""Supports"" ",0,3,Not join,Bilateral support,1.0,,0.0,0.0,No,No,No,0,2.0,6.0,Electoral Autocracy,4.24,,Laos
+Cuba,2022.0,Joint Statement,"""Supports""",1,3,Not join,Bilateral support,1.0,,0.0,0.0,No,No,No,1,0.0,0.0,Closed Autocracy,2.65,,Latvia
+Dominica,2025.0,Bilateral meeting,"""Support and welcome""",0,3,Not join,Bilateral support,1.0,,0.0,0.0,No,No,No,0,0.0,0.0,,,,Lebanon
+Egypt,2023.0,China–Arab Forum,“Supports”,0,3,Not join,Bilateral support,1.0,Comprehensive strategic partnership,4.0,1.0,No,No,Yes,1,42.0,0.0,Electoral Autocracy,2.93,,Lesotho
+Ethiopia,2023.0,Joint Statement,"“Appreciates and supports""",1,3,Not join,Bilateral support,1.0,All-weather strategic partnership,6.0,1.0,No,No,Yes,0,0.0,43.0,Electoral Autocracy,3.37,,Liberia
+Gambia,2025.0,FOCAC,"""Supports"" ",0,3,Not join,Bilateral support,1.0,,0.0,0.0,No,No,No,0,0.0,0.0,Electoral Democracy,4.47,,Libya
+Georgia,2023.0,Joint Statement,"""Supports""",1,3,Not join,Bilateral support,1.0,,0.0,0.0,No,No,No,0,2.0,0.0,Electoral Democracy,5.2,,Liechtenstein
+Guinea,2025.0,FOCAC,“Welcomes and supports” ,0,3,Not join,Bilateral support,1.0,Comprehensive strategic cooperative partnership,5.0,1.0,No,No,No,0,0.0,0.0,Closed Autocracy,2.15,,Lithuania
+Indonesia,2024.0,"Bilateral meeting, joint statement, Multilateral Belt and Road forum","""Supports"" ",1,3,Not join,Bilateral support,1.0,Comprehensive strategic partnership,4.0,1.0,No,No,No,0,11.0,0.0,Electoral Autocracy,6.44,,Luxembourg
+Iran,2023.0,Joint Statement,"""Supports""",1,3,Not join,Bilateral support,1.0,Comprehensive strategic partnership,4.0,1.0,No,No,Yes,0,0.0,0.0,Closed Autocracy,1.96,,Madagascar
+Nicaragua,2023.0,Bilateral meeting,“Supports”,0,3,Not join,Bilateral support,1.0,,0.0,0.0,No,No,No,0,0.0,0.0,Electoral Autocracy,2.26,,Malawi
+Nigeria,2025.0,FOCAC,"""Applauds and supports""",0,3,Not join,Bilateral support,1.0,Strategic partnership,2.0,1.0,No,No,No,0,0.0,35.0,Electoral Democracy,4.1,,Malaysia
+Papua New Guinea,2024.0,Joint Statement,"""Welcomes and supports""",1,3,Not join,Bilateral support,1.0,Comprehensive strategic partnership,4.0,1.0,No,No,No,0,0.0,0.0,Electoral Autocracy,5.97,,Maldives
+Peru,2023.0,Joint Statement,"""Supports""",1,3,Not join,Bilateral support,1.0,Comprehensive strategic partnership,4.0,1.0,No,No,No,1,14.0,0.0,Electoral Democracy,5.81,,Mali
+Solomon Islands,2024.0,Joint Statement,“Welcomes and supports”,1,3,Not join,Bilateral support,1.0,Comprehensive strategic partnership,4.0,1.0,No,No,No,0,0.0,0.0,Electoral Democracy,,,Malta
+Suriname,2024.0,Joint Statement,“supports”,1,3,Not join,Bilateral support,1.0,Strategic cooperative relationship,3.0,1.0,No,No,No,0,0.0,0.0,Electoral Democracy,6.79,,Marshall Islands
+Tajikistan,2025.0,"Bilateral meeting, joint statement; Multilateral, China-Central Asia summit","""Supports"" ",1,3,Not join,Bilateral support,1.0,(New era) Comprehensive strategic cooperative partnership,5.0,1.0,No,Yes,No,0,0.0,0.0,Electoral Autocracy,1.94,,Mauritania
+Thailand,2025.0,Bilateral meeting,"""Supports"" ",0,3,Not join,Bilateral support,1.0,Comprehensive strategic cooperative partnership,5.0,1.0,No,No,No,1,35.0,177.0,Electoral Autocracy,6.59,,Mauritius
+Uruguay,2023.0,Bilateral meeting,“Welcomes and supports” ,0,3,Not join,Bilateral support,1.0,Strategic partnership,2.0,1.0,No,No,No,1,5.0,0.0,Liberal Democracy,8.66,,Mexico
+Vanuatu,2024.0,Joint Statement,"""Welcomes and supports""",1,3,Not join,Bilateral support,1.0,,0.0,0.0,No,No,No,0,0.0,0.0,Electoral Democracy,,,Micronesia
+Vietnam,2025.0,"Bilateral meeting, joint statement",“Welcomes and supports” ,1,3,Not join,Bilateral support,1.0,Comprehensive strategic cooperative partnership,5.0,1.0,No,Yes,No,0,0.0,0.0,Closed Autocracy,2.62,,Moldova
+Botswana,2025.0,FOCAC,“Welcomes and supports”,0,3,Not join,Multilateral support,1.0,,0.0,0.0,No,No,No,0,0.0,0.0,Electoral Democracy,7.63,,Monaco
+Burkina Faso,2025.0,FOCAC,“Welcomes and supports” ,0,3,Not join,Multilateral support,1.0,,0.0,0.0,No,No,No,0,1.0,0.0,Closed Autocracy,2.55,,Mongolia
+Cameroon,2025.0,FOCAC,“Welcomes and supports”,0,3,Not join,Multilateral support,1.0,,0.0,0.0,No,No,No,0,0.0,0.0,Electoral Autocracy,2.56,,Montenegro
+Cape Verde,2025.0,FOCAC,“Welcomes and supports” ,0,3,Not join,Multilateral support,1.0,,0.0,0.0,No,No,No,0,0.0,0.0,Electoral Democracy,7.58,,Morocco
+Chad,2025.0,FOCAC,“Welcomes and supports”,0,3,Not join,Multilateral support,1.0,,0.0,0.0,No,No,No,0,0.0,0.0,Electoral Autocracy,1.76,,Mozambique
+Comoros,2025.0,FOCAC,“Welcomes and supports” ,0,3,Not join,Multilateral support,1.0,,0.0,0.0,No,No,No,0,0.0,0.0,Electoral Autocracy,2.81,,Myanmar
+Congo,2025.0,FOCAC,“Welcomes and supports” ,0,3,Not join,Multilateral support,1.0,Comprehensive strategic cooperative partnership,5.0,1.0,No,No,No,0,0.0,0.0,Electoral Autocracy,2.79,,Namibia
+Djibouti,2024.0,Joint Statement,"""Welcomes and supports""",1,3,Not join,Multilateral support,1.0,Comprehensive strategic partnership,4.0,1.0,No,No,No,0,0.0,0.0,Electoral Autocracy,2.7,,Nepal
+Eritrea,2025.0,FOCAC,“Welcomes and supports”,0,3,Not join,Multilateral support,1.0,,0.0,0.0,No,No,No,0,0.0,0.0,Closed Autocracy,1.97,,Netherlands
+Ghana,2025.0,FOCAC,“Welcomes and supports” ,0,3,Not join,Multilateral support,1.0,,0.0,0.0,No,No,No,0,0.0,0.0,Electoral Democracy,6.24,,New Zealand
+Lesotho,2025.0,FOCAC,“Welcomes and supports”,0,3,Not join,Multilateral support,1.0,,0.0,0.0,No,No,No,0,0.0,0.0,Electoral Democracy,6.23,,Nicaragua
+Libya,2025.0,FOCAC,“Welcomes and supports” ,0,3,Not join,Multilateral support,1.0,,0.0,0.0,No,No,No,0,0.0,0.0,Closed Autocracy,2.31,,Niger
+Madagascar,2025.0,FOCAC,“Welcomes and supports” ,0,3,Not join,Multilateral support,1.0,Comprehensive cooperative partnership,1.0,1.0,No,No,No,0,0.0,0.0,Electoral Autocracy,5.06,,Nigeria
+Malawi,2025.0,FOCAC,“Welcomes and supports”,0,3,Not join,Multilateral support,1.0,,0.0,0.0,No,No,No,0,0.0,16.0,Electoral Democracy,6.1,,North Korea
+Mauritius,2025.0,FOCAC,“Welcomes and supports” ,0,3,Not join,Multilateral support,1.0,,0.0,0.0,No,No,No,0,0.0,0.0,Electoral Democracy,8.23,,North Macedonia
+Morocco,2025.0,FOCAC,“Welcomes and supports” ,0,3,Not join,Multilateral support,1.0,Strategic partnership,2.0,1.0,No,No,No,1,349.0,6.0,Closed Autocracy,4.97,,Norway
+Mozambique,2025.0,FOCAC,“Welcomes and supports” ,0,3,Not join,Multilateral support,1.0,Comprehensive strategic cooperative partnership,5.0,1.0,No,No,No,0,0.0,0.0,Electoral Autocracy,3.38,,Oman
+Niger,2025.0,FOCAC,“Welcomes and supports”,0,3,Not join,Multilateral support,1.0,,0.0,0.0,No,No,No,0,11.0,0.0,Closed Autocracy,1.95,,Pakistan
+Seychelles,2025.0,FOCAC,“Welcomes and supports” ,0,3,Not join,Multilateral support,1.0,,0.0,0.0,No,No,No,0,0.0,0.0,Liberal Democracy,,,Palau
+Somalia,2025.0,FOCAC,“Welcomes and supports” ,0,3,Not join,Multilateral support,1.0,,0.0,0.0,No,No,No,0,0.0,0.0,Closed Autocracy,,,Palestine
+South Sudan,2025.0,FOCAC,“Welcomes and supports”,0,3,Not join,Multilateral support,1.0,,0.0,0.0,No,No,No,0,0.0,0.0,Closed Autocracy,,,Panama
+Sudan,2025.0,FOCAC,“Welcomes and supports” ,0,3,Not join,Multilateral support,1.0,Strategic partnership,2.0,1.0,No,No,No,0,0.0,0.0,Closed Autocracy,1.46,,Papua New Guinea
+Togo,2025.0,FOCAC,“Welcomes and supports” ,0,3,Not join,Multilateral support,1.0,,0.0,0.0,No,No,No,0,4.0,0.0,Electoral Autocracy,2.88,,Paraguay
+Uganda,2025.0,FOCAC,“Welcomes and supports”,0,3,Not join,Multilateral support,1.0,Comprehensive cooperative partnership,1.0,1.0,No,No,No,0,0.0,0.0,Electoral Autocracy,4.31,,Peru
+Armenia,2023.0,Bilateral meeting,"""Spoke highly of""",0,2,Not join,Noncommittal,1.0,,0.0,0.0,No,No,No,0,0.0,0.0,Electoral Democracy,5.42,,Philippines
+Bahrain,2024.0,Joint Statement,"""Appreciates""",1,2,Not join,Noncommittal,1.0,Comprehensive strategic partnership,4.0,1.0,No,No,No,1,244.0,0.0,Closed Autocracy,2.45,,Poland
+Brazil,2024.0,Joint Statement,"""Welcomes""",1,2,Not join,Noncommittal,1.0,Comprehensive strategic partnership,4.0,1.0,No,No,Yes,1,11.0,0.0,Electoral Democracy,6.49,,Portugal
+Chile,2023.0,Joint Statement,"""Appreciates and affirms""",1,2,Not join,Noncommittal,1.0,Comprehensive strategic partnership,4.0,1.0,Yes,No,No,1,0.0,0.0,Liberal Democracy,7.98,,Qatar
+Colombia,2023.0,Joint Statement,"""Welcomes""",1,2,Not join,Noncommittal,1.0,Strategic partnership,2.0,1.0,No,No,No,1,49.0,0.0,Electoral Democracy,6.55,,Romania
+Guyana,2023.0,Joint Statement,"""Applauded""",1,2,Not join,Noncommittal,1.0,,0.0,0.0,No,No,No,0,0.0,0.0,Electoral Autocracy,6.26,,Russia
+Hungary,2024.0,Joint Statement,"""Attaches importance to""",1,2,Not join,Noncommittal,1.0,(New era and all-weather) comprehensive strategic partnership,6.0,1.0,Yes,No,No,1,0.0,0.0,Electoral Autocracy,6.51,,Rwanda
+Samoa,2024.0,Joint Statement,"""Welcomes""",1,2,Not join,Noncommittal,1.0,,0.0,0.0,No,No,No,0,0.0,0.0,,,,Saint Kitts and Nevis
+Saudi Arabia,2023.0,China–Arab Forum,“Appreciates”,0,2,Not join,Noncommittal,1.0,Comprehensive strategic partnership,4.0,1.0,No,No,Yes,1,2006.0,20.0,Closed Autocracy,2.08,,Saint Lucia
+Tunisia,2024.0,Joint Statement,“Welcomes”,1,2,Not join,Noncommittal,1.0,Strategic partnership,2.0,1.0,No,No,No,1,15.0,0.0,Electoral Autocracy,4.71,,Saint Vincent and the Grenadines
+Bhutan,2023.0,Bilateral meeting,"""Greatly appreciates and actively supports""",0,4,Not join,Bilateral support,1.0,,0.0,0.0,No,Yes,No,0,0.0,0.0,Liberal Democracy,5.54,,Samoa
+Bolivia,2024.0,Bilateral meeting,"""Firmly supports""",0,4,Not join,Bilateral support,1.0,Strategic partnership,2.0,1.0,No,No,No,0,0.0,0.0,Electoral Democracy,4.26,,San Marino
+Brunei,2024.0,Bilateral meeting,"""Have far-reaching impact and have greatly benefited Brunei""",0,4,Not join,Bilateral support,1.0,Strategic cooperative partnership,3.0,1.0,No,No,No,0,0.0,0.0,,,,São Tomé and Príncipe
+Burundi,2025.0,FOCAC,"""Firmly supports""",0,4,Not join,Bilateral support,1.0,,0.0,0.0,No,No,No,0,0.0,0.0,Electoral Autocracy,2.13,,Saudi Arabia
+Equatorial Guinea,2024.0,Joint Statement,"""Highly appreciates and strongly supported""",1,4,Not join,Bilateral support,1.0,Comprehensive strategic cooperative partnership,5.0,1.0,No,No,No,0,0.0,0.0,Electoral Autocracy,1.92,,Senegal
+Guinea-Bissau,2024.0,Joint Statement,"""Highly appreciates and firmly supports""",1,4,Not join,Bilateral support,1.0,Strategic partnership,2.0,1.0,No,No,No,0,0.0,0.0,Electoral Autocracy,2.03,,Serbia
+Kenya,2025.0,"Bilateral meeting, joint statement; Multilateral FOCAC summit","""Commends and actively supports""",1,4,Not join,Bilateral support,1.0,Comprehensive strategic cooperative partnership,5.0,1.0,No,No,No,0,0.0,0.0,Electoral Democracy,5.05,,Seychelles
+Kyrgyzstan,2025.0,Joint Statement,"""Highly appreciates and supports""",1,4,Not join,Bilateral support,1.0,(New era) Comprehensive strategic partnership,4.0,1.0,No,Yes,No,0,0.0,0.0,Electoral Autocracy,3.27,,Sierra Leone
+Mauritania,2025.0,FOCAC,"""Highly appreciates and actively supports""",0,4,Not join,Bilateral support,1.0,,0.0,0.0,No,No,No,0,0.0,0.0,Electoral Autocracy,3.84,,Singapore
+Mongolia,2023.0,Bilateral meeting,“Resolutely supports”,0,4,Not join,Bilateral support,1.0,Comprehensive strategic partnership,4.0,1.0,No,Yes,No,0,0.0,0.0,Electoral Democracy,6.48,,Slovakia
+North Korea,2022.0,Public statement (via Foreign Ministry),“Fully supports”,0,4,Not join,Bilateral support,1.0,,0.0,0.0,No,Yes,No,0,0.0,0.0,Closed Autocracy,1.08,,Slovenia
+Pakistan,2022.0,Joint Statement,“Strong support”,1,4,Not join,Bilateral support,1.0,All-weather strategic cooperative partnership,6.0,1.0,No,Yes,No,1,0.0,1322.0,Electoral Autocracy,4.13,,Solomon Islands
+São Tomé and Príncipe,2025.0,FOCAC,"""Highly appreciates and actively supports""",0,4,Not join,Bilateral support,1.0,Comprehensive cooperative partnership,1.0,1.0,No,No,No,0,0.0,0.0,Electoral Democracy,,,Somalia
+Syria,2023.0,Joint Statement,"""Highly appreciates and actively supports""",1,4,Not join,Bilateral support,1.0,Strategic partnership,2.0,1.0,No,No,No,0,0.0,0.0,Closed Autocracy,1.43,,South Africa
+Tanzania,2022.0,Joint Statement,"""Highly appreciates and actively supports""",1,4,Not join,Bilateral support,1.0,Comprehensive strategic cooperative partnership,5.0,1.0,No,No,No,0,0.0,0.0,Electoral Autocracy,5.1,,South Korea
+United Arab Emirates,2024.0,Bilateral meeting,"""Highly appreciates and actively supports""",0,4,Not join,Bilateral support,1.0,Comprehensive strategic partnership,4.0,1.0,No,No,Yes,1,376.0,0.0,Closed Autocracy,3.07,,South Sudan
+Venezuela,2023.0,Joint Statement,"""Highly appreciates and supports""",1,4,Not join,Bilateral support,1.0,All-weather strategic partnership,6.0,1.0,No,No,No,0,0.0,0.0,Electoral Autocracy,2.31,,Spain
+Zimbabwe,2024.0,"Bilateral meeting, joint statement; Multilateral FOCAC summit","""Highly appreciates and actively supports""",1,4,Not join,Bilateral support,1.0,Comprehensive strategic cooperative partnership,5.0,1.0,No,No,No,0,0.0,0.0,Electoral Autocracy,2.98,,Sri Lanka
+Cambodia,2025.0,Joint Statement,"""Highly appreciates""",1,2,Not join,Noncommittal,1.0,Comprehensive strategic cooperative partnership,5.0,1.0,No,No,No,0,0.0,38.0,Electoral Autocracy,2.7,,Sudan
+Honduras,2023.0,"Bilateral meeting, joint statement","""Deeply admires""",1,2,Not join,Noncommittal,1.0,,0.0,0.0,No,No,No,1,0.0,0.0,Electoral Democracy,4.98,,Suriname
+Laos,2025.0,"Bilateral meeting, joint statement","""Attaches great importance to"" ",1,2,Not join,Noncommittal,1.0,Comprehensive strategic cooperative partnership,5.0,1.0,No,Yes,No,0,0.0,0.0,Closed Autocracy,1.71,,Sweden
+Liberia,2025.0,FOCAC,"""Highly praised""",0,2,Not join,Noncommittal,1.0,Comprehensive cooperative partnership,1.0,1.0,No,No,No,0,0.0,0.0,Electoral Democracy,5.57,,Switzerland
+Palestine,2023.0,Joint Statement,"""Highly appreciates""",1,2,Not join,Noncommittal,1.0,Strategic partnership,2.0,1.0,No,No,No,0,,,Electoral Autocracy,3.47,,Syria
+Timor-Leste,2023.0,Joint Statement,"""Highly appreciates""",1,2,Not join,Noncommittal,1.0,Comprehensive strategic partnership,4.0,1.0,No,No,No,0,0.0,0.0,Electoral Democracy,7.06,,Tajikistan
+Barbados,2023.0,Bilateral meeting,"""Ready... to actively participate in the implementation of""",0,5,Join,Bilateral support,1.0,,0.0,0.0,No,No,No,0,0.0,0.0,Liberal Democracy,,,Tanzania
+Central African Republic,2025.0,FOCAC,"""Willing to fully support and work with China to promote the implementation of these initiatives""",0,5,Join,Bilateral support,1.0,,0.0,0.0,No,No,No,0,0.0,0.0,Electoral Autocracy,1.18,,Thailand
+Costa Rica,2022.0,Bilateral meeting,"""Highly appreciates and actively supports""",0,5,Join,Bilateral support,1.0,Strategic partnership,2.0,1.0,Yes,No,No,1,0.0,0.0,Liberal Democracy,8.29,,Timor-Leste
+Democratic Republic of Congo,2023.0,Joint Statement,"“Willing to strengthen cooperation""",1,5,Join,Bilateral support,1.0,Comprehensive strategic cooperative partnership,5.0,1.0,No,No,No,0,0.0,0.0,Electoral Autocracy,1.68,,Togo
+Gabon,2023.0,Joint Statement,"“Willing to strengthen cooperation...on the implementation of""",1,5,Join,Bilateral support,1.0,Comprehensive strategic cooperative partnership,5.0,1.0,No,No,No,0,0.0,0.0,Electoral Autocracy,2.18,,Tonga
+Grenada,2023.0,Bilateral meeting,"""Willing to actively participate in""",0,5,Join,Bilateral support,1.0,,0.0,0.0,No,No,No,0,0.0,0.0,,,,Trinidad and Tobago
+Jamaica,2026.0,Joint Statement,"""Welcomes this and is willing to work with China to actively explore the implementation""",1,5,Join,Bilateral support,1.0,Strategic partnership,2.0,1.0,No,No,No,0,0.0,0.0,Electoral Democracy,7.13,,Tunisia
+Kazakhstan,2025.0,"Bilateral meeting, Multilateral SCO Summits, China-Central Asia summits","""Actively champions""",0,5,Join,Bilateral support,1.0,(Permanent) comprehensive strategic partnership,4.0,1.0,No,Yes,No,0,0.0,0.0,Electoral Autocracy,2.91,,Turkey
+Kuwait,2023.0,Bilateral meeting,“Firmly support and actively participate in”,0,5,Join,Bilateral support,1.0,,0.0,0.0,No,No,No,1,1310.0,0.0,Closed Autocracy,3.5,,Turkmenistan
+Malaysia,2025.0,"Bilateral meetiing, joint statement","""Ready... to actively participate in""",1,5,Join,Bilateral support,1.0,Comprehensive strategic partnership,4.0,1.0,No,No,No,0,26.0,28.0,Electoral Democracy,7.11,,Tuvalu
+Maldives,2024.0,Joint Statement,"""Explore ways towards implementing""",1,5,Join,Bilateral support,1.0,Comprehensive strategic cooperative partnership,5.0,1.0,No,No,No,0,0.0,0.0,Electoral Democracy,,,Uganda
+Mali,2025.0,FOCAC,"""Willing to continuously strengthen cooperation""",0,5,Join,Bilateral support,1.0,,0.0,0.0,No,No,No,0,0.0,0.0,Closed Autocracy,2.4,,Ukraine
+Myanmar,2025.0,Bilateral meeting,"""Willingness to work with China and other countries to implement the GSI""",0,5,Join,Bilateral support,1.0,Comprehensive strategic cooperative partnership,5.0,1.0,No,Yes,No,0,0.0,102.0,Closed Autocracy,0.96,,United Arab Emirates
+Namibia,2025.0,FOCAC,"""Endorsed and joined""",0,5,Join,Bilateral support,1.0,Comprehensive strategic cooperative partnership,5.0,1.0,No,No,No,0,0.0,0.0,Electoral Democracy,6.48,,United Kingdom
+Russia,2023.0,Joint Statement,"""Jointly implementing""",1,5,Join,Bilateral support,1.0,Comprehensive strategic coordinated partnership in a new era,7.0,1.0,No,Yes,Yes,0,1.0,5.0,Electoral Autocracy,2.22,,United States
+Rwanda,2025.0,FOCAC,"""Supports…ready to jointly implement""",0,5,Join,Bilateral support,1.0,,0.0,0.0,No,No,No,0,0.0,0.0,Electoral Autocracy,3.34,,Uruguay
+Senegal,2024.0,Joint Statement,"""Willing to carry forward the friendly tradition and in the framework of solidarity… ""ready to implement""",1,5,Join,Bilateral support,1.0,Comprehensive strategic cooperative partnership,5.0,1.0,No,No,No,0,0.0,0.0,Electoral Democracy,5.93,,Uzbekistan
+Serbia,2024.0,"Bilateral meeting, joint statement","""Ready to implement""",1,5,Join,Bilateral support,,Comprehensive strategic partnership,4.0,1.0,No,No,No,0,2.0,157.0,Electoral Autocracy,6.26,,Vanuatu
+Sierra Leone,2025.0,FOCAC,"""Willing to strengthen cooperation on the implementation of""",0,5,Join,Bilateral support,1.0,Comprehensive strategic cooperative partnership,5.0,1.0,No,No,No,0,0.0,0.0,Electoral Autocracy,4.44,,Venezuela
+Sri Lanka,2025.0,Joint Statement,"""Reaffirmed its commitment to supporting and actively participating in the development of""",1,5,Join,Bilateral support,1.0,Strategic cooperative partnership,3.0,1.0,No,No,No,0,0.0,0.0,Electoral Democracy,6.57,,Vietnam
+Turkmenistan,2025.0,"Bilateral meeting, joint statement; Multilateral China-Central Asia summits",“Determined to jointly promote the implementation of” ,1,5,Join,Bilateral support,1.0,Comprehensive strategic partnership,4.0,1.0,No,No,No,0,0.0,0.0,Closed Autocracy,1.54,,Yemen
+Uzbekistan,2024.0,Joint Statement,"""Actively supports and promotes the implementation of""",1,5,Join,Bilateral support,1.0,All-weather comprehensive strategic partnership,6.0,1.0,No,No,No,0,0.0,0.0,Closed Autocracy,2.1,,Zambia
+Zambia,2023.0,Joint Statement,"""Supports.. And willing to jointly implement""",1,5,Join,Bilateral support,1.0,Comprehensive strategic cooperative partnership,5.0,1.0,No,No,No,0,0.0,0.0,Electoral Democracy,5.8,,Zimbabwe

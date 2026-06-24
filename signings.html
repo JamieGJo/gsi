@@ -13,7 +13,7 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-<link rel="stylesheet" href="css/styles.css?v=20260624l">
+<link rel="stylesheet" href="css/styles.css?v=20260624p">
 </head>
 <body data-section="signings">
 
@@ -122,9 +122,9 @@
 <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
 <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
 <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
-<script src="js/shared.js?v=20260624l"></script>
-<script src="js/chart-builder.js?v=20260624l"></script>
-<script src="js/signings.js?v=20260624l"></script>
+<script src="js/shared.js?v=20260624p"></script>
+<script src="js/chart-builder.js?v=20260624p"></script>
+<script src="js/signings.js?v=20260624p"></script>
 <script>
 document.getElementById('nav-container').innerHTML = GSI.navHTML('signings.html');
 document.dispatchEvent(new Event('DOMContentLoaded'));
@@ -141,7 +141,7 @@ GSI.initMethodsDrawer(`
     <li><b>4</b> — High support ("strongly", "resolutely")</li>
     <li><b>5</b> — Agreement to implement or pursue further cooperation</li>
   </ul>
-  <p style="font-size:.84rem;color:var(--muted)">Rank 5 is the implementation tier: the 23 countries that agreed to implement the GSI or pursue further cooperation under it (derived from the Implement field). In the current corpus every country that used rank-4 language ("strongly/resolutely") also agreed to implement, so they all sit at rank 5 — rank 4 is therefore currently unpopulated.</p>
+  <p style="font-size:.84rem;color:var(--muted)">Rank 5 is the implementation tier: the 23 countries that agreed to implement the GSI or pursue further cooperation under it. Rank 4 (18 countries) is high support — "strongly"/"resolutely" language that stops short of a commitment to implement. The rank is coded directly in the source dataset.</p>
   <h4>Suggested citation</h4>
   <p style="font-family:Inter,sans-serif;font-size:.85rem;background:#F4F0E7;padding:.5rem .7rem;border-radius:6px">Gruffydd-Jones, J. (2026). <em>GSI Datasets — Signings</em>.</p>
 `, 'methods.html#signings');
